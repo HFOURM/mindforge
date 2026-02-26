@@ -1,0 +1,16 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    background-color: #ffffff;
+    width: full;
+    min-height: 100vh;
+}
+
+.sidebar{
+    width: 100%;
+    max-width: 340px;
+    background-color: red;
+}
