@@ -3,67 +3,88 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mindforge</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display= संपन्न" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./dist/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-    <aside class="sidebar">
-        <div class="sidebar__top">
-            <h2 class="sidebar__brand">Mindforge</h2>
+<body class="flex min-h-screen bg-white font-[Inter]">
 
-            <nav class="sidebar__nav">
-                <div class="nav-group">
-                    <h3 class="nav-group__title">Overview</h3>
-                    <a href="#" class="nav-item nav-item--active">
-                        <img src="assets/icons/home.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">Dashboard</span>
+    <aside class="w-[260px] bg-white px-4 py-6 flex flex-col justify-between border-r border-gray-200">
+
+        <div>
+            <h2 class="text-xl font-bold mb-8 pl-3">
+                Mindforge
+            </h2>
+
+            <nav class="space-y-6">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-black mb-2 pl-3">
+                        Overview
+                    </h3>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-gray-100 mb-1">
+                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Dashboard</span>
                     </a>
-                    <a href="#" class="nav-item">
-                        <img src="assets/icons/list.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">My Tasks</span>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition mb-1">
+                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">My Tasks</span>
                     </a>
                 </div>
 
-                <div class="nav-group">
-                    <h3 class="nav-group__title">Workspace</h3>
-                    <a href="#" class="nav-item">
-                        <img src="assets/icons/Folder.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">Projects</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-black mb-2 pl-3">
+                        Workspace
+                    </h3>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition mb-1">
+                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Projects</span>
                     </a>
-                    <a href="#" class="nav-item">
-                        <img src="assets/icons/Pin.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">Events</span>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition mb-1">
+                        <img src="assets/icons/Pin.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Events</span>
                     </a>
-                    <a href="#" class="nav-item">
-                        <img src="assets/icons/Date_today.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">Calendar</span>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Calendar</span>
                     </a>
                 </div>
 
-                <div class="nav-group">
-                    <h3 class="nav-group__title">Insight</h3>
-                    <a href="#" class="nav-item">
-                        <img src="assets/icons/Frame 4.png" alt="" class="nav-item__icon">
-                        <span class="nav-item__text">Analytics</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-black mb-2 pl-3">
+                        Insight
+                    </h3>
+
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Analytics</span>
                     </a>
                 </div>
             </nav>
         </div>
 
-        <div class="sidebar__bottom">
-            <a href="#" class="nav-item">
-                <img src="assets/icons/Setting_line.png" alt="" class="nav-item__icon">
-                <span class="nav-item__text">Settings</span>
+        <div>
+            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3" />
+                <span class="text-base font-medium">Settings</span>
             </a>
         </div>
+
     </aside>
 
-    <main class="main-content">
-        <h1>Dashboard</h1>
+    <main class="flex-1 p-4 bg-white">
+
+        <h1>ddd</h1>
+
     </main>
+
 </body>
 
 </html>

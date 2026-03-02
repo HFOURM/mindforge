@@ -1,0 +1,25 @@
+{
+  "name": "template_mindforge",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD # mindforge ======= mindforge >>>>>>> origin/main",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HFOURM/mindforge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/HFOURM/mindforge/issues"
+  },
+  "homepage": "https://github.com/HFOURM/mindforge#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
