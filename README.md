@@ -1,9 +1,6 @@
-````markdown
-````
-
 # Getting Started
-
-##Clone Repository
+---
+## Clone Repository
 
 ```bash
 git clone https://github.com/username/mindforge-template.git
