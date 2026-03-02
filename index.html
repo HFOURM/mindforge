@@ -10,7 +10,10 @@
 </head>
 
 <body class="flex min-h-screen bg-white font-sans">
-    <aside class="w-[260px] flex flex-col justify-between shrink-0 px-3 py-6 border-r border-[#E5E7EB]">
+
+    <!-- Sidebar -->
+
+    <aside class="w-[260px] 2xl:w-[290px] flex flex-col justify-between shrink-0 px-3 py-6 border-r border-[#E5E7EB]">
         <div class="flex flex-col gap-6">
             <h2 class="text-xl pl-3 font-semibold text-grey-500">
                 Mindforge
@@ -28,7 +31,7 @@
                     </a>
 
                     <a href="#"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-400 transition mb-1">
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
                         <img src="assets/icons/list.png" class="w-5 h-5 mr-3" />
                         <span class="text-base font-medium">My Tasks</span>
                     </a>
@@ -81,10 +84,91 @@
             </a>
         </div>
     </aside>
-    <main class="flex-1 p-8">
+
+    <!-- End Sidebar -->
+
+
+    <main class="flex-1 p-6 flex-col flex gap-6">
         <h1 class="text-2xl font-bold text-grey-500">
             Dashboard
         </h1>
+
+        <!-- Grafik -->
+
+        <div class="flex justify-between gap-6">
+
+            <div class="w-[60%] bg-white rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
+                <h2 class="text-lg font-semibold mb-6 text-grey-500">Task Completion Trend</h2>
+
+                <div class="relative mx-2 h-48">
+
+                    <div class="absolute inset-0 flex flex-col justify-between">
+                        <div class="relative border-t border-gray-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">22</span>
+                        </div>
+                        <div class="relative border-t border-gray-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">22</span>
+                        </div>
+                        <div class="relative border-t border-gray-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">19</span>
+                        </div>
+                        <div class="relative border-t border-gray-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">25</span>
+                        </div>
+                        <div class="relative border-t border-gray-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">28</span>
+                        </div>
+                    </div>
+
+                    <svg viewBox="0 0 512 207" class="absolute inset-0 w-full h-full overflow-visible" fill="none"
+                        preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M493 19L429.643 79.2087C429.135 79.6908 428.42 79.8841 427.739 79.7228L400.544 73.2744C400.044 73.1559 399.519 73.2276 399.069 73.4754L261.212 149.407C260.692 149.693 260.075 149.743 259.517 149.543L227.747 138.181C227.186 137.98 226.565 138.031 226.044 138.321L126.21 193.889C125.969 194.023 125.704 194.108 125.43 194.138L26.3545 205L2 205"
+                            stroke="black" stroke-width="5" stroke-linecap="round" />
+
+                        <circle cx="493" cy="19" r="6" fill="black" />
+                        <circle opacity="0.1" cx="493" cy="19" r="18" fill="black" />
+                    </svg>
+
+                    <div class="absolute -bottom-10 left-0 right-0 flex justify-between text-[11px] text-gray-400">
+                        <span>23 Nov</span>
+                        <span>24 Feb</span>
+                        <span>25 Feb</span>
+                        <span>26 Feb</span>
+                        <span>27 Feb</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[40%] bg-white rounded-xl border border-[#E0E0E0] p-6">
+                <h2 class="text-lg font-semibold mb-6 text-grey-500">Task Distribution by Project</h2>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-100 rounded-full h-6">
+                        <div class="bg-grey-500 h-6 rounded-full w-[70%]"></div>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-full h-6">
+                        <div class="bg-grey-500 h-6 rounded-full w-[85%]"></div>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-full h-6">
+                        <div class="bg-grey-500 h-6 rounded-full w-[60%]"></div>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-full h-6">
+                        <div class="bg-grey-500 h-6 rounded-full w-[90%]"></div>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-full h-6">
+                        <div class="bg-grey-500 h-6 rounded-full w-[50%]"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- End Grafik -->
     </main>
 
 </body>
