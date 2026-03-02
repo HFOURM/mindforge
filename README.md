@@ -3,13 +3,13 @@
 ## Clone Repository
 
 ```bash
-git clone https://github.com/username/mindforge-template.git
+git clone https://github.com/HFOURM/mindforge.git
 ````
 
 Masuk ke folder project:
 
 ```bash
-cd mindforge-template
+cd mindforge
 ```
 
 ---
