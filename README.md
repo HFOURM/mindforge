@@ -1,6 +1,6 @@
-Siap 🔥 ini versi **Markdown clean** tinggal kamu copy ke `README.md`:
-
 ````markdown
+````
+
 # Getting Started
 
 ##Clone Repository
