@@ -87,11 +87,44 @@
 
     <!-- End Sidebar -->
 
-
     <main class="flex-1 p-6 flex-col flex gap-6">
-        <h1 class="text-2xl font-bold text-grey-500">
-            Dashboard
-        </h1>
+
+        <!-- Navbar -->
+        <div class="flex items-center justify-between mb-2">
+            <!-- Search -->
+            <div class="flex items-center gap-2 border border-[#E0E0E0] rounded-lg px-3 py-2 bg-white" style="width: 220px; padding: 6px 12px;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width:14px; height:14px; flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="#9CA3AF" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z" />
+                </svg>
+                <input type="text" placeholder="Search..." style="font-size:14px; color:#111827; outline:none; border:none; background:transparent; width:100%;" />
+            </div>
+
+            <!-- Create Task Button -->
+            <button class="bg-grey-500 text-white text-sm font-medium rounded-lg hover:opacity-90 transition" style=" padding: 6px 15px;">
+                Create Task
+            </button>
+        </div>
+
+        <!-- Greeting Banner -->
+        <div class="bg-white rounded-xl border border-[#E0E0E0] shadow-sm px-6 py-5">
+            <div class="flex items-start justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-grey-500 mb-1">
+                        Good morning, Emma Stone
+                    </h1>
+                    <p class="text-sm font-medium text-gray-400">
+                        You have 5 tasks due today and 2 upcoming events. Let's make progress.
+                    </p>
+                </div>
+
+                <!-- Bell Icon -->
+                <button class="w-10 h-10 rounded-full border border-[#E0E0E0] flex items-center justify-center text-gray-400 hover:bg-gray-50 transition shrink-0 self-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                </button>
+            </div>
+        </div>
 
         <!-- Grafik -->
 
@@ -170,6 +203,7 @@
 
         <!-- End Grafik -->
     </main>
+    
 
 </body>
 

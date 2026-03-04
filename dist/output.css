@@ -744,8 +744,8 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
 .mb-6 {
@@ -760,10 +760,13 @@ video {
   margin-top: 0.5rem;
 }
 
+<<<<<<< HEAD
 .mb-4 {
   margin-bottom: 1rem;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .box-border {
   box-sizing: border-box;
 }
@@ -897,10 +900,13 @@ video {
 
 .w-\[40\%\] {
   width: 40%;
+<<<<<<< HEAD
 }
 
 .w-\[405px\] {
   width: 405px;
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 }
 
 .w-\[50\%\] {
@@ -935,11 +941,14 @@ video {
   width: weird-and-invalid;
 }
 
+<<<<<<< HEAD
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .w-full {
   width: 100%;
 }
@@ -1489,6 +1498,7 @@ video {
   justify-items: stretch;
 }
 
+<<<<<<< HEAD
 .gap-2 {
   gap: 0.5rem;
 }
@@ -1497,6 +1507,8 @@ video {
   gap: 0.75rem;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .gap-6 {
   gap: 1.5rem;
 }
@@ -2020,10 +2032,13 @@ video {
   background-color: rgb(25 25 25 / var(--tw-bg-opacity, 1));
 }
 
+<<<<<<< HEAD
 .bg-transparent {
   background-color: transparent;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -2139,6 +2154,7 @@ video {
      object-fit: scale-down;
 }
 
+<<<<<<< HEAD
 .p-1\.5 {
   padding: 0.375rem;
 }
@@ -2147,6 +2163,8 @@ video {
   padding: 0.75rem;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .p-6 {
   padding: 1.5rem;
 }
@@ -2181,9 +2199,15 @@ video {
   padding-right: 1.25rem;
 }
 
+<<<<<<< HEAD
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+=======
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+>>>>>>> 26c3cee (update dashboard layout)
 }
 
 .py-2 {
@@ -2191,9 +2215,15 @@ video {
   padding-bottom: 0.5rem;
 }
 
+<<<<<<< HEAD
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+=======
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+>>>>>>> 26c3cee (update dashboard layout)
 }
 
 .py-6 {
@@ -2278,6 +2308,7 @@ video {
   font-size: 11px;
 }
 
+<<<<<<< HEAD
 .text-\[12px\] {
   font-size: 12px;
 }
@@ -2286,6 +2317,8 @@ video {
   font-size: 15px;
 }
 
+=======
+>>>>>>> 26c3cee (update dashboard layout)
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2296,6 +2329,14 @@ video {
   line-height: 1.75rem;
 }
 
+<<<<<<< HEAD
+=======
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+>>>>>>> 26c3cee (update dashboard layout)
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -2415,6 +2456,7 @@ video {
 }
 
 .text-gray-400 {
+<<<<<<< HEAD
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
@@ -2427,6 +2469,10 @@ video {
 .text-grey-300 {
   --tw-text-opacity: 1;
   color: rgb(101 101 101 / var(--tw-text-opacity, 1));
+=======
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+>>>>>>> 26c3cee (update dashboard layout)
 }
 
 .text-grey-500 {
