@@ -87,42 +87,8 @@
 
     <!-- End Sidebar -->
 
-    <main class="flex-1 flex-col flex gap-6">
+    <main class="flex-1 flex-col flex gap-6">    
 
-<<<<<<< HEAD
-    <main class="flex-1 p-6 flex-col flex gap-6">
-        <h1 class="text-2xl font-bold text-grey-500">
-            Dashboard
-        </h1>
-        <div class="flex gap-3">
-
-        <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
-            <div class="text-sm font-bold text-[#111111] mb-2">Active Projects</div>
-            <div class="text-2xl font-bold text-[#111111] mb-1">12 Projects</div>
-            <div class="text-xs text-[#888888]">+2 this month</div>
-        </div>
-
-        <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
-            <div class="text-sm font-bold text-[#111111] mb-2">Open Tasks</div>
-            <div class="text-2xl font-bold text-[#111111] mb-1">48 Tasks</div>
-            <div class="text-xs text-[#888888]">+6 due today</div>
-        </div>
-
-        <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
-            <div class="text-sm font-bold text-[#111111] mb-2">Upcoming Events</div>
-            <div class="text-2xl font-bold text-[#111111] mb-1">5 Events</div>
-            <div class="text-xs text-[#888888]">Next: Team Sync – 14:00</div>
-        </div>
-
-        <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
-            <div class="text-sm font-bold text-[#111111] mb-2">Completion Rate</div>
-            <div class="text-2xl font-bold text-[#111111] mb-1">87%</div>
-            <div class="text-xs text-[#888888]">↑ 12% from last week</div>
-        </div>
-
-    </div>
-    <!-- End Stats Cards -->
-=======
         <!-- Navbar -->
         <div class="flex items-center justify-between px-6 py-3 sticky border-b border-[#E0E0E0]">
             <div class="flex items-center border border-[#E0E0E0] rounded-lg px-3 py-2 gap-2 focus-within:ring-1">
@@ -133,7 +99,7 @@
                     <path d="M21.0004 21.0004L16.6504 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-
+                
                 <input type="text" placeholder="Search..."
                     class="outline-none bg-transparent w-full font-regular text-[#828282] placeholder:text-[#828282]">
             </div>
@@ -174,11 +140,196 @@
         </div>
 
         <!-- End Greeting Banner -->
->>>>>>> 2fc8a720ea1e4886e523d619ef5665d033061169
+
+        <!-- Summary Card-->
+        <div class="flex gap-3 px-6">
+            <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
+                <div class="text-sm font-bold text-[#111111] mb-2">Active Projects</div>
+                <div class="text-2xl font-bold text-[#111111] mb-1">12 Projects</div>
+                <div class="text-xs text-[#888888]">+2 this month</div>
+            </div>
+
+            <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
+                <div class="text-sm font-bold text-[#111111] mb-2">Open Tasks</div>
+                <div class="text-2xl font-bold text-[#111111] mb-1">48 Tasks</div>
+                <div class="text-xs text-[#888888]">+6 due today</div>
+            </div>
+
+            <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
+                <div class="text-sm font-bold text-[#111111] mb-2">Upcoming Events</div>
+                <div class="text-2xl font-bold text-[#111111] mb-1">5 Events</div>
+                <div class="text-xs text-[#888888]">Next: Team Sync – 14:00</div>
+            </div>
+
+            <div class="flex-1 bg-white rounded-xl border border-[#E0E0E0] p-5 shadow-sm">
+                <div class="text-sm font-bold text-[#111111] mb-2">Completion Rate</div>
+                <div class="text-2xl font-bold text-[#111111] mb-1">87%</div>
+                <div class="text-xs text-[#888888]">↑ 12% from last week</div>
+            </div>
+        </div>
+        <!-- End Summary Card-->
+
+        <!-- ================= TASKS SECTION ================= -->
+        <div class="flex gap-6 px-6">
+
+        <!-- Today's Tasks -->
+        <div class="w-[60%] bg-white rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6 text-grey-500">
+                Today's Tasks
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Task 1 -->
+                <div class="task-item flex justify-between items-start gap-4">
+                    <div class="flex gap-3 items-start flex-1">
+                        <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-black">
+                        <div>
+                            <p class="task-title text-sm font-medium text-grey-500">
+                                Finalize onboarding flow UI
+                            </p>
+                            <p class="text-xs text-gray-400">
+                                Website Revamp
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-[11px] px-3 py-1 rounded-full bg-red-100 text-red-600 font-semibold">
+                            High Priority
+                        </span>
+
+                        <span class="task-due text-xs text-gray-400">
+                            • Due 10:00 AM
+                        </span>
+
+                        <span class="task-completed text-xs text-gray-400 hidden">
+                            Completed
+                        </span>
+                    </div>
+                </div>
+                <!-- Task 2 -->
+                <div class="task-item flex justify-between items-start gap-4">
+                    <div class="flex gap-3 items-start flex-1">
+                        <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-black">
+
+                        <div>
+                            <p class="task-title text-sm font-medium text-grey-500">
+                                Draft weekly performance report
+                            </p>
+                            <p class="text-xs text-gray-400">
+                                Operations
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-[11px] px-3 py-1 rounded-full bg-green-100 text-green-600 font-semibold">
+                            Low Priority
+                        </span>
+                        <span class="task-due text-xs text-gray-400">
+                            • Due 05:00 PM
+                        </span>
+                        <span class="task-completed text-xs text-gray-400 hidden">
+                            Completed
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- Task 3 -->
+                <div class="task-item flex justify-between items-start gap-4">
+                    <div class="flex gap-3 items-start flex-1">
+                        <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-black">
+                        <div>
+                            <p class="task-title text-sm font-medium text-grey-500">
+                                Prepare pitch deck for investor meeting
+                            </p>
+                            <p class="text-xs text-gray-400">
+                                Fundraising Q1
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-[11px] px-3 py-1 rounded-full bg-red-100 text-red-600 font-semibold">
+                            High Priority
+                        </span>
+                        <span class="task-due text-xs text-gray-400">
+                            • Due 01:30 PM
+                        </span>
+
+                        <span class="task-completed text-xs text-gray-400 hidden">
+                            Completed
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Upcoming Events -->
+        <div class="w-[40%] bg-white rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6 text-grey-500">
+                Upcoming Events
+            </h2>
+
+            <div class="space-y-6 relative pl-6">
+                <!-- Timeline vertical line -->
+                <div class="absolute left-[7px] top-1 bottom-1 w-[2px] bg-gray-200"></div>
+
+                <!-- Event 1 -->
+                <div class="flex items-start gap-4 relative">
+                    <div class="relative">
+                        <span class="w-3 h-3 bg-green-500 rounded-full block"></span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-grey-500">
+                            Today, 14:00 – 15:00
+                        </p>
+                        <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            Team Sync Meeting
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Event 2 -->
+                <div class="flex items-start gap-4 relative">
+                    <div class="relative">
+                        <span class="w-3 h-3 bg-green-500 rounded-full block"></span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-grey-500">
+                            26 Feb, 10:00 AM
+                        </p>
+                        <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            Investor Pitch Review
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="flex items-start gap-4 relative">
+                    <div class="relative">
+                        <span class="w-3 h-3 bg-green-500 rounded-full block"></span>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-medium text-grey-500">
+                            27 Feb • 01:30 PM
+                        </p>
+                        <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            Product Roadmap Planning
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- ===== END TASKS SECTION ===== -->
 
         <!-- Grafik -->
 
-        <div class="flex justify-between gap-6 px-6">
+        <div class="flex gap-6 px-6">
 
             <div class="w-[60%] bg-white rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
                 <h2 class="text-lg font-semibold mb-6 text-grey-500">Task Completion Trend</h2>
