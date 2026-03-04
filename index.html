@@ -30,7 +30,7 @@
                         <span class="text-base font-medium">Dashboard</span>
                     </a>
 
-                    <a href="#"
+                    <a href="tasks.html"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
                         <img src="assets/icons/list.png" class="w-5 h-5 mr-3" />
                         <span class="text-base font-medium">My Tasks</span>
@@ -87,7 +87,9 @@
 
     <!-- End Sidebar -->
 
+    <main class="flex-1 flex-col flex gap-6">
 
+<<<<<<< HEAD
     <main class="flex-1 p-6 flex-col flex gap-6">
         <h1 class="text-2xl font-bold text-grey-500">
             Dashboard
@@ -120,10 +122,63 @@
 
     </div>
     <!-- End Stats Cards -->
+=======
+        <!-- Navbar -->
+        <div class="flex items-center justify-between px-6 py-3 sticky border-b border-[#E0E0E0]">
+            <div class="flex items-center border border-[#E0E0E0] rounded-lg px-3 py-2 gap-2 focus-within:ring-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                        stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21.0004 21.0004L16.6504 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+
+                <input type="text" placeholder="Search..."
+                    class="outline-none bg-transparent w-full font-regular text-[#828282] placeholder:text-[#828282]">
+            </div>
+
+            <button
+                class="bg-grey-500 text-white text-sm px-4 py-2.5 font-medium rounded-lg hover:opacity-90 transition">
+                Create Task
+            </button>
+        </div>
+
+        <!-- End Navbar -->
+
+        <!-- Greeting Banner -->
+
+        <div class="flex items-start justify-between px-6">
+            <div class="flex gap-1 flex-col">
+                <h1 class="text-[40px] font-bold text-grey-500">
+                    Good morning, Emma Stone
+                </h1>
+                <p class="font-medium text-grey-300">
+                    You have 5 tasks due today and 2 upcoming events. Let's make progress.
+                </p>
+            </div>
+
+            <!-- Bell Icon -->
+            <button
+                class=" rounded-full p-2 mt-3 border border-[#E0E0E0] flex items-center justify-center text-gray-400 hover:bg-gray-50 transition shrink-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6.44784 7.96942C6.76219 5.14032 9.15349 3 12 3C14.8465 3 17.2378 5.14032 17.5522 7.96942L17.804 10.2356C17.8072 10.2645 17.8088 10.279 17.8104 10.2933C17.9394 11.4169 18.3051 12.5005 18.8836 13.4725C18.8909 13.4849 18.8984 13.4973 18.9133 13.5222L19.4914 14.4856C20.0159 15.3599 20.2782 15.797 20.2216 16.1559C20.1839 16.3946 20.061 16.6117 19.8757 16.7668C19.5971 17 19.0873 17 18.0678 17H5.93223C4.91268 17 4.40291 17 4.12434 16.7668C3.93897 16.6117 3.81609 16.3946 3.77841 16.1559C3.72179 15.797 3.98407 15.3599 4.50862 14.4856L5.08665 13.5222C5.10161 13.4973 5.10909 13.4849 5.11644 13.4725C5.69488 12.5005 6.06064 11.4169 6.18959 10.2933C6.19123 10.279 6.19283 10.2645 6.19604 10.2356L6.44784 7.96942Z"
+                        stroke="black" />
+                    <path
+                        d="M8 17C8 17.5253 8.10346 18.0454 8.30448 18.5307C8.5055 19.016 8.80014 19.457 9.17157 19.8284C9.54301 20.1999 9.98396 20.4945 10.4693 20.6955C10.9546 20.8965 11.4747 21 12 21C12.5253 21 13.0454 20.8965 13.5307 20.6955C14.016 20.4945 14.457 20.1999 14.8284 19.8284C15.1999 19.457 15.4945 19.016 15.6955 18.5307C15.8965 18.0454 16 17.5253 16 17"
+                        stroke="black" stroke-linecap="round" />
+                </svg>
+
+            </button>
+        </div>
+
+        <!-- End Greeting Banner -->
+>>>>>>> 2fc8a720ea1e4886e523d619ef5665d033061169
 
         <!-- Grafik -->
 
-        <div class="flex justify-between gap-6">
+        <div class="flex justify-between gap-6 px-6">
 
             <div class="w-[60%] bg-white rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
                 <h2 class="text-lg font-semibold mb-6 text-grey-500">Task Completion Trend</h2>
@@ -198,6 +253,7 @@
 
         <!-- End Grafik -->
     </main>
+
 
 </body>
 

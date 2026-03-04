@@ -1,0 +1,6 @@
+.task-card {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* Standar */
+    touch-action: none;        /* Mencegah scroll saat drag di HP */
+}
