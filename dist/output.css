@@ -796,6 +796,22 @@ video {
   margin-top: 0.25rem;
 }
 
+.mr-40 {
+  margin-right: 10rem;
+}
+
+.ml-40 {
+  margin-left: 10rem;
+}
+
+.ml-\[300px\] {
+  margin-left: 300px;
+}
+
+.ml-\[260px\] {
+  margin-left: 260px;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -921,6 +937,10 @@ video {
 
 .h-4 {
   height: 1rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .min-h-\[50px\] {
@@ -3171,6 +3191,10 @@ video {
 }
 
 @media (min-width: 1536px) {
+  .\32xl\:ml-\[290px\] {
+    margin-left: 290px;
+  }
+
   .\32xl\:w-\[290px\] {
     width: 290px;
   }
