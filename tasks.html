@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./dist/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/global.css">
 </head>
 
 <body class="flex min-h-screen bg-white font-sans">
@@ -124,7 +125,7 @@
         <div class="flex flex-1 gap-6 w-full">
 
             <div
-                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3 overflow-hidden">
+                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3 ">
                 <div class="flex justify-between mb-2">
                     <div class="flex flex-row gap-2 items-center">
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +145,7 @@
                     </div>
                 </div>
 
-                <div class="task-list flex flex-col gap-3">
+                <div class="task-list flex flex-col gap-3 min-h-[50px]">
 
                     <div
                         class="task-card cursor-move w-full flex flex-col gap-3 p-3 border border-[#E0E0E0] rounded-lg">
@@ -178,7 +179,7 @@
             </div>
 
             <div
-                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3 overflow-hidden">
+                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3 ">
                 <div class="flex justify-between mb-2">
                     <div class="flex flex-row gap-2 items-center">
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -199,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="task-list flex flex-col gap-3">
+                <div class="task-list flex flex-col gap-3 min-h-[50px]">
 
                     <div
                         class="task-card cursor-move w-full flex flex-col gap-3 p-3 border border-[#E0E0E0] rounded-lg">
@@ -223,7 +224,7 @@
             </div>
 
             <div
-                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3 overflow-hidden">
+                class="task-column w-full border font-medium flex gap-3 flex-col text-grey-500 border-[#E0E0E0] bg-[#FDFDFD] rounded-lg px-4 py-3">
                 <div class="flex justify-between mb-2">
                     <div class="flex flex-row gap-2 items-center">
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -243,7 +244,7 @@
                     </div>
                 </div>
 
-                <div class="task-list flex flex-col gap-3">
+                <div class="task-list flex flex-col gap-3 min-h-[50px]">
 
                     <div
                         class="task-card cursor-move w-full flex flex-col gap-3 p-3 border border-[#E0E0E0] rounded-lg">
@@ -283,14 +284,39 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
-<script>
-    document.querySelectorAll('.task-list').forEach(list => {
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const columns = document.querySelectorAll('.task-list');
+    
+    columns.forEach(list => {
         new Sortable(list, {
             group: 'kanban',
-            animation: 200,
-            ghostClass: 'opacity-40',
-            dragClass: 'rotate-1 scale-105',
+            animation: 150,
+            ghostClass: 'bg-blue-50',
+            forceFallback: true,
         });
+    });
+});
+</script> -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const columns = document.querySelectorAll('.task-list');
+
+        columns.forEach(list => {
+            new Sortable(list, {
+                group: 'kanban',
+                animation: 200,
+                ghostClass: 'opacity-40',
+                forceFallback: true,
+                dragClass: 'rotate-1 scale-105',
+            });
+        });
+
     });
 </script>
 
