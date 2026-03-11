@@ -4,3 +4,23 @@
     user-select: none;         /* Standar */
     touch-action: none;        /* Mencegah scroll saat drag di HP */
 }
+
+/* Menghilangkan icon date picker di Chrome, Safari, dan Edge */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+/* Jika hanya ingin benar-benar hilang (hidden) */
+.hide-calendar-icon::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
