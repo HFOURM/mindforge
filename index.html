@@ -14,7 +14,7 @@
 
     <!-- Sidebar -->
 
-    <aside
+    <aside id="sidebar-nav"
         class="w-64 fixed bg-white z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 border-r border-[#E5E7EB]">
         <div class="flex flex-col gap-6">
             <h2 class="text-xl pl-3 font-semibold text-grey-500">
@@ -27,7 +27,7 @@
                         Overview
                     </h3>
 
-                    <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-grey-50 text-grey-500 mb-1">
+                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-grey-50 text-grey-500 mb-1">
                         <img src="assets/icons/home.png" class="w-5 h-5 mr-3" />
                         <span class="text-base font-medium">Dashboard</span>
                     </a>
@@ -44,7 +44,7 @@
                         Workspace
                     </h3>
 
-                    <a href="#"
+                    <a href="projects.html"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
                         <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3" />
                         <span class="text-base font-medium">Projects</span>
@@ -56,7 +56,7 @@
                         <span class="text-base font-medium">Events</span>
                     </a>
 
-                    <a href="#"
+                    <a href="calendar.html"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
                         <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3" />
                         <span class="text-base font-medium">Calendar</span>
@@ -89,7 +89,7 @@
 
     <!-- End Sidebar -->
 
-    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6 bg-[#FBFBFB]">
+    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6 ">
 
         <!-- Navbar -->
         <div id="navbar" class="flex items-center top-0 z-50 justify-between px-6 py-4 sticky">
@@ -557,6 +557,27 @@
         if (e.key === "Escape") {
             closePanel();
         }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname.split("/").pop();
+
+        const navLinks = document.querySelectorAll("#sidebar-nav a");
+
+        navLinks.forEach(link => {
+            const linkPath = link.getAttribute("href");
+
+            if (currentPath === linkPath) {
+                link.classList.add("bg-grey-50");
+                link.classList.remove("text-grey-500");
+                link.classList.add("text-[#191919]");
+            } else {
+                link.classList.remove("bg-grey-50");
+                link.classList.add("text-grey-500");
+            }
+        });
     });
 </script>
 
