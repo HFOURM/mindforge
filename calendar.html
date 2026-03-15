@@ -62,7 +62,7 @@
         }
 
         .calendar-content { padding: 24px 0 24px 0; display: flex; flex-direction: column; gap: 0; flex: 1; }
-        .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 0 24px; }
         .calendar-title { font-size: 32px; font-weight: 700; color: #191919; }
         .nav-buttons { display: flex; align-items: center; gap: 8px; }
         .nav-btn {
@@ -83,6 +83,7 @@
             background: #fff;
             border: 1px solid #E0E0E0;
             overflow: hidden;
+            margin: 0 24px;
         }
         .day-headers {
             display: grid;
@@ -136,6 +137,13 @@
             text-overflow: ellipsis;
         }
 
+        /* Color variants for event badges */
+        .event-badge.color-blue   { background: #2563EB; }
+        .event-badge.color-green  { background: #16A34A; }
+        .event-badge.color-red    { background: #DC2626; }
+        .event-badge.color-purple { background: #7C3AED; }
+        .event-badge.color-orange { background: #EA580C; }
+
         /* Modal */
         .modal-overlay {
             display: none; position: fixed; inset: 0;
@@ -145,7 +153,7 @@
         .modal-overlay.active { display: flex; }
         .modal {
             background: #fff; border-radius: 12px; padding: 14px;
-            width: 260px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            width: 280px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);
             display: flex; flex-direction: column; gap: 6px;
         }
         .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
@@ -153,6 +161,7 @@
         .modal-close { background: none; border: none; cursor: pointer; color: #959595; font-size: 18px; line-height: 1; padding: 2px 5px; border-radius: 5px; }
         .modal-close:hover { background: #e8e8e8; }
         .modal-input { width: 100%; border: 1.5px solid #191919; border-radius: 7px; padding: 6px 10px; font-size: 12px; font-family: Inter, sans-serif; color: #191919; outline: none; }
+        .modal-input:focus { border-color: #191919; box-shadow: 0 0 0 2px rgba(25,25,25,0.08); }
         .modal-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid #E0E0E0; border-radius: 7px; font-size: 12px; color: #191919; cursor: pointer; }
         .modal-row:hover { background: #f5f5f5; }
         .modal-time-row { display: flex; align-items: center; gap: 4px; width: 100%; overflow: hidden; }
@@ -160,11 +169,59 @@
         .modal-time input[type=time] { border: none; outline: none; font-size: 11px; font-family: Inter, sans-serif; color: #191919; background: transparent; width: 100%; min-width: 0; }
         .modal-allday { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid #E0E0E0; border-radius: 7px; font-size: 12px; color: #191919; cursor: pointer; }
         .modal-allday input[type=checkbox] { width: 14px; height: 14px; accent-color: #191919; cursor: pointer; }
+
+        /* Color picker */
+        .color-picker-row { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid #E0E0E0; border-radius: 7px; }
+        .color-picker-label { font-size: 12px; color: #191919; margin-right: 4px; }
+        .color-dot {
+            width: 18px; height: 18px; border-radius: 50%; cursor: pointer;
+            border: 2px solid transparent; transition: border-color 0.15s, transform 0.15s;
+        }
+        .color-dot:hover { transform: scale(1.15); }
+        .color-dot.selected { border-color: #191919; }
+        .color-dot[data-color="default"] { background: #191919; }
+        .color-dot[data-color="blue"]    { background: #2563EB; }
+        .color-dot[data-color="green"]   { background: #16A34A; }
+        .color-dot[data-color="red"]     { background: #DC2626; }
+        .color-dot[data-color="purple"]  { background: #7C3AED; }
+        .color-dot[data-color="orange"]  { background: #EA580C; }
+
+        /* Description textarea */
+        .modal-textarea {
+            width: 100%; border: 1px solid #E0E0E0; border-radius: 7px;
+            padding: 6px 10px; font-size: 12px; font-family: Inter, sans-serif;
+            color: #191919; outline: none; resize: none; min-height: 56px;
+        }
+        .modal-textarea:focus { border-color: #191919; }
+
         .modal-footer { display: flex; justify-content: flex-end; gap: 6px; margin-top: 2px; }
         .btn-cancel { padding: 5px 12px; border: 1px solid #E0E0E0; border-radius: 7px; background: #fff; font-size: 12px; font-weight: 500; color: #191919; cursor: pointer; font-family: Inter, sans-serif; }
         .btn-cancel:hover { background: #f5f5f5; }
         .btn-save { padding: 5px 12px; border: none; border-radius: 7px; background: #191919; font-size: 12px; font-weight: 500; color: #fff; cursor: pointer; font-family: Inter, sans-serif; }
         .btn-save:hover { opacity: 0.85; }
+
+        /* Delete event item */
+        .delete-event-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 6px 10px; border: 1px solid #E0E0E0; border-radius: 7px;
+            font-size: 12px; color: #191919; gap: 8px;
+        }
+        .delete-event-name { flex: 1; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .btn-delete-event {
+            padding: 3px 10px; border: none; border-radius: 6px;
+            background: #DC2626; color: #fff; font-size: 11px; font-weight: 500;
+            cursor: pointer; font-family: Inter, sans-serif; white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .btn-delete-event:hover { background: #b91c1c; }
+
+        /* Error shake */
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .shake { animation: shake 0.25s ease; }
     </style>
 </head>
 
@@ -252,7 +309,11 @@
                 <span class="modal-title">New event</span>
                 <button class="modal-close" id="closeModal">&times;</button>
             </div>
+
+            <!-- Event name -->
             <input type="text" class="modal-input" placeholder="Event name" id="eventName">
+
+            <!-- Date display -->
             <div class="modal-row">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <rect x="3" y="5" width="18" height="16" rx="2" stroke="#474747" stroke-width="1.8"/>
@@ -261,13 +322,15 @@
                 </svg>
                 <span id="modalDateText"></span>
             </div>
-            <div class="modal-time-row">
+
+            <!-- Time range -->
+            <div class="modal-time-row" id="timeRow">
                 <div class="modal-time">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="9" stroke="#474747" stroke-width="1.8"/>
                         <path d="M12 7v5l3 3" stroke="#474747" stroke-width="1.8" stroke-linecap="round"/>
                     </svg>
-                    <input type="time" value="09:30">
+                    <input type="time" id="startTime" value="09:30">
                 </div>
                 <span style="color:#474747;">→</span>
                 <div class="modal-time">
@@ -275,26 +338,46 @@
                         <circle cx="12" cy="12" r="9" stroke="#474747" stroke-width="1.8"/>
                         <path d="M12 7v5l3 3" stroke="#474747" stroke-width="1.8" stroke-linecap="round"/>
                     </svg>
-                    <input type="time" value="11:30">
+                    <input type="time" id="endTime" value="11:30">
                 </div>
             </div>
+
+            <!-- All day -->
             <label class="modal-allday">
                 <input type="checkbox" id="allDayCheck">
                 <span>All day</span>
             </label>
-            <div class="modal-row">
+
+            <!-- Color picker -->
+            <div class="color-picker-row">
+                <span class="color-picker-label">Color</span>
+                <span class="color-dot selected" data-color="default" title="Default"></span>
+                <span class="color-dot" data-color="blue"   title="Blue"></span>
+                <span class="color-dot" data-color="green"  title="Green"></span>
+                <span class="color-dot" data-color="red"    title="Red"></span>
+                <span class="color-dot" data-color="purple" title="Purple"></span>
+                <span class="color-dot" data-color="orange" title="Orange"></span>
+            </div>
+
+            <!-- Add guests -->
+            <div class="modal-row" id="addGuestsRow">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="8" r="4" stroke="#474747" stroke-width="1.8"/>
                     <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#474747" stroke-width="1.8" stroke-linecap="round"/>
                 </svg>
                 <span>Add guests</span>
             </div>
-            <div class="modal-row">
+            <input type="text" class="modal-input" id="guestsInput" placeholder="Guest emails, comma separated" style="display:none; font-size:11px;">
+
+            <!-- Description -->
+            <div class="modal-row" id="descRow">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M4 6h16M4 10h16M4 14h10" stroke="#474747" stroke-width="1.8" stroke-linecap="round"/>
                 </svg>
                 <span>Description</span>
             </div>
+            <textarea class="modal-textarea" id="descInput" placeholder="Add a description..." style="display:none;"></textarea>
+
             <div class="modal-footer">
                 <button class="btn-cancel" id="cancelModal">Cancel</button>
                 <button class="btn-save" id="saveEvent">Save</button>
@@ -302,31 +385,46 @@
         </div>
     </div>
 
+    <!-- Delete Event Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="width:280px;">
+            <div class="modal-header">
+                <span class="modal-title" id="deleteModalTitle">Event</span>
+                <button class="modal-close" id="closeDeleteModal">&times;</button>
+            </div>
+            <div id="deleteEventList" style="display:flex;flex-direction:column;gap:6px;"></div>
+            <div class="modal-footer" style="margin-top:4px;">
+                <button class="btn-cancel" id="cancelDeleteModal">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-        const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        const shortMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const dayNames   = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const shortMonths= ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-        const events = {
-            "2026-08-03": ["Project Check-in"],
-            "2026-08-09": ["Team Sync-up with"],
-            "2026-08-12": ["Today"],
-            "2026-08-19": ["Client Collaboration"],
-        };
+        //today 
+        const TODAY = new Date();
+        TODAY.setHours(0,0,0,0);
 
-        let currentYear = 2026;
-        let currentMonth = 7; // August
+        //rvents store: { "YYYY-MM-DD": [{name, color}, ...] } 
+        const events = {};
 
+        let currentYear  = TODAY.getFullYear();
+        let currentMonth = TODAY.getMonth();
+
+        //render calender
         function renderCalendar(year, month) {
-            document.getElementById("calendarTitle").textContent = `${monthNames[month]}  ${year}`;
+            document.getElementById("calendarTitle").textContent =
+                `${monthNames[month]}  ${year}`;
+
             const grid = document.getElementById("calendarGrid");
             grid.innerHTML = "";
 
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
-            const today = new Date();
-            const isCurrentMonth = year === 2026 && month === 7;
+            const firstDay       = new Date(year, month, 1).getDay();
+            const daysInMonth    = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth= new Date(year, month, 0).getDate();
 
             for (let i = 0; i < 42; i++) {
                 const cell = document.createElement("div");
@@ -349,74 +447,240 @@
 
                 if (!isThisMonth) {
                     daySpan.classList.add("other-month");
-                } else if (isCurrentMonth && dayNum === 12) {
-                    daySpan.classList.add("today");
+                } else {
+                    //ompare against today ──
+                    const cellDate = new Date(year, month, dayNum);
+                    cellDate.setHours(0,0,0,0);
+                    if (cellDate.getTime() === TODAY.getTime()) {
+                        daySpan.classList.add("today");
+                    }
                 }
 
                 cell.appendChild(daySpan);
 
                 if (isThisMonth) {
                     const key = `${year}-${String(month+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
+
                     if (events[key]) {
-                        events[key].forEach(e => {
+                        events[key].forEach((ev, idx) => {
                             const badge = document.createElement("span");
-                            badge.className = "event-badge";
-                            badge.textContent = e;
+                            badge.className = "event-badge" +
+                                (ev.color && ev.color !== "default" ? ` color-${ev.color}` : "");
+                            badge.textContent = ev.name;
+                            (function(k, i) {
+                                badge.addEventListener("click", function(e) {
+                                    e.stopPropagation();
+                                    openDeleteModal(k, i);
+                                });
+                            })(key, idx);
                             cell.appendChild(badge);
                         });
                     }
 
-                    (function(y, m, d) {
-                        cell.addEventListener("click", function(e) {
-                            const date = new Date(y, m, d);
-                            document.getElementById("modalDateText").textContent = dayNames[date.getDay()] + ", " + shortMonths[m] + " " + d;
-                            document.getElementById("eventName").value = "";
-                            const rect = cell.getBoundingClientRect();
-                            const modal = document.querySelector(".modal");
-                            const overlay = document.getElementById("eventModal");
-                            overlay.classList.add("active");
-                            // Position near cell
-
+                    //click cell to open new event 
+                    (function(y, m, d, k) {
+                        cell.addEventListener("click", function() {
+                            openModal(y, m, d, k);
                         });
-                    })(year, month, dayNum);
+                    })(year, month, dayNum, key);
                 }
 
                 grid.appendChild(cell);
             }
         }
 
+        //modal state
+        let activeKey = null;
+        let selectedColor = "default";
+
+        function openModal(y, m, d, key) {
+            activeKey = key;
+            selectedColor = "default";
+
+            const date = new Date(y, m, d);
+            document.getElementById("modalDateText").textContent =
+                dayNames[date.getDay()] + ", " + shortMonths[m] + " " + d + ", " + y;
+
+            document.getElementById("eventName").value = "";
+            document.getElementById("startTime").value = "09:30";
+            document.getElementById("endTime").value   = "11:30";
+            document.getElementById("allDayCheck").checked = false;
+            document.getElementById("timeRow").style.display = "";
+            document.getElementById("guestsInput").style.display = "none";
+            document.getElementById("descInput").style.display   = "none";
+            document.getElementById("descInput").value  = "";
+            document.getElementById("guestsInput").value = "";
+
+            // Reset color dots
+            document.querySelectorAll(".color-dot").forEach(dot => {
+                dot.classList.toggle("selected", dot.dataset.color === "default");
+            });
+
+            document.getElementById("eventModal").classList.add("active");
+            setTimeout(() => document.getElementById("eventName").focus(), 50);
+        }
+
+        function closeModal() {
+            document.getElementById("eventModal").classList.remove("active");
+            activeKey = null;
+        }
+
+        //color picker 
+        document.querySelectorAll(".color-dot").forEach(dot => {
+            dot.addEventListener("click", function() {
+                selectedColor = this.dataset.color;
+                document.querySelectorAll(".color-dot").forEach(d => d.classList.remove("selected"));
+                this.classList.add("selected");
+            });
+        });
+
+        //toggle all day 
+        document.getElementById("allDayCheck").addEventListener("change", function() {
+            document.getElementById("timeRow").style.display = this.checked ? "none" : "";
+        });
+
+        //toggle guests
+        document.getElementById("addGuestsRow").addEventListener("click", function() {
+            const inp = document.getElementById("guestsInput");
+            const show = inp.style.display === "none";
+            inp.style.display = show ? "" : "none";
+            if (show) inp.focus();
+        });
+
+        //toggle desc
+        document.getElementById("descRow").addEventListener("click", function() {
+            const ta = document.getElementById("descInput");
+            const show = ta.style.display === "none";
+            ta.style.display = show ? "" : "none";
+            if (show) ta.focus();
+        });
+
+        //save event
+        document.getElementById("saveEvent").addEventListener("click", function() {
+            const nameInput = document.getElementById("eventName");
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                nameInput.classList.remove("shake");
+                void nameInput.offsetWidth; 
+                nameInput.classList.add("shake");
+                nameInput.focus();
+                return;
+            }
+
+            if (!events[activeKey]) events[activeKey] = [];
+            events[activeKey].push({ name, color: selectedColor });
+
+            closeModal();
+            renderCalendar(currentYear, currentMonth);
+        });
+
+        //nav controls 
         document.getElementById("prevMonth").addEventListener("click", () => {
-            currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            currentMonth--;
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
             renderCalendar(currentYear, currentMonth);
         });
         document.getElementById("nextMonth").addEventListener("click", () => {
-            currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            currentMonth++;
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
             renderCalendar(currentYear, currentMonth);
         });
         document.getElementById("todayBtn").addEventListener("click", () => {
-            const t = new Date(); currentYear = t.getFullYear(); currentMonth = t.getMonth();
+            currentYear  = TODAY.getFullYear();
+            currentMonth = TODAY.getMonth();
             renderCalendar(currentYear, currentMonth);
         });
 
-        renderCalendar(currentYear, currentMonth);
-
-        // Modal
-        function closeModal() {
-            document.getElementById("eventModal").classList.remove("active");
-        }
+        // ── Close new-event modal ─────────────────────────────────────
         document.getElementById("closeModal").addEventListener("click", closeModal);
         document.getElementById("cancelModal").addEventListener("click", closeModal);
         document.getElementById("eventModal").addEventListener("click", function(e) {
             if (e.target === this) closeModal();
         });
         document.addEventListener("keydown", function(e) {
-            if (e.key === "Escape") closeModal();
+            if (e.key === "Escape") { closeModal(); closeDeleteModal(); }
         });
-        document.getElementById("saveEvent").addEventListener("click", function() {
-            const name = document.getElementById("eventName").value.trim();
-            if (!name) { document.getElementById("eventName").focus(); return; }
-            closeModal();
+
+        //delete modal
+        let deleteKey = null;
+
+        function openDeleteModal(key) {
+            deleteKey = key;
+            const evList = events[key] || [];
+
+            const parts = key.split("-");
+            const d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+            document.getElementById("deleteModalTitle").textContent =
+                dayNames[d.getDay()] + ", " + shortMonths[d.getMonth()] + " " + d.getDate();
+
+            renderDeleteList();
+            document.getElementById("deleteModal").classList.add("active");
+        }
+
+        function renderDeleteList() {
+            const list = document.getElementById("deleteEventList");
+            list.innerHTML = "";
+            const evList = events[deleteKey] || [];
+
+            if (evList.length === 0) {
+                list.innerHTML = `<div style="font-size:12px;color:#959595;padding:6px 10px;">No events on this day.</div>`;
+                return;
+            }
+
+            evList.forEach((ev, idx) => {
+                const item = document.createElement("div");
+                item.className = "delete-event-item";
+
+                const dot = document.createElement("span");
+                dot.style.cssText = `width:10px;height:10px;border-radius:50%;flex-shrink:0;background:${
+                    ev.color === "blue" ? "#2563EB" :
+                    ev.color === "green" ? "#16A34A" :
+                    ev.color === "red" ? "#DC2626" :
+                    ev.color === "purple" ? "#7C3AED" :
+                    ev.color === "orange" ? "#EA580C" : "#191919"
+                }`;
+
+                const name = document.createElement("span");
+                name.className = "delete-event-name";
+                name.textContent = ev.name;
+
+                const btn = document.createElement("button");
+                btn.className = "btn-delete-event";
+                btn.textContent = "Delete";
+                (function(i) {
+                    btn.addEventListener("click", function() {
+                        events[deleteKey].splice(i, 1);
+                        if (events[deleteKey].length === 0) delete events[deleteKey];
+                        renderCalendar(currentYear, currentMonth);
+                        if (!events[deleteKey] || events[deleteKey].length === 0) {
+                            closeDeleteModal();
+                        } else {
+                            renderDeleteList();
+                        }
+                    });
+                })(idx);
+
+                item.appendChild(dot);
+                item.appendChild(name);
+                item.appendChild(btn);
+                list.appendChild(item);
+            });
+        }
+
+        function closeDeleteModal() {
+            document.getElementById("deleteModal").classList.remove("active");
+            deleteKey = null;
+        }
+
+        document.getElementById("closeDeleteModal").addEventListener("click", closeDeleteModal);
+        document.getElementById("cancelDeleteModal").addEventListener("click", closeDeleteModal);
+        document.getElementById("deleteModal").addEventListener("click", function(e) {
+            if (e.target === this) closeDeleteModal();
         });
+
+        //initial render
+        renderCalendar(currentYear, currentMonth);
     </script>
 
 </body>
