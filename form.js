@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginForm.reset(); // Kosongkan form
                 
                 // Pindah ke halaman dashboard
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html';
             } else {
                 alert('Silahkan cek kembali user & password Anda');
             }
