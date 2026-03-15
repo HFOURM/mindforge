@@ -21,7 +21,7 @@
         </div>
     </header>
 
-    <main class="flex-1 flex flex-col items-center justify-center px-4 py-10 w-full max-w-sm mx-auto text-center">        
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-10 w-full max-w-sm mx-auto text-center whitespace-nowrap">        
         <h1 class="text-3xl md:text-4xl text-gray-900 mb-4 font-normal">
             Welcome to Mindforge
         </h1>
@@ -52,7 +52,7 @@
                 <span class="text-[15px] font-normal text-gray-800">Google</span>
             </button>
 
-            <button class="relative w-full flex items-center justify-center border border-gray-300 rounded-full py-3.5 hover:bg-gray-50 transition">
+            <button onclick="toggleModal(true)" class="relative w-full flex items-center justify-center border border-gray-300 rounded-full py-3.5 hover:bg-gray-50 transition">
                 <svg class="absolute left-6 w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                     <path d="M4 4H20V20H4V4Z"/>
                     <path d="M4 4L12 13L20 4"/>
@@ -62,15 +62,8 @@
         </div>
 
         <p class="text-gray-600 text-[15px] mb-12">
-            Don't have an account? <a href="#" class="underline text-gray-900">Sign Up Here</a>
+            Don't have an account? <a href="signup.html" class="underline text-gray-900">Sign Up Here</a>
         </p>
-
-        <div class="flex gap-3 mt-4">
-            <span class="w-2.5 h-2.5 rounded-full bg-black"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-        </div>
-
     </main>
 
     <footer class="w-full flex flex-col items-center pb-8">
@@ -81,5 +74,37 @@
         </div>
     </footer>
 
+    <div id="emailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white w-11/12 max-w-sm p-8 rounded-[2rem] shadow-2xl relative">
+            <button onclick="toggleModal(false)" class="absolute top-5 right-6 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            
+            <div class="text-center">
+                <h2 class="text-2xl font-bold mb-2">Use Email</h2>
+                <p class="text-gray-500 mb-6 text-sm">Enter your details to continue:</p>
+                
+                <form id="loginForm" class="space-y-4">
+                    <input 
+                        type="email" 
+                        id="loginEmail"
+                        placeholder="Enter Your Email Address" 
+                        class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-black"
+                        required
+                    >
+                    <input 
+                        type="password" 
+                        id="loginPassword"
+                        placeholder="Enter Password" 
+                        class="w-full px-5 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-black"
+                        required
+                    >
+                    <button type="submit" class="w-full bg-black text-white font-bold py-4 rounded-full mt-6 hover:bg-gray-800 transition">
+                        Log In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script src="form.js"></script>
 </body>
 </html>
