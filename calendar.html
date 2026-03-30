@@ -227,43 +227,70 @@
 
 <body>
 
-    <!-- Sidebar -->
-    <aside>
-        <div class="sidebar-top">
-            <div class="sidebar-logo">Mindforge</div>
-            <nav>
+    <aside id="sidebar-nav"
+        class="w-64 fixed bg-white z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 border-r border-[#E5E7EB]">
+        <div class="flex flex-col gap-6">
+            <h2 class="text-xl pl-3 font-semibold text-grey-500">
+                Mindforge
+            </h2>
+
+            <nav class="space-y-4">
                 <div>
-                    <div class="nav-section-title">Overview</div>
-                    <a href="index.html" class="nav-link">
-                        <img src="assets/icons/home.png" /> Dashboard
+                    <h3 class=" font-semibold text-grey-500 mb-1 pl-3">
+                        Overview
+                    </h3>
+
+                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-grey-50 text-grey-500 mb-1">
+                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Dashboard</span>
                     </a>
-                    <a href="tasks.html" class="nav-link">
-                        <img src="assets/icons/list.png" /> My Tasks
+
+                    <a href="tasks.html"
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
+                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">My Tasks</span>
                     </a>
                 </div>
+
                 <div>
-                    <div class="nav-section-title">Workspace</div>
-                    <a href="#" class="nav-link">
-                        <img src="assets/icons/Folder.png" /> Projects
+                    <h3 class="font-semibold text-grey-500 mb-1 pl-3">
+                        Workspace
+                    </h3>
+
+                    <a href="projects.html"
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
+                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Projects</span>
                     </a>
-                    <a href="#" class="nav-link">
-                        <img src="assets/icons/Pin.png" /> Events
-                    </a>
-                    <a href="calendar.html" class="nav-link active">
-                        <img src="assets/icons/Date_today.png" /> Calendar
+
+
+                    <a href="calendar.html"
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
+                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Calendar</span>
                     </a>
                 </div>
+
                 <div>
-                    <div class="nav-section-title">Insight</div>
-                    <a href="#" class="nav-link">
-                        <img src="assets/icons/Frame 4.png" /> Analytics
+                    <h3 class=" font-semibold text-grey-500 mb-1 pl-3">
+                        Insight
+                    </h3>
+
+                    <a href="#"
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
+                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3" />
+                        <span class="text-base font-medium">Analytics</span>
                     </a>
                 </div>
+
             </nav>
         </div>
+
+
         <div>
-            <a href="#" class="nav-link">
-                <img src="assets/icons/Setting_line.png" /> Settings
+            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
+                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3" />
+                <span class="text-base font-medium">Settings</span>
             </a>
         </div>
     </aside>
