@@ -8,64 +8,67 @@
     <link href="./dist/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/global.css">
+    <script src="src/utils.js"></script>
 </head>
 
-<body class="flex min-h-screen bg-white font-sans">
+<body class="flex min-h-screen bg-white dark:bg-grey-500 text-grey-500 dark:text-white">
 
     <!-- Sidebar -->
 
     <aside id="sidebar-nav"
-        class="w-64 fixed bg-white z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 border-r border-[#E5E7EB]">
+        class="w-64 fixed z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 bg-white dark:bg-[#202020] border-r border-[#E5E7EB] dark:border-[#383836]">
+
         <div class="flex flex-col gap-6">
-            <h2 class="text-xl pl-3 font-semibold text-grey-500">
+            <h2 class="text-xl pl-3 font-semibold">
                 Mindforge
             </h2>
 
             <nav class="space-y-4">
                 <div>
-                    <h3 class=" font-semibold text-grey-500 mb-1 pl-3">
+                    <h3 class=" font-semibold  mb-1 pl-3">
                         Overview
                     </h3>
 
-                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-grey-50 text-grey-500 mb-1">
-                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3" />
+                    <a href="index.html"
+                        class="flex items-center px-3 py-2 rounded-lg bg-grey-50 dark:bg-[#ffffff0e]  mb-1">
+                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Dashboard</span>
                     </a>
 
                     <a href="tasks.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
-                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3" />
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
+                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">My Tasks</span>
                     </a>
                 </div>
 
                 <div>
-                    <h3 class="font-semibold text-grey-500 mb-1 pl-3">
+                    <h3 class="font-semibold  mb-1 pl-3">
                         Workspace
                     </h3>
 
                     <a href="projects.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition mb-1">
-                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3" />
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
+                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Projects</span>
                     </a>
 
 
                     <a href="calendar.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
-                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3" />
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
+                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Calendar</span>
                     </a>
                 </div>
 
                 <div>
-                    <h3 class=" font-semibold text-grey-500 mb-1 pl-3">
+                    <h3 class=" font-semibold  mb-1 pl-3">
                         Insight
                     </h3>
 
                     <a href="#"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
-                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3" />
+                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
+                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Analytics</span>
                     </a>
                 </div>
@@ -73,23 +76,32 @@
             </nav>
         </div>
 
-
         <div>
-            <a href="#" class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 text-grey-500 transition">
-                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3" />
+            <a href="setting.html" class="flex items-center px-3 py-2 rounded-lg
+            hover:bg-grey-100 dark:hover:bg-[#2A2A2A]
+            transition">
+
+                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
+
                 <span class="text-base font-medium">Settings</span>
             </a>
         </div>
+
     </aside>
 
     <!-- End Sidebar -->
 
-    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6 ">
+    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6">
 
         <!-- Navbar -->
-        <div id="navbar" class="flex items-center top-0 z-50 justify-between px-6 py-4 sticky">
-            <div class="flex items-center border border-[#E0E0E0] rounded-lg px-3 py-2 gap-2 focus-within:ring-1">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div id="navbar" class="flex items-center top-0 z-50 justify-between px-6 py-4 sticky 
+            bg-white dark:bg-[#191919] transition">
+
+            <div
+                class="flex items-center border border-[#E0E0E0] dark:border-[#383836] 
+                rounded-lg px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-grey-300 dark:focus-within:ring-[#444]">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
                         stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -97,14 +109,17 @@
                         stroke-linejoin="round" />
                 </svg>
 
-                <input type="text" placeholder="Search..."
-                    class="outline-none bg-transparent w-full font-regular text-[#828282] placeholder:text-[#828282]">
+                <input type="text" placeholder="Search..." class="outline-none bg-transparent w-full text-sm 
+                    text-grey-700 dark:text-grey-300 
+                    placeholder:text-grey-400 dark:placeholder:text-grey-500">
             </div>
 
-            <button id="openmodalTask"
-                class="bg-grey-500 text-white text-sm px-3.5 py-2 font-medium rounded-lg hover:opacity-90 transition">
+            <button id="openmodalTask" class="bg-grey-900 text-white text-sm px-3.5 py-2 font-medium rounded-lg 
+                hover:opacity-90 transition
+                dark:bg-white dark:text-black">
                 Create Task
             </button>
+
         </div>
 
         <!-- End Navbar -->
@@ -113,7 +128,7 @@
 
         <div class="flex items-start justify-between px-6">
             <div class="flex gap-1 flex-col">
-                <h1 class="text-[40px] font-bold text-grey-500">
+                <h1 class="text-[40px] font-bold">
                     Good morning, Emma Stone
                 </h1>
                 <p class="text-grey-300">
@@ -121,9 +136,12 @@
                 </p>
             </div>
 
-            <button
-                class=" rounded-full p-3 mt-3 border border-[#E0E0E0] flex items-center justify-center text-gray-400 hover:bg-gray-50 transition shrink-0">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+            <button id="openNotifPanel"
+                class="rounded-full p-3 mt-3 border border-[#E0E0E0] dark:border-[#383836] flex items-center justify-center text-grey-400 hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition shrink-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="dark:invert">
                     <path
                         d="M6.44784 7.96942C6.76219 5.14032 9.15349 3 12 3C14.8465 3 17.2378 5.14032 17.5522 7.96942L17.804 10.2356C17.8072 10.2645 17.8088 10.279 17.8104 10.2933C17.9394 11.4169 18.3051 12.5005 18.8836 13.4725C18.8909 13.4849 18.8984 13.4973 18.9133 13.5222L19.4914 14.4856C20.0159 15.3599 20.2782 15.797 20.2216 16.1559C20.1839 16.3946 20.061 16.6117 19.8757 16.7668C19.5971 17 19.0873 17 18.0678 17H5.93223C4.91268 17 4.40291 17 4.12434 16.7668C3.93897 16.6117 3.81609 16.3946 3.77841 16.1559C3.72179 15.797 3.98407 15.3599 4.50862 14.4856L5.08665 13.5222C5.10161 13.4973 5.10909 13.4849 5.11644 13.4725C5.69488 12.5005 6.06064 11.4169 6.18959 10.2933C6.19123 10.279 6.19283 10.2645 6.19604 10.2356L6.44784 7.96942Z"
                         stroke="black" />
@@ -132,161 +150,303 @@
                         stroke="black" stroke-linecap="round" />
                 </svg>
 
+                <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+
             </button>
         </div>
         <!-- End Greeting Banner -->
 
-        <!-- Summary Card-->
-        <div class="flex gap-[18px] px-6 justify-between items-center">
-            <div class="w-full  bg-white rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-semibold text-grey-500 ">Active Projects</div>
-                <div class="text-[28px] font-semibold text-grey-500 ">12 Projects</div>
-                <div class="text-sm font-medium text-grey-300"><span class="text-[#166534]">+2</span> this month</div>
-            </div>
+        <div id="notifPanelOverlay" class="fixed inset-0 hidden z-50">
 
-            <div class="w-full  bg-white rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-semibold text-grey-500 ">Open Tasks</div>
-                <div class="text-[28px] font-semibold text-grey-500 ">48 Tasks</div>
-                <div class="text-sm font-medium text-grey-300"><span class="text-[#166534]">+6</span> due today</div>
-            </div>
+            <div id="notifBackdrop" class="absolute inset-0 bg-black/10"></div>
 
-            <div class="w-full  bg-white rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-bold text-grey-500 ">Upcoming Events</div>
-                <div class="text-[28px] font-semibold text-grey-500 ">5 Events</div>
-                <div class="text-sm font-medium text-grey-300"><span class="text-[#F59E0B]">Next:</span> Team Sync – 14:00</div>
-            </div>
+            <div id="notifPanel"
+                class="absolute right-0 top-0 h-screen w-full max-w-md bg-white dark:bg-[#202020] border-l border-[#E0E0E0] dark:border-[#383836] transform translate-x-full transition duration-300 flex flex-col">
 
-            <div class="w-full  bg-white rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-bold text-grey-500 ">Completion Rate</div>
-                <div class="text-[28px] font-semibold text-grey-500 ">87%</div>
-                <div class="text-sm font-medium text-grey-300"><span class="text-[#166534]">↑ 12%</span> from last week</div>
+                <div class="px-5 pt-5 ">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold tracking-tight">Notifications</h2>
+
+                        <button id="closeNotifPanel"
+                            class="p-2 rounded-lg hidden hover:bg-grey-100 dark:hover:bg-[#2a2a2a] transition">
+                            ✕
+                        </button>
+                    </div>
+
+
+
+                </div>
+
+                <div class="flex-1 overflow-y-auto px-5 py-4 space-y-6">
+                    <div>
+                        <p class="text-xs text-zinc-400 mb-3">Today</p>
+
+                        <div class="space-y-2">
+                            <div
+                                class="group flex gap-3 p-3 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition cursor-pointer">
+
+                                <div class="w-2 h-2 mt-2 bg-blue-500 rounded-full"></div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">Task deadline approaching</p>
+                                    <p class="text-xs text-zinc-400">Marketing campaign due tomorrow</p>
+                                </div>
+
+                                <button class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 transition">
+                                    Mark read
+                                </button>
+                            </div>
+
+                            <div
+                                class="group flex gap-3 p-3 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition cursor-pointer">
+
+                                <div class="w-2 h-2 mt-2 bg-blue-500 rounded-full"></div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">New task assigned</p>
+                                    <p class="text-xs text-zinc-400">You have 3 new tasks</p>
+                                </div>
+
+                                <button class="opacity-0 group-hover:opacity-100 text-xs text-blue-500 transition">
+                                    Mark read
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-zinc-400 mb-3">Earlier</p>
+
+                        <div class="space-y-2">
+
+                            <div
+                                class="flex gap-3 p-3 rounded-xl opacity-70 hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition cursor-pointer">
+
+                                <div class="w-2 h-2 mt-2 bg-transparent"></div>
+
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium">Weekly summary ready</p>
+                                    <p class="text-xs text-zinc-400">Check your productivity report</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="px-5 py-3 flex justify-between items-center text-xs">
+
+                    <button class="text-zinc-400 hover:text-black dark:hover:text-white transition">
+                        Mark all as read
+                    </button>
+
+                    <button class="text-blue-500 hover:opacity-80 transition">
+                        Notification settings
+                    </button>
+
+                </div>
+
             </div>
         </div>
+
+
+
+        <!-- Summary Card-->
+        <div class="flex gap-[18px] px-6 justify-between items-center">
+            <div
+                class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
+                <div class="text-sm font-semibold  ">Active Projects</div>
+                <div class="text-[28px] font-semibold  ">12 Projects</div>
+                <div class="text-sm font-medium  text-grey-300"><span
+                        class="text-[#166534] dark:text-[#4ade80]">+2</span> this month</div>
+            </div>
+
+            <div
+                class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
+                <div class="text-sm font-semibold  ">Open Tasks</div>
+                <div class="text-[28px] font-semibold  ">48 Tasks</div>
+                <div class="text-sm font-medium text-grey-300"><span
+                        class="text-[#166534] dark:text-[#4ade80]">+6</span> due today</div>
+            </div>
+
+            <div
+                class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
+                <div class="text-sm font-bold  ">Upcoming Events</div>
+                <div class="text-[28px] font-semibold  ">5 Events</div>
+                <div class="text-sm font-medium text-grey-300"><span
+                        class="text-[#F59E0B] dark:text-[#fbbf24]">Next:</span> Team Sync –
+                    14:00</div>
+            </div>
+
+            <div
+                class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
+                <div class="text-sm font-bold  ">Completion Rate</div>
+                <div class="text-[28px] font-semibold  ">87%</div>
+                <div class="text-sm font-medium text-grey-300"><span class="text-[#166534] dark:text-[#4ade80]">↑
+                        12%</span> from last week
+                </div>
+            </div>
+        </div>
+
         <!-- End Summary Card-->
 
-        <!-- ================= TASKS SECTION ================= -->
         <div class="flex gap-6 px-6">
-
-            <!-- Today's Tasks -->
-            <div class="w-[65%] bg-white rounded-xl border border-[#E0E0E0] p-6 ">
-                <h2 class="text-base font-semibold mb-6 text-grey-500">
+            <div
+                class="w-[65%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 ">
+                <h2 class="text-base font-semibold mb-6 ">
                     Today's Tasks
                 </h2>
 
                 <div class="space-y-6">
-                    <!-- Task 1 -->
+
                     <div class=" flex justify-between items-center">
                         <div class="flex gap-2 items-start flex-1">
-                            <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-[#191919]">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" class="peer sr-only " />
+
+                                <div
+                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
+
+                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
+                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>
+
+                                </div>
+                            </label>
                             <div>
-                                <p class="text-base font-medium text-grey-500">
+                                <p class="text-base font-medium ">
                                     Finalize onboarding flow UI
                                 </p>
-                                <p class="text-sm text-gray-400 font-regular">
+                                <p class="text-sm text-grey-400 font-regular">
                                     Website Revamp
                                 </p>
                             </div>
                         </div>
 
-                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-gray-400">
-                           
+                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
 
-                            
-
-                             <span class="px-3 py-1 rounded-full bg-[#FFF1F2] text-[#F43F5E]">
-                                High 
+                            <span class="px-3 py-1 rounded-full 
+                                bg-[#FFF1F2] text-[#F43F5E]
+                                dark:bg-[#3a1a1f] dark:text-[#fb7185]">
+                                High
                             </span>
 
-                            <span class=" bg-grey-100 text-grey-500  px-3 py-1 rounded-full">
-                                 10:00 AM
+                            <span class="px-3 py-1 rounded-full 
+                                bg-grey-100 text-grey-600
+                                dark:bg-[#2a2a2a] dark:text-grey-300">
+                                10:00 AM
                             </span>
 
                         </div>
                     </div>
-                    <!-- Task 2 -->
+
                     <div class=" flex justify-between items-center">
                         <div class="flex gap-2 items-start flex-1">
-                            <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-[#191919]">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" class="peer sr-only " />
 
+                                <div
+                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
+
+                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
+                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>
+
+                                </div>
+                            </label>
                             <div>
-                                <p class=" text-base font-medium text-grey-500">
+                                <p class=" text-base font-medium ">
                                     Draft weekly performance report
                                 </p>
-                                <p class="text-sm text-gray-400 font-regular">
+                                <p class="text-sm text-grey-400 font-regular">
                                     Operations
                                 </p>
                             </div>
                         </div>
 
-                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-gray-400">
-                           
-                            
-                             <span class="px-3 py-1 rounded-full bg-[#D0F4DD] text-[#166534]">
-                                Low 
+                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
+
+                            <span
+                                class="px-3 py-1 rounded-full bg-[#FFFBEB] text-[#F59E0B] dark:bg-[#3a2e12] dark:text-[#fbbf24]">
+                                Medium
                             </span>
 
-                            <span class=" bg-grey-100 text-grey-500  px-3 py-1 rounded-full">
-                                 05:00 PM
+                            <span
+                                class="px-3 py-1 rounded-full bg-grey-100 text-grey-600 dark:bg-[#2a2a2a] dark:text-grey-300">
+                                01:30 PM
                             </span>
+
                         </div>
 
                     </div>
 
-
-                    <!-- Task 3 -->
                     <div class=" flex justify-between items-center">
                         <div class="flex gap-2 items-start flex-1">
-                            <input type="checkbox" class="task-checkbox mt-1 w-4 h-4 accent-[#191919]">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" class="peer sr-only " />
+
+                                <div
+                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
+
+                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
+                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>
+
+                                </div>
+                            </label>
                             <div>
-                                <p class=" text-base font-medium text-grey-500">
+                                <p class=" text-base font-medium ">
                                     Prepare pitch deck for investor meeting
                                 </p>
-
-
-
-                                <p class="text-sm text-gray-400 font-regular">
+                                <p class="text-sm text-grey-400 font-regular">
                                     Fundraising Q1
                                 </p>
                             </div>
                         </div>
 
-                        <div class="flex items-end flex-col  gap-2 text-xs font-medium text-gray-400">
-                            
-                          
+                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
 
-                            <span class=" px-3 py-1 rounded-full bg-[#FFFBEB] text-[#F59E0B]">
-                                Medium 
+                            <span
+                                class="px-3 py-1 rounded-full bg-[#D0F4DD] text-[#166534] dark:bg-[#123524] dark:text-[#4ade80]">
+                                Low
                             </span>
 
-                              <span class="bg-grey-100 text-grey-500  px-3 py-1 rounded-full">
-                                 01:30 PM
+                            <span
+                                class="px-3 py-1 rounded-full  bg-grey-100 text-grey-600 dark:bg-[#2a2a2a] dark:text-grey-300">
+                                05:00 PM
                             </span>
+
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
             <!-- Upcoming Events -->
-            <div class="w-full md:w-[35%] bg-white rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
-                <h2 class="text-base font-semibold mb-6 text-grey-500">
+            <div
+                class="w-full md:w-[35%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
+                <h2 class="text-base font-semibold mb-6 ">
                     Upcoming Events
                 </h2>
 
                 <div class="space-y-6 relative">
-                    <div class="absolute left-[9px] top-0 bottom-0 w-[2px] bg-[#EFEFEF]"></div>
+                    <div class="absolute left-[9px] top-0 bottom-0 w-[2px] bg-[#EFEFEF] dark:bg-[#383836]"></div>
 
                     <div class="flex gap-4">
                         <div class="relative flex flex-col items-center w-5">
-                            <span class="w-[10px] mt-1 h-[10px] bg-grey-500 rounded-full"></span>
+                            <span class="w-[10px] mt-1 h-[10px] bg-grey-500 dark:bg-white rounded-full"></span>
                         </div>
 
                         <div>
-                            <p class="text-base font-medium text-grey-500">
+                            <p class="text-base font-medium ">
                                 Today, 14:00 – 15:00
                             </p>
-                            <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            <span
+                                class="inline-block mt-2 text-xs px-3 py-1 rounded-full dark:bg-[#2a2a2a] dark:text-grey-300 bg-grey-100 text-grey-500">
                                 Team Sync Meeting
                             </span>
                         </div>
@@ -294,14 +454,15 @@
 
                     <div class="flex gap-4">
                         <div class="relative flex flex-col items-center w-5">
-                            <span class="w-[10px] h-[10px] mt-1 bg-grey-500 rounded-full"></span>
+                            <span class="w-[10px] h-[10px] mt-1 bg-grey-500 rounded-full dark:bg-white"></span>
                         </div>
 
                         <div>
-                            <p class="text-base font-medium text-grey-500">
+                            <p class="text-base font-medium ">
                                 26 Feb, 10:00 AM
                             </p>
-                            <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            <span
+                                class="inline-block mt-2 text-xs px-3 py-1 rounded-full dark:bg-[#2a2a2a] dark:text-grey-300 bg-grey-100 text-grey-500">
                                 Investor Pitch Review
                             </span>
                         </div>
@@ -309,14 +470,15 @@
 
                     <div class="flex gap-4">
                         <div class="relative flex flex-col items-center w-5">
-                            <span class="w-[10px] h-[10px] mt-1 bg-grey-500 rounded-full"></span>
+                            <span class="w-[10px] h-[10px] mt-1 bg-grey-500 rounded-full dark:bg-white"></span>
                         </div>
 
                         <div>
-                            <p class="text-base font-medium text-grey-500">
+                            <p class="text-base font-medium ">
                                 27 Feb • 01:30 PM
                             </p>
-                            <span class="inline-block mt-2 text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500">
+                            <span
+                                class="inline-block mt-2 text-xs px-3 py-1 rounded-full dark:bg-[#2a2a2a] dark:text-grey-300 bg-grey-100 text-grey-500">
                                 Product Roadmap Planning
                             </span>
                         </div>
@@ -325,37 +487,38 @@
                 </div>
             </div>
         </div>
-        <!-- ===== END TASKS SECTION ===== -->
+
 
         <!-- Grafik -->
 
         <div class="flex gap-6 px-6">
 
-            <div class="w-[60%] bg-white rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
-                <h2 class="text-base font-semibold mb-6 text-grey-500">Task Completion Trend</h2>
+            <div
+                class="w-[60%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
+                <h2 class="text-base font-semibold mb-6 ">Task Completion Trend</h2>
 
                 <div class="relative mx-2 h-48">
 
                     <div class="absolute inset-0 flex flex-col justify-between">
-                        <div class="relative border-t border-gray-100 w-full h-0">
-                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">22</span>
+                        <div class="relative border-t border-grey-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-grey-400 text-xs">22</span>
                         </div>
-                        <div class="relative border-t border-gray-100 w-full h-0">
-                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">22</span>
+                        <div class="relative border-t border-grey-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-grey-400 text-xs">22</span>
                         </div>
-                        <div class="relative border-t border-gray-100 w-full h-0">
-                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">19</span>
+                        <div class="relative border-t border-grey-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-grey-400 text-xs">19</span>
                         </div>
-                        <div class="relative border-t border-gray-100 w-full h-0">
-                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">25</span>
+                        <div class="relative border-t border-grey-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-grey-400 text-xs">25</span>
                         </div>
-                        <div class="relative border-t border-gray-100 w-full h-0">
-                            <span class="absolute -top-3 -left-2 text-gray-400 text-xs">28</span>
+                        <div class="relative border-t border-grey-100 w-full h-0">
+                            <span class="absolute -top-3 -left-2 text-grey-400 text-xs">28</span>
                         </div>
                     </div>
 
-                    <svg viewBox="0 0 512 207" class="absolute inset-0 w-full h-full overflow-visible" fill="none"
-                        preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 512 207" class="absolute inset-0 w-full h-full overflow-visible dark:invert"
+                        fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M493 19L429.643 79.2087C429.135 79.6908 428.42 79.8841 427.739 79.7228L400.544 73.2744C400.044 73.1559 399.519 73.2276 399.069 73.4754L261.212 149.407C260.692 149.693 260.075 149.743 259.517 149.543L227.747 138.181C227.186 137.98 226.565 138.031 226.044 138.321L126.21 193.889C125.969 194.023 125.704 194.108 125.43 194.138L26.3545 205L2 205"
                             stroke="black" stroke-width="5" stroke-linecap="round" />
@@ -364,7 +527,7 @@
                         <circle opacity="0.1" cx="493" cy="19" r="18" fill="black" />
                     </svg>
 
-                    <div class="absolute -bottom-10 left-0 right-0 flex justify-between text-[11px] text-gray-400">
+                    <div class="absolute -bottom-10 left-0 right-0 flex justify-between text-[11px] text-grey-400">
                         <span>23 Nov</span>
                         <span>24 Feb</span>
                         <span>25 Feb</span>
@@ -374,29 +537,35 @@
                 </div>
             </div>
 
-            <div class="w-[40%] bg-white rounded-xl border border-[#E0E0E0] p-6">
-                <h2 class="text-base font-semibold mb-6 text-grey-500">Task Distribution by Project</h2>
+            <div
+                class="w-[40%] bg-white dark:bg-[#202020]  border border-[#E0E0E0] dark:border-[#383836]  rounded-xl p-6">
+
+                <h2 class="text-base font-semibold mb-6 text-grey-500 dark:text-white">
+                    Task Distribution by Project
+                </h2>
 
                 <div class="space-y-6">
-                    <div class="bg-gray-100 rounded-full h-6">
-                        <div class="bg-grey-500 h-6 rounded-full w-[70%]"></div>
+
+                    <div class="bg-grey-100 dark:bg-[#2a2a2a] rounded-full h-6">
+                        <div class="bg-grey-500 dark:bg-white h-6 rounded-full w-[70%]"></div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-full h-6">
-                        <div class="bg-grey-500 h-6 rounded-full w-[85%]"></div>
+                    <div class="bg-grey-100 dark:bg-[#2a2a2a] rounded-full h-6">
+                        <div class="bg-grey-500 dark:bg-white h-6 rounded-full w-[85%]"></div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-full h-6">
-                        <div class="bg-grey-500 h-6 rounded-full w-[60%]"></div>
+                    <div class="bg-grey-100 dark:bg-[#2a2a2a] rounded-full h-6">
+                        <div class="bg-grey-500 dark:bg-white h-6 rounded-full w-[60%]"></div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-full h-6">
-                        <div class="bg-grey-500 h-6 rounded-full w-[90%]"></div>
+                    <div class="bg-grey-100 dark:bg-[#2a2a2a] rounded-full h-6">
+                        <div class="bg-grey-500 dark:bg-white h-6 rounded-full w-[90%]"></div>
                     </div>
 
-                    <div class="bg-gray-100 rounded-full h-6">
-                        <div class="bg-grey-500 h-6 rounded-full w-[50%]"></div>
+                    <div class="bg-grey-100 dark:bg-[#2a2a2a] rounded-full h-6">
+                        <div class="bg-grey-500 dark:bg-white h-6 rounded-full w-[50%]"></div>
                     </div>
+
                 </div>
             </div>
 
@@ -404,23 +573,25 @@
 
         <!-- End Grafik -->
 
-        <div id="taskPanelOverlay" class="fixed inset-0 hidden z-50 ">
+        <div id="taskPanelOverlay" class="fixed inset-0 hidden z-50  bg-black/10">
 
             <form id="taskPanel"
-                class="absolute right-0 top-0 h-screen w-full shadow-sm max-w-lg bg-white border-l border-gray-200 flex flex-col transform translate-x-full transition duration-300 ">
+                class="absolute right-0 top-0 h-screen w-full shadow-sm max-w-lg bg-white dark:bg-[#202020] border-l text-grey-500 dark:text-white border-[#E0E0E0] dark:border-[#383836] flex flex-col transform translate-x-full transition duration-300 ">
 
                 <div class="flex items-center justify-between px-5 py-3 ">
 
-                    <button id="closeTaskPanel" type="button" class="p-2 rounded-lg hover:bg-gray-100 transition">
+                    <button id="closeTaskPanel" type="button"
+                        class="p-2 rounded-lg hover:bg-grey-100 dark:hover:bg-[#2a2a2a] transition">
 
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <svg class="dark:invert" width="22" height="22" viewBox="0 0 24 24" fill="none">
                             <path d="M12 18L18 12L12 6" stroke="#191919" stroke-width="1.8" />
                             <path d="M6 18L12 12L6 6" stroke="#191919" stroke-width="1.8" />
                         </svg>
 
                     </button>
 
-                    <div id="saveStatus" class="text-xs font-medium text-gray-400 transition-all duration-300">
+                    <div id="saveStatus"
+                        class="text-xs font-medium text-grey-400 dark:text-grey-300 transition-all duration-300">
                         All changes saved
                     </div>
 
@@ -428,11 +599,12 @@
 
                 <div class="px-14 pt-8 pb-6 overflow-y-auto flex-1">
                     <input type="text" placeholder="Untitled task..."
-                        class="w-full text-3xl font-semibold text-grey-500 placeholder-grey-200 focus:outline-none mb-8">
+                        class="w-full text-3xl font-semibold  text-grey-500 dark:text-grey-100 placeholder-grey-300 dark:placeholder-grey-200 bg-transparent focus:outline-none mb-8" />
 
                     <div class="grid grid-cols-1 gap-2">
 
-                        <div class="group flex items-center gap-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+                        <div
+                            class="group flex items-center gap-4 py-2 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition-colors">
                             <div class="w-5 flex justify-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -443,33 +615,58 @@
                                 </svg>
 
                             </div>
-                            <span class="w-28 text-sm text-gray-500 font-medium">Deadline</span>
-                            <input type="date"
-                                class="flex-1 bg-transparent text-sm text-[#191919] focus:outline-none font-semibold cursor-pointer">
+                            <span class="w-28 text-sm font-medium">Deadline</span>
+                            <input id="deadlineInput" type="date"
+                                class="flex-1 bg-transparent text-sm focus:outline-none  font-semibold cursor-pointer">
                         </div>
 
-                        <div class="group flex items-center gap-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
-                            <div class="w-5 flex justify-center">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M14.6358 3.90949C15.2888 3.47412 15.6153 3.25643 15.9711 3.29166C16.3269 3.32689 16.6044 3.60439 17.1594 4.15938L19.8406 6.84062C20.3956 7.39561 20.6731 7.67311 20.7083 8.02888C20.7436 8.38465 20.5259 8.71118 20.0905 9.36424L18.4419 11.8372C17.88 12.68 17.5991 13.1013 17.3749 13.5511C17.2086 13.8845 17.0659 14.2292 16.9476 14.5825C16.7882 15.0591 16.6889 15.5557 16.4902 16.5489L16.2992 17.5038C16.2986 17.5072 16.2982 17.5089 16.298 17.5101C16.1556 18.213 15.3414 18.5419 14.7508 18.1351C14.7497 18.1344 14.7483 18.1334 14.7455 18.1315C14.7322 18.1223 14.7255 18.1177 14.7189 18.1131C11.2692 15.7225 8.27754 12.7308 5.88691 9.28108C5.88233 9.27448 5.87772 9.26782 5.86851 9.25451C5.86655 9.25169 5.86558 9.25028 5.86486 9.24924C5.45815 8.65858 5.78704 7.84444 6.4899 7.70202C6.49113 7.70177 6.49282 7.70144 6.49618 7.70076L7.45114 7.50977C8.44433 7.31113 8.94092 7.21182 9.4175 7.05236C9.77083 6.93415 10.1155 6.79139 10.4489 6.62514C10.8987 6.40089 11.32 6.11998 12.1628 5.55815L14.6358 3.90949Z"
-                                        stroke="#656565" stroke-width="2" />
-                                    <path d="M5 19L9.5 14.5" stroke="#656565" stroke-width="2" stroke-linecap="round" />
-                                </svg>
+
+                        <div class="priority-wrapper">
+
+                            <div id="priorityRow"
+                                class="group flex items-center gap-4 py-2 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+
+                                <div class="w-5 flex justify-center">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14.6358 3.90949C15.2888 3.47412 15.6153 3.25643 15.9711 3.29166C16.3269 3.32689 16.6044 3.60439 17.1594 4.15938L19.8406 6.84062C20.3956 7.39561 20.6731 7.67311 20.7083 8.02888C20.7436 8.38465 20.5259 8.71118 20.0905 9.36424L18.4419 11.8372C17.88 12.68 17.5991 13.1013 17.3749 13.5511C17.2086 13.8845 17.0659 14.2292 16.9476 14.5825C16.7882 15.0591 16.6889 15.5557 16.4902 16.5489L16.2992 17.5038C16.2986 17.5072 16.2982 17.5089 16.298 17.5101C16.1556 18.213 15.3414 18.5419 14.7508 18.1351C14.7497 18.1344 14.7483 18.1334 14.7455 18.1315C14.7322 18.1223 14.7255 18.1177 14.7189 18.1131C11.2692 15.7225 8.27754 12.7308 5.88691 9.28108C5.88233 9.27448 5.87772 9.26782 5.86851 9.25451C5.86655 9.25169 5.86558 9.25028 5.86486 9.24924C5.45815 8.65858 5.78704 7.84444 6.4899 7.70202C6.49113 7.70177 6.49282 7.70144 6.49618 7.70076L7.45114 7.50977C8.44433 7.31113 8.94092 7.21182 9.4175 7.05236C9.77083 6.93415 10.1155 6.79139 10.4489 6.62514C10.8987 6.40089 11.32 6.11998 12.1628 5.55815L14.6358 3.90949Z"
+                                            stroke="#656565" stroke-width="2" />
+                                        <path d="M5 19L9.5 14.5" stroke="#656565" stroke-width="2"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                </div>
+
+                                <span class="w-28 text-sm  font-medium">Priority</span>
+
+                                <div id="priorityValue" class="flex-1 text-sm font-semibold ">
+                                    Empty
+                                </div>
 
                             </div>
-                            <span class="w-28 text-sm text-gray-500 font-medium">Priority</span>
-                            <select
-                                class="flex-1 bg-transparent text-sm text-[#191919] focus:outline-none font-semibold appearance-none cursor-pointer">
-                                <option>Empty</option>
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                            </select>
+
+                            <div id="priorityDropdown" class="ml-[162px] mt-3 hidden">
+
+                                <div class="rounded-xl w-40 text-sm font-semibold flex flex-row gap-3">
+                                    <div
+                                        class="option px-3 py-1 w-fit rounded-md bg-[#D0F4DD] text-[#166534] cursor-pointer dark:bg-[#123524] dark:text-[#4ade80]">
+                                        Low</div>
+                                    <div
+                                        class="option px-3 py-1 rounded-md w-fit bg-[#FFFBEB] text-[#F59E0B]  cursor-pointer dark:bg-[#3a2e12] dark:text-[#fbbf24]">
+                                        Medium
+                                    </div>
+                                    <div
+                                        class="option px-3 py-1 rounded-md w-fit bg-[#FFF1F2] text-[#F43F5E]  cursor-pointer dark:bg-[#3a1a1f] dark:text-[#fb7185] ">
+                                        High</div>
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="group flex items-center gap-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+                        <div
+                            class="group flex items-center gap-4 py-2 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition-colors">
                             <div class="w-5 flex justify-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -479,16 +676,17 @@
                                 </svg>
 
                             </div>
-                            <span class="w-28 text-sm text-gray-500 font-medium">Project</span>
+                            <span class="w-28 text-sm  font-medium">Project</span>
                             <select
-                                class="flex-1 bg-transparent text-sm text-[#191919] focus:outline-none font-semibold appearance-none cursor-pointer">
+                                class="flex-1 bg-transparent text-sm  focus:outline-none font-semibold appearance-none cursor-pointer">
                                 <option>Empty</option>
                                 <option>Internal Branding</option>
                                 <option>Marketing Campaign</option>
                             </select>
                         </div>
 
-                        <div class="group flex items-center gap-4 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+                        <div
+                            class="group flex items-center gap-4 py-2 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition-colors">
                             <div class="w-5 flex justify-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -498,13 +696,13 @@
 
 
                             </div>
-                            <span class="w-28 text-sm text-gray-500 font-medium">Status</span>
+                            <span class="w-28 text-sm  font-medium">Status</span>
                             <select
-                                class="flex-1 bg-transparent text-sm text-[#191919] focus:outline-none font-semibold appearance-none cursor-pointer text-blue-600">
-                                <option class="text-gray-700">Empty</option>
-                                <option class="text-gray-700">Todo</option>
-                                <option class="text-gray-700">In Progress</option>
-                                <option class="text-gray-700">Done</option>
+                                class="flex-1 bg-transparent text-sm  focus:outline-none font-semibold appearance-none cursor-pointer text-blue-600">
+                                <option class="">Empty</option>
+                                <option class="">Todo</option>
+                                <option class="">In Progress</option>
+                                <option class="">Done</option>
                             </select>
                         </div>
 
@@ -512,7 +710,7 @@
 
                     <div class="space-y-3 text-sm  mt-5">
                         <textarea placeholder="Enter task note..."
-                            class="flex-1 placeholder-grey-200 w-full focus:outline-none resize-none"
+                            class="flex-1 placeholder-grey-200 bg-transparent w-full focus:outline-none resize-none"
                             rows="4"></textarea>
                     </div>
 
@@ -520,12 +718,66 @@
 
             </form>
         </div>
-
-
     </main>
 
 
 </body>
+
+
+<script>
+    const openNotif = document.getElementById("openNotifPanel");
+    const notifOverlay = document.getElementById("notifPanelOverlay");
+    const notifPanel = document.getElementById("notifPanel");
+    const closeNotif = document.getElementById("closeNotifPanel");
+    const backdrop = document.getElementById("notifBackdrop");
+
+    openNotif.addEventListener("click", () => {
+        notifOverlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            notifPanel.classList.remove("translate-x-full");
+        }, 10);
+    });
+
+    function closePanel() {
+        notifPanel.classList.add("translate-x-full");
+
+        setTimeout(() => {
+            notifOverlay.classList.add("hidden");
+        }, 300);
+    }
+
+    closeNotif.addEventListener("click", closePanel);
+    backdrop.addEventListener("click", closePanel);
+</script>
+
+
+<script>
+    const row = document.getElementById("priorityRow");
+    const dropdown = document.getElementById("priorityDropdown");
+    const value = document.getElementById("priorityValue");
+
+    row.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+    });
+
+    // pilih option
+    dropdown.querySelectorAll(".option").forEach(opt => {
+        opt.addEventListener("click", (e) => {
+            e.stopPropagation();
+            value.textContent = opt.textContent;
+            dropdown.classList.add("hidden");
+        });
+    });
+</script>
+
+<script>
+    const dateInput = document.getElementById("deadlineInput");
+
+    dateInput.addEventListener("click", () => {
+        dateInput.showPicker();
+    });
+</script>
 
 <script>
     const overlay = document.getElementById("taskPanelOverlay");
@@ -560,27 +812,6 @@
         if (e.key === "Escape") {
             closePanel();
         }
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const currentPath = window.location.pathname.split("/").pop();
-
-        const navLinks = document.querySelectorAll("#sidebar-nav a");
-
-        navLinks.forEach(link => {
-            const linkPath = link.getAttribute("href");
-
-            if (currentPath === linkPath) {
-                link.classList.add("bg-grey-50");
-                link.classList.remove("text-grey-500");
-                link.classList.add("text-[#191919]");
-            } else {
-                link.classList.remove("bg-grey-50");
-                link.classList.add("text-grey-500");
-            }
-        });
     });
 </script>
 
