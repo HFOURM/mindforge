@@ -1,104 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+   <?php $this->component('sidebar'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Mindforge</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./dist/output.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/global.css">
-    <script src="src/utils.js"></script>
-</head>
+   <?php $this->component('nav-mobile'); ?>
 
-<body class="flex min-h-screen bg-white dark:bg-grey-500 text-grey-500 dark:text-white">
-
-    <aside id="sidebar-nav"
-        class="w-64 fixed z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 bg-white dark:bg-[#202020] border-r border-[#E5E7EB] dark:border-[#383836]">
-
-        <div class="flex flex-col gap-6">
-            <h2 class="text-xl pl-3 font-semibold">
-                Mindforge
-            </h2>
-
-            <nav class="space-y-4">
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Overview
-                    </h3>
-
-                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg  mb-1">
-                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Dashboard</span>
-                    </a>
-
-                    <a href="tasks.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">My Tasks</span>
-                    </a>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold  mb-1 pl-3">
-                        Workspace
-                    </h3>
-
-                    <a href="projects.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Projects</span>
-                    </a>
-
-
-                    <a href="calendar.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Calendar</span>
-                    </a>
-                </div>
-
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Insight
-                    </h3>
-
-                    <a href="#"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Analytics</span>
-                    </a>
-                </div>
-
-            </nav>
-        </div>
-
-        <div>
-            <a href="setting.html" class="flex items-center px-3 py-2 rounded-lg
-            hover:bg-grey-100 dark:hover:bg-[#2A2A2A]
-            transition">
-
-                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
-
-                <span class="text-base font-medium">Settings</span>
-            </a>
-        </div>
-
-    </aside>
-
-    <!-- End Sidebar -->
-
-
-    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6 p-6">
+   <main class="flex-1 xl:ml-64 mb-6 flex-col flex gap-6 p-6">
 
         <div
-            class="bg-[#F7F7F7] dark:bg-[#2a2a2a] font-medium flex justify-between items-center rounded-lg w-fit p-1.5">
+            class="bg-[#F7F7F7] hidden  dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
             <a class="px-2.5 py-1" href="index.html">Mindforge</a>
             <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="projects.html">Projects</a>
         </div>
 
         
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between gap-4 items-center">
                 <form action="" class="relative w-[405px]">
                     <div
                         class="flex items-center border border-[#E0E0E0]  dark:border-[#383836] rounded-lg px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-grey-500">
@@ -115,20 +28,26 @@
                 </form>
             
             
-                <div class="flex flex-row items-center gap-3">
+                <div class="flex flex-row items-center gap-2">
                     <div
                         class="flex  flex-row gap-3 items-center px-3 py-2 border dark:border-[#383836] border-[#E0E0E0] text-[#828282] rounded-lg cursor-pointer">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="#828282" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" />
                         </svg>
-                        <p>Filter</p>
+                        <p class="hidden xl:block">Filter</p>
                     </div>
 
                     <div
                         class="flex  flex-row gap-2 items-center dark:bg-white bg-grey-500 dark:text-grey-500 text-white font-medium px-3 py-2 border dark:border-[#383836] border-[#E0E0E0] rounded-lg cursor-pointer">
                        
-                        <p>New Project</p>
+                        <p class="hidden xl:block">New Project</p>
+
+                        <svg class="dark:invert block xl:hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2.67188C12.2859 2.67188 12.5605 2.78512 12.7627 2.9873C12.9649 3.18949 13.0781 3.46406 13.0781 3.75V10.9219H20.25C20.5359 10.9219 20.8105 11.0351 21.0127 11.2373C21.2149 11.4395 21.3281 11.7141 21.3281 12C21.3281 12.2859 21.2149 12.5605 21.0127 12.7627C20.8105 12.9649 20.5359 13.0781 20.25 13.0781H13.0781V20.25C13.0781 20.5359 12.9649 20.8105 12.7627 21.0127C12.5605 21.2149 12.2859 21.3281 12 21.3281C11.7141 21.3281 11.4395 21.2149 11.2373 21.0127C11.0351 20.8105 10.9219 20.5359 10.9219 20.25V13.0781H3.75C3.46406 13.0781 3.18949 12.9649 2.9873 12.7627C2.78512 12.5605 2.67188 12.2859 2.67188 12C2.67188 11.7141 2.78512 11.4395 2.9873 11.2373C3.18949 11.0351 3.46406 10.9219 3.75 10.9219H10.9219V3.75C10.9219 3.46406 11.0351 3.18949 11.2373 2.9873C11.4395 2.78512 11.7141 2.67188 12 2.67188Z"
+                                fill="#ffffff" stroke="#959595" stroke-width="0.09375" />
+                        </svg>
                     </div>
                 </div>
             
@@ -703,7 +622,3 @@
 
         </div>
     </main>
-
-</body>
-
-</html>

@@ -1,105 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Mindforge</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./dist/output.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/global.css">
-    <script src="/src/utils.js"></script>
-</head>
-
-<body class="flex min-h-screen bg-white dark:bg-grey-500 text-grey-500 dark:text-white">
-
-    <!-- Sidebar -->
-
-     <aside id="sidebar-nav"
-        class="w-64 fixed z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 bg-white dark:bg-[#202020] border-r border-[#E5E7EB] dark:border-[#383836]">
-
-        <div class="flex flex-col gap-6">
-            <h2 class="text-xl pl-3 font-semibold">
-                Mindforge
-            </h2>
-
-            <nav class="space-y-4">
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Overview
-                    </h3>
-
-                    <a href="index.html"
-                        class="flex items-center px-3 py-2 rounded-lg    mb-1">
-                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Dashboard</span>
-                    </a>
-
-                    <a href="tasks.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">My Tasks</span>
-                    </a>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold  mb-1 pl-3">
-                        Workspace
-                    </h3>
-
-                    <a href="projects.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Projects</span>
-                    </a>
+   <?php $this->component('sidebar'); ?>
 
 
-                    <a href="calendar.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Calendar</span>
-                    </a>
-                </div>
+   <?php $this->component('nav-mobile'); ?>
 
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Insight
-                    </h3>
+   <main class="flex-1 xl:ml-64 mb-6 flex-col flex gap-6 p-6">
 
-                    <a href="#"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Analytics</span>
-                    </a>
-                </div>
-
-            </nav>
-        </div>
-
-        <div>
-            <a href="setting.html" class="flex items-center px-3 py-2 rounded-lg
-            hover:bg-grey-100 dark:hover:bg-[#2A2A2A]
-            transition">
-
-                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
-
-                <span class="text-base font-medium">Settings</span>
-            </a>
-        </div>
-
-    </aside>
-
-    <!-- End Sidebar -->
-
-
-    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6 p-6">
-
-        <div class="bg-[#F7F7F7] dark:bg-[#2a2a2a] font-medium flex justify-between items-center rounded-lg w-fit p-1.5">
+        <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
             <a class="px-2.5 py-1" href="index.html">Mindforge</a>
             <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="tasks.html">My Tasks</a>
         </div>
 
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center gap-5">
             <form action="" class="relative w-[405px]">
                 <div
                     class="flex items-center border border-[#E0E0E0]  dark:border-[#383836] rounded-lg px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-grey-500">
@@ -121,11 +32,11 @@
                     <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="#828282" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <p>Filter</p>
+                <p class="hidden xl:block">Filter</p>
             </div>
         </div>
 
-        <div class="flex flex-1 gap-6 w-full">
+        <div class="flex flex-col xl:flex-row flex-1 gap-6 w-full">
 
             <div
                 class="task-column w-full border font-medium flex gap-3 flex-col border-[#E0E0E0] bg-[#FDFDFD] dark:border-[#383836] dark:bg-[#202020] rounded-lg px-4 py-3 ">
@@ -284,26 +195,23 @@
 
     </main>
 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+    <script>
 
-<script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    document.addEventListener("DOMContentLoaded", function () {
+            const columns = document.querySelectorAll('.task-list');
 
-        const columns = document.querySelectorAll('.task-list');
-
-        columns.forEach(list => {
-            new Sortable(list, {
-                group: 'kanban',
-                animation: 200,
-                ghostClass: 'opacity-40',
-                forceFallback: true,
-                dragClass: 'rotate-1 scale-105',
+            columns.forEach(list => {
+                new Sortable(list, {
+                    group: 'kanban',
+                    animation: 200,
+                    ghostClass: 'opacity-40',
+                    forceFallback: true,
+                    dragClass: 'rotate-1 scale-105',
+                });
             });
-        });
 
-    });
-</script>
-</html>
+        });
+    </script>

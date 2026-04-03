@@ -4,15 +4,25 @@
     }
 })();
 
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar-nav');
+    const overlay = document.getElementById('overlay');
+
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const currentPath = window.location.pathname.split("/").pop();
+    const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll("#sidebar-nav a");
 
     const isDark = document.documentElement.classList.contains("dark");
 
     navLinks.forEach(link => {
-        const linkPath = link.getAttribute("href");
+        const linkPath = new URL(link.href).pathname;
+
+        // reset class
         link.classList.remove(
             "bg-grey-100",
             "bg-[#2A2A2A]",
@@ -22,17 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
             "text-grey-500"
         );
 
-        if (currentPath === linkPath) {
+        // ✅ cek apakah URL sekarang mengandung path link
+        if (currentPath === linkPath || currentPath.startsWith(linkPath + "/")) {
+
             if (isDark) {
-                link.classList.add(
-                    "bg-[#ffffff0e]",
-                    "text-white"
-                );
+                link.classList.add("bg-[#ffffff0e]", "text-white");
             } else {
-                link.classList.add(
-                    "bg-grey-100",
-                    "text-[#191919]"
-                );
+                link.classList.add("bg-grey-100", "text-[#191919]");
             }
 
         } else {
@@ -41,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 link.classList.add("text-grey-500");
             }
-
         }
     });
 });

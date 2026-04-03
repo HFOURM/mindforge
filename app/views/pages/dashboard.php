@@ -1,100 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+    <?php $this->component('sidebar'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Mindforge</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./dist/output.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/global.css">
-    <script src="src/utils.js"></script>
-</head>
-
-<body class="flex min-h-screen bg-white dark:bg-grey-500 text-grey-500 dark:text-white">
-
-    <!-- Sidebar -->
-
-    <aside id="sidebar-nav"
-        class="w-64 fixed z-50 h-screen flex flex-col justify-between shrink-0 px-3 py-5 bg-white dark:bg-[#202020] border-r border-[#E5E7EB] dark:border-[#383836]">
-
-        <div class="flex flex-col gap-6">
-            <h2 class="text-xl pl-3 font-semibold">
-                Mindforge
-            </h2>
-
-            <nav class="space-y-4">
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Overview
-                    </h3>
-
-                    <a href="index.html"
-                        class="flex items-center px-3 py-2 rounded-lg bg-grey-50 dark:bg-[#ffffff0e]  mb-1">
-                        <img src="assets/icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Dashboard</span>
-                    </a>
-
-                    <a href="tasks.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">My Tasks</span>
-                    </a>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold  mb-1 pl-3">
-                        Workspace
-                    </h3>
-
-                    <a href="projects.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="assets/icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Projects</span>
-                    </a>
-
-
-                    <a href="calendar.html"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Calendar</span>
-                    </a>
-                </div>
-
-                <div>
-                    <h3 class=" font-semibold  mb-1 pl-3">
-                        Insight
-                    </h3>
-
-                    <a href="#"
-                        class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="assets/icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
-                        <span class="text-base font-medium">Analytics</span>
-                    </a>
-                </div>
-
-            </nav>
-        </div>
-
-        <div>
-            <a href="setting.html" class="flex items-center px-3 py-2 rounded-lg
-            hover:bg-grey-100 dark:hover:bg-[#2A2A2A]
-            transition">
-
-                <img src="assets/icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
-
-                <span class="text-base font-medium">Settings</span>
-            </a>
-        </div>
-
-    </aside>
-
-    <!-- End Sidebar -->
-
-    <main class="flex-1 ml-64 mb-6 flex-col flex gap-6">
+    <main class="flex-1 xl:ml-64 mb-6 flex-col flex gap-6">
 
         <!-- Navbar -->
-        <div id="navbar" class="flex items-center top-0 z-50 justify-between px-6 py-4 sticky 
+        <div id="navbar" class=" hidden xl:flex items-center top-0 z-50 justify-between px-6 py-4 sticky 
             bg-white dark:bg-[#191919] transition">
 
             <div
@@ -110,8 +19,8 @@
                 </svg>
 
                 <input type="text" placeholder="Search..." class="outline-none bg-transparent w-full text-sm 
-                    text-grey-700 dark:text-grey-300 
-                    placeholder:text-grey-400 dark:placeholder:text-grey-500">
+                    text-grey-700 dark:text-white 
+                    placeholder:text-grey-400 dark:placeholder:text-gray-400]">
             </div>
 
             <button id="openmodalTask" class="bg-grey-900 text-white text-sm px-3.5 py-2 font-medium rounded-lg 
@@ -121,6 +30,8 @@
             </button>
 
         </div>
+
+        <?php $this->component('nav-mobile'); ?>
 
         <!-- End Navbar -->
 
@@ -139,7 +50,7 @@
 
 
             <button id="openNotifPanel"
-                class="rounded-full p-3 mt-3 border border-[#E0E0E0] dark:border-[#383836] flex items-center justify-center text-grey-400 hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition shrink-0">
+                class="rounded-full p-3 hidden mt-3 border border-[#E0E0E0] dark:border-[#383836] xl:flex items-center justify-center text-grey-400 hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition shrink-0">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="dark:invert">
                     <path
@@ -150,7 +61,7 @@
                         stroke="black" stroke-linecap="round" />
                 </svg>
 
-                <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+             
 
             </button>
         </div>
@@ -254,47 +165,47 @@
 
 
         <!-- Summary Card-->
-        <div class="flex gap-[18px] px-6 justify-between items-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[18px] px-6">
             <div
                 class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-semibold  ">Active Projects</div>
-                <div class="text-[28px] font-semibold  ">12 Projects</div>
-                <div class="text-sm font-medium  text-grey-300"><span
-                        class="text-[#166534] dark:text-[#4ade80]">+2</span> this month</div>
+                <h3 class="text-sm font-semibold  ">Active Projects</h3>
+                <h2 class="text-[28px] font-semibold  ">12 Projects</h2>
+                <h3 class="text-sm font-medium  text-grey-300"><span
+                        class="text-[#166534] dark:text-[#4ade80]">+2</span> this month</h3>
             </div>
 
             <div
                 class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
-                <div class="text-sm font-semibold  ">Open Tasks</div>
-                <div class="text-[28px] font-semibold  ">48 Tasks</div>
-                <div class="text-sm font-medium text-grey-300"><span
-                        class="text-[#166534] dark:text-[#4ade80]">+6</span> due today</div>
+                <h3 class="text-sm font-semibold  ">Open Tasks</h3>
+                <h2 class="text-[28px] font-semibold  ">48 Tasks</h2>
+                <h3 class="text-sm font-medium text-grey-300"><span
+                        class="text-[#166534] dark:text-[#4ade80]">+6</span> due today</h3>
             </div>
 
             <div
                 class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
-                <div class="text-sm font-bold  ">Upcoming Events</div>
-                <div class="text-[28px] font-semibold  ">5 Events</div>
-                <div class="text-sm font-medium text-grey-300"><span
+                <h3 class="text-sm font-bold  ">Upcoming Events</h3>
+                <h2 class="text-[28px] font-semibold  ">5 Events</h2>
+                <h3 class="text-sm font-medium text-grey-300"><span
                         class="text-[#F59E0B] dark:text-[#fbbf24]">Next:</span> Team Sync –
-                    14:00</div>
+                    14:00</h3>
             </div>
 
             <div
                 class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
-                <div class="text-sm font-bold  ">Completion Rate</div>
-                <div class="text-[28px] font-semibold  ">87%</div>
-                <div class="text-sm font-medium text-grey-300"><span class="text-[#166534] dark:text-[#4ade80]">↑
+                <h3 class="text-sm font-bold  ">Completion Rate</h3>
+                <h2 class="text-[28px] font-semibold  ">87%</h2>
+                <h3 class="text-sm font-medium text-grey-300"><span class="text-[#166534] dark:text-[#4ade80]">↑
                         12%</span> from last week
-                </div>
+                </h3>
             </div>
         </div>
 
         <!-- End Summary Card-->
 
-        <div class="flex gap-6 px-6">
+        <div class="flex flex-col xl:flex-row gap-6 px-6">
             <div
-                class="w-[65%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 ">
+                class="xl:w-[65%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 ">
                 <h2 class="text-base font-semibold mb-6 ">
                     Today's Tasks
                 </h2>
@@ -428,7 +339,7 @@
 
             <!-- Upcoming Events -->
             <div
-                class="w-full md:w-[35%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
+                class="w-full xl:w-[35%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 shadow-sm">
                 <h2 class="text-base font-semibold mb-6 ">
                     Upcoming Events
                 </h2>
@@ -491,10 +402,10 @@
 
         <!-- Grafik -->
 
-        <div class="flex gap-6 px-6">
+        <div class="flex flex-col xl:flex-row gap-6 px-6">
 
             <div
-                class="w-[60%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
+                class="xl:w-[60%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 pb-12 relative shadow-sm">
                 <h2 class="text-base font-semibold mb-6 ">Task Completion Trend</h2>
 
                 <div class="relative mx-2 h-48">
@@ -538,7 +449,7 @@
             </div>
 
             <div
-                class="w-[40%] bg-white dark:bg-[#202020]  border border-[#E0E0E0] dark:border-[#383836]  rounded-xl p-6">
+                class="xl:w-[40%] bg-white dark:bg-[#202020]  border border-[#E0E0E0] dark:border-[#383836]  rounded-xl p-6">
 
                 <h2 class="text-base font-semibold mb-6 text-grey-500 dark:text-white">
                     Task Distribution by Project
@@ -721,10 +632,7 @@
     </main>
 
 
-</body>
-
-
-<script>
+    <script>
     const openNotif = document.getElementById("openNotifPanel");
     const notifOverlay = document.getElementById("notifPanelOverlay");
     const notifPanel = document.getElementById("notifPanel");
@@ -826,5 +734,3 @@
         }
     })
 </script>
-
-</html>
