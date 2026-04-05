@@ -21,5 +21,8 @@
   "homepage": "https://github.com/HFOURM/mindforge#readme",
   "devDependencies": {
     "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.0"
   }
 }
