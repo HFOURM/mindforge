@@ -20,13 +20,13 @@
 
                     <a href="<?php echo BASE_URL; ?>/"
                         class="flex items-center px-3 py-2 rounded-lg mb-1">
-                        <img src="icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
+                        <img src="<?php echo BASE_URL; ?>/icons/home.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Dashboard</span>
                     </a>
 
                     <a href="<?php echo BASE_URL; ?>/tasks"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
+                        <img src="<?php echo BASE_URL; ?>/icons/list.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">My Tasks</span>
                     </a>
                 </div>
@@ -38,14 +38,14 @@
 
                     <a href="<?php echo BASE_URL; ?>/projects"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition mb-1">
-                        <img src="icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
+                        <img src="<?php echo BASE_URL; ?>/icons/Folder.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Projects</span>
                     </a>
 
 
                     <a href="<?php echo BASE_URL; ?>/calendar"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
+                        <img src="<?php echo BASE_URL; ?>/icons/Date_today.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Calendar</span>
                     </a>
                 </div>
@@ -57,7 +57,7 @@
 
                     <a href="<?php echo BASE_URL; ?>/analytics"
                         class="flex items-center px-3 py-2 rounded-lg hover:bg-grey-50 dark:hover:bg-[#2A2A2A]  transition">
-                        <img src="icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
+                        <img src="<?php echo BASE_URL; ?>/icons/Frame 4.png" class="w-5 h-5 mr-3 dark:invert" />
                         <span class="text-base font-medium">Analytics</span>
                     </a>
                 </div>
@@ -70,7 +70,7 @@
             hover:bg-grey-100 dark:hover:bg-[#2A2A2A]
             transition">
 
-                <img src="icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
+                <img src="<?php echo BASE_URL; ?>/icons/Setting_line.png" class="w-5 h-5 mr-3 dark:invert" />
 
                 <span class="text-base font-medium">Settings</span>
             </a>

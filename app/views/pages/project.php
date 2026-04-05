@@ -6,8 +6,8 @@
 
         <div
             class="bg-[#F7F7F7] hidden  dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
-            <a class="px-2.5 py-1" href="index.html">Mindforge</a>
-            <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="projects.html">Projects</a>
+            <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/">Mindforge</a>
+            <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="<?php echo BASE_URL; ?>/projects">Projects</a>
         </div>
 
         
@@ -39,7 +39,7 @@
                     </div>
 
                     <div
-                        class="flex  flex-row gap-2 items-center dark:bg-white bg-grey-500 dark:text-grey-500 text-white font-medium px-3 py-2 border dark:border-[#383836] border-[#E0E0E0] rounded-lg cursor-pointer">
+                        class="flex openmodalProject flex-row gap-2 items-center dark:bg-white bg-grey-500 dark:text-grey-500 text-white font-medium px-3 py-2 border dark:border-[#383836] border-[#E0E0E0] rounded-lg cursor-pointer">
                        
                         <p class="hidden xl:block">New Project</p>
 
@@ -59,8 +59,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
 
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
+        <?php foreach ($projects as $project): ?>
+
+            <a href="<?php echo BASE_URL; ?>/projects/<?= $project['id'] ?>" class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
 
                 <div class="flex flex-row justify-between items-center">
                     <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
@@ -72,17 +73,19 @@
 
                     <p
                         class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
+                        <?= $project['progress'] == 100 ? 'Completed' : 'On Progress' ?>
                     </p>
 
                 </div>
 
                 <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
+                    <h2 class="font-medium "><?= htmlspecialchars($project['name']) ?></h2>
+                    <p class="text-grey-300 font-medium text-xs"><?= $project['description'] 
+                        ? htmlspecialchars($project['description']) 
+                        : 'No description' ?></p>
 
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
+                    <div class="flex text-sm font-regular flex-row justify-between items-center">
+                        <p><?= date('M d Y', strtotime($project['deadline'])) ?></p>
                         <div class="flex gap-2 items-center">
                             <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +94,7 @@
                                 <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
                             </svg>
 
-                            <p class=" font-medium text-xs">Medium</p>
+                            <p class=" font-medium text-xs"> <p class="text-xs"><?= $project['priority'] ?></p></p>
 
                         </div>
                     </div>
@@ -113,505 +116,17 @@
                             </defs>
                         </svg>
 
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
+                        <p class="text-grey-300 font-medium text-xs"><?= $project['progress'] ?> %</p>
                     </div>
 
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
+                    <p class="text-grey-300 font-medium text-xs"><?= $project['completed_tasks'] ?> / <?= $project['total_tasks'] ?> Tasks</p>
                 </div>
-            </div>
+            </a>
 
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
+            <?php endforeach; ?>
 
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
 
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-            <div
-                class="task-column border font-medium flex gap-2 flex-col border-[#E0E0E0] dark:border-[#383836] dark:bg-[#202020] bg-[#FDFDFD] rounded-lg px-4 py-3">
-
-                <div class="flex flex-row justify-between items-center">
-                    <svg class="dark:invert" width="18" height="16" viewBox="0 0 18 16" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0.75 4.75024C0.75 2.86463 0.75 1.92182 1.33579 1.33603C1.92157 0.750244 2.86438 0.750244 4.75 0.750244H5.09315C5.91065 0.750244 6.3194 0.750244 6.68694 0.902485C7.05448 1.05473 7.34351 1.34376 7.92157 1.92182L8.57843 2.57867C9.15649 3.15673 9.44552 3.44576 9.81306 3.598C10.1806 3.75024 10.5894 3.75024 11.4069 3.75024H12.75C14.6356 3.75024 15.5784 3.75024 16.1642 4.33603C16.75 4.92182 16.75 5.86463 16.75 7.75024V10.7502C16.75 12.6359 16.75 13.5787 16.1642 14.1645C15.5784 14.7502 14.6356 14.7502 12.75 14.7502H4.75C2.86438 14.7502 1.92157 14.7502 1.33579 14.1645C0.75 13.5787 0.75 12.6359 0.75 10.7502V4.75024Z"
-                            stroke="black" stroke-width="1.5" />
-                    </svg>
-
-                    <p
-                        class="bg-[#FFFBEB] w-fit px-3 text-[12px] font-medium text-[#F59E0B] py-1 rounded-full dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                        Completed
-                    </p>
-
-                </div>
-
-                <div class="flex flex-col gap-2 border-b border-[#E0E0E0] dark:border-[#383836] pb-3">
-                    <h2 class="font-medium ">UI/UX Design in the age of AI</h2>
-                    <p class="text-grey-300 font-medium text-xs">Lorem Ipsum is simply dummy text of the pritj</p>
-
-                    <div class="flex flex-row justify-between items-center">
-                        <p>Nov 24 2026</p>
-                        <div class="flex gap-2 items-center">
-                            <svg class="dark:invert" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect y="7" width="2" height="4" rx="1" fill="black" />
-                                <rect x="4" y="4" width="2" height="7" rx="1" fill="black" />
-                                <rect x="8" width="2" height="11" rx="1" fill="#D9D9D9" />
-                            </svg>
-
-                            <p class=" font-medium text-xs">Medium</p>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex gap-1 items-center">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_515_1238)">
-                                <rect width="18" height="18" rx="9" fill="#F8F8F8" />
-                                <rect x="9" y="-3" width="13" height="29" fill="#029562" />
-                            </g>
-                            <rect x="0.5" y="0.5" width="17" height="17" rx="8.5" stroke="black" />
-                            <defs>
-                                <clipPath id="clip0_515_1238">
-                                    <rect width="18" height="18" rx="9" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-
-                        <p class="text-grey-300 font-medium text-xs">54 %</p>
-                    </div>
-
-                    <p class="text-grey-300 font-medium text-xs">13 / 24 Tasks</p>
-                </div>
-            </div>
-
-
-
-
-
+            <?php $this->component('form-add-project'); ?>
 
 
 

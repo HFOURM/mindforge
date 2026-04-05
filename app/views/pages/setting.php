@@ -6,8 +6,8 @@
 
             <div
                 class="bg-[#F7F7F7] hidden  dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
-                <a class="px-2.5 py-1" href="index.html">Mindforge</a>
-                <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="setting.html">Settings</a>
+                <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/">Mindforge</a>
+                <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="<?php echo BASE_URL; ?>/settings">Settings</a>
             </div>
 
             

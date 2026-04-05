@@ -17,3 +17,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
 }
 
+.task-card {
+    transition: all 0.3s ease;
+}
+
+.task-card.is-active {
+    box-shadow: 0 0px 100px -2px rgba(163, 0, 0, 0.159);
+    background-color: #1d1313aa;
+    transform: scale(1.02);
+}
+
+
+

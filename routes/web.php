@@ -13,8 +13,11 @@ $router->get('/tasks', 'TaskController@index', 'AuthMiddleware');
 $router->post('/tasks/store', 'TaskController@store', 'AuthMiddleware');
 $router->post('/tasks/update', 'TaskController@update', 'AuthMiddleware');
 $router->post('/tasks/update-status', 'TaskController@updateStatus', 'AuthMiddleware');
+$router->post('/tasks/delete', 'TaskController@delete', 'AuthMiddleware');
 
 $router->get('/projects', 'ProjectController@index', 'AuthMiddleware');
+$router->post('/project/store', 'ProjectController@store', 'AuthMiddleware');
+$router->get('/projects/{id}', 'ProjectController@detail', 'AuthMiddleware');
 
 $router->get('/settings', 'SettingController@index', 'AuthMiddleware');
 $router->post('/settings/update', 'SettingController@update', 'AuthMiddleware');

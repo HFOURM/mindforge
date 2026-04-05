@@ -27,35 +27,44 @@
 
         <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
             <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/">Mindforge</a>
-            <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="<?php echo BASE_URL; ?>/tasks">My Tasks</a>
+            <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/projects">Projects</a>
+            <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="<?php echo BASE_URL; ?>/projects/<?php echo $project['id']; ?>"><?php echo $project['name']; ?></a>
         </div>
 
-        <div class="flex justify-between items-center gap-5">
-            <form action="" class="relative w-[405px]">
-                <div
-                    class="flex items-center border border-[#E0E0E0]  dark:border-[#383836] rounded-lg px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-grey-500">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
-                            stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M21.0004 21.0004L16.6504 16.6504" stroke="#828282" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <input type="text" placeholder="Search tasks..."
-                        class="outline-none bg-transparent w-full font-regular text-[#828282] placeholder:text-[#828282]">
-                </div>
-            </form>
+        <div class="relative w-full h-[220px] rounded-xl overflow-hidden mb-6">
 
-            <div
-                class="flex  flex-row gap-3 items-center px-3 py-2 border dark:border-[#383836] border-[#E0E0E0] text-[#828282] rounded-lg cursor-pointer">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="#828282" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <p class="hidden xl:block">Filter</p>
+            <img src="https://images.unsplash.com/photo-1775401152601-79793ac4c173?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                class="absolute inset-0 w-full h-full object-cover" />
+
+            <div class="absolute inset-0 bg-black/50"></div>
+
+            <div class="relative z-10 h-full flex flex-col justify-end p-6 text-white">
+
+                <h1 class="text-[32px] font-bold leading-tight">
+                    <?= htmlspecialchars($project['name']) ?>
+                </h1>
+
+                <div class="flex items-center gap-3 text-xs mt-3">
+
+                    <div class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <?= $project['deadline'] 
+                            ? date('M d, Y', strtotime($project['deadline'])) 
+                            : 'No deadline' ?>
+                    </div>
+
+                    <div class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <?= $project['priority'] ?? 'No priority' ?>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
+
+        <h2 class="text-base font-semibold">
+                Project Tasks
+        </h2>
         
 
         <div class="flex flex-col xl:flex-row flex-1 gap-6 w-full">
@@ -75,7 +84,7 @@
                     <input type="hidden" name="status" value="Todo">
                     <input type="hidden" name="priority" value="Low">
                     <input type="hidden" name="deadline" value="<?php echo date('Y-m-d'); ?>">
-                    <input type="hidden" name="project_id" value="">
+                    <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
                     <input type="hidden" name="note" value="describe task here...">
 
                     <button type="submit" class="border  border-[#E0E0E0] dark:border-[#383836] rounded-full p-1.5">
@@ -102,9 +111,7 @@
                             data-project="<?= $task['project_id'] ?? '' ?>"
                         >
                             
-                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
-                                <?= htmlspecialchars($task['priority']) ?>
-                            </p>
+                            
 
                             <h3 class="font-medium">
                                 <?= htmlspecialchars($task['title']) ?>
@@ -116,19 +123,18 @@
 
                             <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
 
-                            <span 
-                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
-                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
-                                    dark:bg-blue-900/30 dark:text-blue-400
-                                    max-w-[120px] truncate inline-block">
-                                    
-                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
-                            </span>
+                           
     
-                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
-                                            dark:bg-[#2a2a2a] dark:text-gray-300">
-                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
-                                </span>
+                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
+                                <?= htmlspecialchars($task['priority']) ?>
+                            </p>
+
+                            <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                        dark:bg-[#2a2a2a] dark:text-gray-300">
+                                <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                            </span>
+
+
 
                                 
 
@@ -156,7 +162,7 @@
                     <input type="hidden" name="status" value="In Progress">
                     <input type="hidden" name="priority" value="Low">
                     <input type="hidden" name="deadline" value="<?php echo date('Y-m-d'); ?>">
-                    <input type="hidden" name="project_id" value="">
+                    <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
                     <input type="hidden" name="note" value="describe task here...">
 
                     <button type="submit" class="border  border-[#E0E0E0] dark:border-[#383836] rounded-full p-1.5">
@@ -183,9 +189,7 @@
                             data-project="<?= $task['project_id'] ?? '' ?>"
                         >
                             
-                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
-                                <?= htmlspecialchars($task['priority']) ?>
-                            </p>
+                          
 
                             <h3 class="font-medium">
                                 <?= htmlspecialchars($task['title']) ?>
@@ -197,21 +201,16 @@
 
                             <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
 
-                            <span 
-                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
-                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
-                                    dark:bg-blue-900/30 dark:text-blue-400
-                                    max-w-[120px] truncate inline-block">
-                                    
-                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
-                            </span>
+                           
     
-                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
-                                            dark:bg-[#2a2a2a] dark:text-gray-300">
-                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
-                                </span>
+                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
+                                <?= htmlspecialchars($task['priority']) ?>
+                            </p>
 
-                                
+                            <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                        dark:bg-[#2a2a2a] dark:text-gray-300">
+                                <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                            </span>
 
                             </div>
 
@@ -236,7 +235,7 @@
                     <input type="hidden" name="status" value="Done">
                     <input type="hidden" name="priority" value="Low">
                     <input type="hidden" name="deadline" value="<?php echo date('Y-m-d'); ?>">
-                    <input type="hidden" name="project_id" value="">
+                    <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
                     <input type="hidden" name="note" value="describe task here...">
 
                     <button type="submit" class="border  border-[#E0E0E0] dark:border-[#383836] rounded-full p-1.5">
@@ -264,9 +263,7 @@
                             data-project="<?= $task['project_id'] ?? '' ?>"
                         >
                             
-                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
-                                <?= htmlspecialchars($task['priority']) ?>
-                            </p>
+                    
 
                             <h3 class="font-medium ">
                                 <?= htmlspecialchars($task['title']) ?>
@@ -278,19 +275,18 @@
 
                             <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
 
-                            <span 
-                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
-                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
-                                    dark:bg-blue-900/30 dark:text-blue-400
-                                    max-w-[120px] truncate inline-block">
-                                    
-                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
-                            </span>
+                           
     
-                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
-                                            dark:bg-[#2a2a2a] dark:text-gray-300">
-                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
-                                </span>
+                            <p class="<?= priorityColor($task['priority']) ?> px-3 py-1 rounded-full text-xs w-fit">
+                                <?= htmlspecialchars($task['priority']) ?>
+                            </p>
+
+                            <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                        dark:bg-[#2a2a2a] dark:text-gray-300">
+                                <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                            </span>
+
+
 
                                 
 
@@ -302,8 +298,6 @@
                 </div>
             </div>
         </div>
-
-        <?php $this->component('form-edit-task', ['projects' => $projects]); ?>
 
     </main>
 

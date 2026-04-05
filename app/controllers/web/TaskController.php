@@ -35,7 +35,9 @@ class TaskController extends Controller {
             'note' => $_POST['note']
         ]);
 
-        header("Location: /mindforge/public/tasks");
+        $redirect = $_POST['redirect'] ?? $_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks';
+        header("Location: " . $redirect);
+        exit;
     }
 
     public function update(){
@@ -91,6 +93,27 @@ public function updateStatus(){
         ob_clean();
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         exit;
+    }
+}
+
+public function delete() {
+    $id = $_POST['id'] ?? null;
+
+    if (!$id) {
+        echo "ID tidak ditemukan";
+        return;
+    }
+    
+    require_once "../app/models/Task.php";
+    $taskModel = new Task();
+
+    $success = $taskModel->delete($id);
+
+    if ($success) {
+        header("Location: /mindforge/public/tasks");
+        exit;
+    } else {
+        echo "Gagal menghapus task";
     }
 }
 }

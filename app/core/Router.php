@@ -26,32 +26,41 @@ class Router {
     }
 
     public function run() {
-        session_start();
+    session_start();
 
-        $method = $_SERVER['REQUEST_METHOD'];
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $method = $_SERVER['REQUEST_METHOD'];
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        $uri = str_replace('/mindforge/public', '', $uri);
+    $uri = str_replace('/mindforge/public', '', $uri);
 
-        if (isset($this->routes[$method][$uri])) {
-            $route = $this->routes[$method][$uri];
+    if (isset($this->routes[$method])) {
+        foreach ($this->routes[$method] as $routeUri => $route) {
 
-            if ($route['middleware']) {
-                require_once BASE_PATH . "/app/middleware/{$route['middleware']}.php";
-                $middleware = $route['middleware'];
-                $middleware::handle();
+            $pattern = preg_replace('#\{[a-zA-Z_]+\}#', '([^/]+)', $routeUri);
+            $pattern = "#^" . $pattern . "$#";
+
+            if (preg_match($pattern, $uri, $matches)) {
+
+                array_shift($matches);
+
+                if ($route['middleware']) {
+                    require_once BASE_PATH . "/app/middleware/{$route['middleware']}.php";
+                    $middleware = $route['middleware'];
+                    $middleware::handle();
+                }
+
+                list($controller, $methodAction) = explode('@', $route['action']);
+                require_once BASE_PATH . "/app/controllers/web/$controller.php";
+
+                $controller = new $controller();
+
+                call_user_func_array([$controller, $methodAction], $matches);
+
+                return;
             }
-
-            $action = $route['action'];
-            list($controller, $method) = explode('@', $action);
-
-            require_once BASE_PATH . "/app/controllers/web/$controller.php";
-
-            $controller = new $controller();
-            $controller->$method();
-
-        } else {
-            echo "404 Not Found";
         }
     }
+
+    echo "404 Not Found";
+}
 }

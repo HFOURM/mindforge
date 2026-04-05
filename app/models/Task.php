@@ -52,11 +52,27 @@ class Task {
             $data['project_id'] ?: null,
             $data['id']
         ]);
-}
+    }
 
-public function updateStatus($id, $status)
-{
-    $stmt = $this->conn->prepare("UPDATE tasks SET status = ? WHERE id = ?");
-    return $stmt->execute([$status, $id]);
-}
+    public function updateStatus($id, $status){
+        $stmt = $this->conn->prepare("UPDATE tasks SET status = ? WHERE id = ?");
+        return $stmt->execute([$status, $id]);
+    }
+
+    public function delete($id) {
+        $stmt = $this->conn->prepare("DELETE FROM tasks WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public function getByProject($projectId) {
+
+        $stmt = $this->conn->prepare("
+            SELECT * FROM tasks 
+            WHERE project_id = ?
+            ORDER BY created_at DESC
+        ");
+
+        $stmt->execute([$projectId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

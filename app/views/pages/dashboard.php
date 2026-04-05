@@ -48,7 +48,7 @@
 
         <!-- Greeting Banner -->
 
-        <div class="flex items-start justify-between px-6">
+        <div class="flex items-start justify-between px-6 ">
             <div class="flex gap-1 flex-col">
                 <h1 class="text-[40px] font-bold">
                     Good morning, <span class="capitalize"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
@@ -211,6 +211,25 @@
 
         <!-- End Summary Card-->
 
+        <?php
+            $today = date('Y-m-d');
+
+            $todayTasks = array_filter($tasks, function($task) use ($today) {
+                return $task['deadline'] === $today;
+            });
+        ?>
+
+        <?php
+        function priorityColor($priority) {
+            return match($priority) {
+                'High' => 'bg-[#FFF1F2] text-[#F43F5E]  dark:bg-[#3a1a1f] dark:text-[#fb7185]',
+                'Medium' => 'bg-[#FFFBEB] text-[#F59E0B]   dark:bg-[#3a2e12] dark:text-[#fbbf24]',
+                'Low' => 'bg-[#D0F4DD] text-[#166534] dark:bg-[#123524] dark:text-[#4ade80]',
+                default => 'bg-gray-100 text-gray-500'
+            };
+        }
+        ?>
+
         <div class="flex flex-col xl:flex-row gap-6 px-6">
             <div
                 class="xl:w-[65%] bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-6 ">
@@ -220,130 +239,100 @@
 
                 <div class="space-y-6">
 
-                    <div class=" flex justify-between items-center">
-                        <div class="flex gap-2 items-start flex-1">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" class="peer sr-only " />
+                <?php if (!empty($todayTasks)): ?>
+                    <?php foreach ($todayTasks as $task): ?>
 
-                                <div
-                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
+                        <div class="flex justify-between items-center">
+                            
+                            <div class="flex gap-2 items-start flex-1">
+                                <label class="flex items-center cursor-pointer">
+                                    
+                                    <input 
+                                        type="checkbox" 
+                                        class="peer sr-only task-checkbox"
+                                        data-id="<?= $task['id']; ?>"
+                                        <?= $task['status'] === 'Done' ? 'checked' : '' ?>
+                                    />
 
-                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
-                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                        <path d="M5 13l4 4L19 7"></path>
-                                    </svg>
+                                    <div class="w-4 h-4 border rounded border-[#E0E0E0] bg-white mt-1 
+                                        dark:bg-[#191919] dark:border-[#383836] 
+                                        peer-checked:bg-grey-900 peer-checked:border-grey-900 
+                                        dark:peer-checked:bg-white dark:peer-checked:border-white 
+                                        flex items-center justify-center transition">
+                                        
+                                        <svg class="w-3 h-3 text-white dark:text-grey-500 z-50 transition" 
+                                            fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                            <path d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </label>
 
+                                <div>
+                                    <p class="text-base font-medium">
+                                        <?= htmlspecialchars($task['title']); ?>
+                                    </p>
+                                    <p class="text-sm text-grey-400 font-regular">
+                                        <?= htmlspecialchars($task['project_name'] ?? 'Add project please'); ?>
+                                    </p>
                                 </div>
-                            </label>
-                            <div>
-                                <p class="text-base font-medium ">
-                                    Finalize onboarding flow UI
-                                </p>
-                                <p class="text-sm text-grey-400 font-regular">
-                                    Website Revamp
-                                </p>
                             </div>
-                        </div>
 
-                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
+                            <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-300 dark:text-grey-500">
 
-                            <span class="px-3 py-1 rounded-full 
-                                bg-[#FFF1F2] text-[#F43F5E]
-                                dark:bg-[#3a1a1f] dark:text-[#fb7185]">
-                                High
-                            </span>
+                                <span class="px-3 py-1 rounded-full <?= priorityColor($task['priority']) ?>">
+                                    <?= htmlspecialchars($task['priority']); ?>
+                                </span>
 
-                            <span class="px-3 py-1 rounded-full 
+                                <span class="px-3 py-1 rounded-full 
                                 bg-grey-100 text-grey-600
                                 dark:bg-[#2a2a2a] dark:text-grey-300">
-                                10:00 AM
-                            </span>
+                                    <?= date('H:i', strtotime($task['deadline'])); ?>
+                                </span>
 
-                        </div>
-                    </div>
-
-                    <div class=" flex justify-between items-center">
-                        <div class="flex gap-2 items-start flex-1">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" class="peer sr-only " />
-
-                                <div
-                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
-
-                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
-                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                        <path d="M5 13l4 4L19 7"></path>
-                                    </svg>
-
-                                </div>
-                            </label>
-                            <div>
-                                <p class=" text-base font-medium ">
-                                    Draft weekly performance report
-                                </p>
-                                <p class="text-sm text-grey-400 font-regular">
-                                    Operations
-                                </p>
                             </div>
                         </div>
+                    <?php endforeach; ?>
 
-                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
+                    <?php else: ?>
+                        <div class="flex flex-col items-center justify-center text-center">
 
-                            <span
-                                class="px-3 py-1 rounded-full bg-[#FFFBEB] text-[#F59E0B] dark:bg-[#3a2e12] dark:text-[#fbbf24]">
-                                Medium
-                            </span>
+                            <h3 class="text-base font-semibold text-grey-900 dark:text-white">
+                                You're all caught up
+                            </h3>
 
-                            <span
-                                class="px-3 py-1 rounded-full bg-grey-100 text-grey-600 dark:bg-[#2a2a2a] dark:text-grey-300">
-                                01:30 PM
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <div class=" flex justify-between items-center">
-                        <div class="flex gap-2 items-start flex-1">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" class="peer sr-only " />
-
-                                <div
-                                    class="w-4 h-4 border rounded border-[#E0E0E0] bg-white  mt-1 dark:bg-[#191919] dark:border-[#383836] peer-checked:bg-grey-900  peer-checked:border-grey-900 dark:peer-checked:bg-white  dark:peer-checked:border-white flex items-center justify-center transition">
-
-                                    <svg class="w-3 h-3 text-white dark:text-grey-500 z-50
-                                    transition" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                        <path d="M5 13l4 4L19 7"></path>
-                                    </svg>
-
-                                </div>
-                            </label>
-                            <div>
-                                <p class=" text-base font-medium ">
-                                    Prepare pitch deck for investor meeting
-                                </p>
-                                <p class="text-sm text-grey-400 font-regular">
-                                    Fundraising Q1
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-end flex-col gap-2 text-xs font-medium text-grey-400 dark:text-grey-500">
-
-                            <span
-                                class="px-3 py-1 rounded-full bg-[#D0F4DD] text-[#166534] dark:bg-[#123524] dark:text-[#4ade80]">
-                                Low
-                            </span>
-
-                            <span
-                                class="px-3 py-1 rounded-full  bg-grey-100 text-grey-600 dark:bg-[#2a2a2a] dark:text-grey-300">
-                                05:00 PM
-                            </span>
+                            <p class="text-sm text-grey-400 mt-1 max-w-[240px] leading-relaxed">
+                                No tasks scheduled for today. Take a break or plan your next move.
+                            </p>
 
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
+
+            <script>
+                document.querySelectorAll('.task-checkbox').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        const taskId = this.dataset.id;
+                        const status = this.checked ? 'Done' : 'Todo';
+
+                        fetch('/mindforge/public/tasks/update-status', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                id: taskId,
+                                status: status
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                        })
+                        .catch(err => console.error(err));
+                    });
+                });
+            </script>
 
             <!-- Upcoming Events -->
             <div
