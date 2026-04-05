@@ -111,6 +111,26 @@
                                 <?= htmlspecialchars($task['note'] ?? '') ?>
                             </p>
 
+                            <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
+
+                            <span 
+                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
+                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
+                                    dark:bg-blue-900/30 dark:text-blue-400
+                                    max-w-[120px] truncate inline-block">
+                                    
+                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
+                            </span>
+    
+                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                            dark:bg-[#2a2a2a] dark:text-gray-300">
+                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                                </span>
+
+                                
+
+                            </div>
+
                         </div>
                     <?php endforeach; ?>
 
@@ -172,6 +192,26 @@
                                 <?= htmlspecialchars($task['note'] ?? '') ?>
                             </p>
 
+                            <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
+
+                            <span 
+                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
+                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
+                                    dark:bg-blue-900/30 dark:text-blue-400
+                                    max-w-[120px] truncate inline-block">
+                                    
+                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
+                            </span>
+    
+                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                            dark:bg-[#2a2a2a] dark:text-gray-300">
+                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                                </span>
+
+                                
+
+                            </div>
+
                         </div>
                     <?php endforeach; ?>
 
@@ -232,6 +272,26 @@
                             <p class="text-grey-300 text-[15px]">
                                 <?= htmlspecialchars($task['note'] ?? '') ?>
                             </p>
+
+                            <div class="flex justify-between items-center border-t border-[#E0E0E0] dark:border-[#383836] pt-2 mt-2 text-xs">
+
+                            <span 
+                                    title="<?= htmlspecialchars($task['project_name'] ?? '') ?>"
+                                    class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-600 
+                                    dark:bg-blue-900/30 dark:text-blue-400
+                                    max-w-[120px] truncate inline-block">
+                                    
+                                    <?= htmlspecialchars($task['project_name'] ?? 'No Project') ?>
+                            </span>
+    
+                                <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 
+                                            dark:bg-[#2a2a2a] dark:text-gray-300">
+                                    <?= htmlspecialchars($task['deadline'] ?? '') ?>
+                                </span>
+
+                                
+
+                            </div>
 
                         </div>
                     <?php endforeach; ?>
