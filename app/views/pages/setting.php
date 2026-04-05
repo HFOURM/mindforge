@@ -10,6 +10,8 @@
                 <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="setting.html">Settings</a>
             </div>
 
+            
+
 
 
             <div class="max-w-3xl flex flex-col gap-6">
@@ -17,26 +19,48 @@
                 <div id="account" class="space-y-8">
 
                     <div>
-                        <h2 class="text-sm font-semibold text-zinc-400 mb-4">Basic Info</h2>
+                        <h2 class="text-sm font-semibold text-zinc-400 mb-4">Account</h2>
 
-                        <div
-                            class="bg-white dark:bg-[#202020] border border-[#E5E7EB] dark:border-[#383836] rounded-xl p-5 shadow-sm space-y-4">
+                        <form method="POST" action="<?php echo BASE_URL; ?>/settings/update" class="bg-white dark:bg-[#202020] border border-[#E5E7EB] dark:border-[#383836] rounded-xl p-5 shadow-sm space-y-4">
+                            
 
                             <div>
                                 <label class="text-xs text-zinc-400">Full Name</label>
-                                <input type="text" value="Ferdi" class="w-full mt-1 rounded-lg px-3 py-2 text-sm
+                                <input type="text" name="name"
+                                    value="<?= htmlspecialchars($user['name']) ?>" 
+                                    class="w-full mt-1 rounded-lg px-3 py-2 text-sm
                                 bg-grey-50 dark:bg-[#2a2a2a]
                                 border border-zinc-200 dark:border-zinc-700 outline-none">
+
+
                             </div>
 
                             <div>
                                 <label class="text-xs text-zinc-400">Email</label>
-                                <input type="email" value="ferdi@email.com" class="w-full mt-1 rounded-lg px-3 py-2 text-sm
+                                <input type="email" name="email"
+                                    value="<?= htmlspecialchars($user['email']) ?>" 
+                                    class="w-full mt-1 rounded-lg px-3 py-2 text-sm
                                 bg-grey-50 dark:bg-[#2a2a2a]
                                 border border-zinc-200 dark:border-zinc-700 outline-none">
                             </div>
 
-                        </div>
+                            <div class="">
+                                <button type="submit"
+                                    class="text-sm px-3 py-1.5  bg-blue-600 text-white rounded-lg">
+                                    Save Changes
+                                </button>
+                            </div>
+
+                            <div>
+                                <a href="/mindforge/public/auth/logout"
+                                class="text-sm px-3 py-1.5  bg-red-500 text-white rounded-lg">
+                                Logout
+                            </a>
+                            </div>
+
+                        </form>
+
+                        
                     </div>
 
                 </div>

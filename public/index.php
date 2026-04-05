@@ -2,13 +2,16 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+require_once "../app/core/Env.php";
+
+Env::load(__DIR__ . '/../.env');
 
 define('BASE_PATH', dirname(__DIR__));
 define('BASE_URL', '/mindforge/public');
 
 require_once BASE_PATH . '/app/core/Router.php';
 require_once BASE_PATH . '/app/core/Controller.php';
-// require_once BASE_PATH . '/app/core/Database.php';
+require_once BASE_PATH . '/app/core/Database.php';
 
 $router = new Router();
 
