@@ -32,10 +32,6 @@ $firstDay = date('w', strtotime("$year-$month-01"));
 $totalDays = date('t', strtotime("$year-$month-01"));
 $prevMonthDays = date('t', strtotime("$year-$month-01 -1 month"));
 
-$tasks = [
-    3 => ['Task'],
-    12 => ['Meeting'],
-];
 
 $today = date('j');
 $currentMonth = date('n');
@@ -125,11 +121,22 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             <?php endif; ?>
 
             <?php if (isset($tasks[$day])): ?>
-                <?php foreach ($tasks[$day] as $task): ?>
-                    <div class="mt-1 bg-grey-500 dark:bg-white text-white dark:text-grey-500 px-2 py-1 rounded-md w-fit">
-                        <?= $task ?>
+
+                <?php
+                $dayTasks = $tasks[$day];
+                $totalTask = count($dayTasks);
+                ?>
+
+                <div class="mt-2 bg-grey-500 text-sm font-medium dark:bg-white text-white dark:text-grey-500 px-2 py-1 rounded-md w-fit">
+                    <?= $dayTasks[0]['title'] ?>
+                </div>
+
+                <?php if ($totalTask > 1): ?>
+                    <div class="mt-2 text-sm px-2 py-1 bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 w-fit rounded-md">
+                        +<?= $totalTask - 1 ?> more
                     </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
+
             <?php endif; ?>
 
         <?php
