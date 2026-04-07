@@ -2,3 +2,4 @@
 /dist
 /.env
 .gitignore
+public/css/output.css
