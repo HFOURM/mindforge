@@ -54,7 +54,8 @@ class TaskController extends Controller {
             'project_id' => !empty($_POST['project_id']) ? $_POST['project_id'] : null
         ]);
 
-        header('Location: /mindforge/public/tasks');
+        $redirect = $_POST['redirect'] ?? $_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks';
+        header("Location: " . $redirect);
         exit;
 }
 
