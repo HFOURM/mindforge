@@ -111,7 +111,8 @@ public function delete() {
     $success = $taskModel->delete($id);
 
     if ($success) {
-        header("Location: /mindforge/public/tasks");
+        $redirect = $_POST['redirect'] ?? $_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks';
+        header("Location: " . $redirect);
         exit;
     } else {
         echo "Gagal menghapus task";
