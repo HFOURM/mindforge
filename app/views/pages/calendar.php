@@ -144,11 +144,33 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                     <?= $dayTasks[0]['title'] ?>
                 </div>
 
-                <?php if ($totalTask > 1): ?>
-                    <div class="mt-2 text-sm px-2 py-1 bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 w-fit rounded-md">
-                        +<?= $totalTask - 1 ?> more
+                <div 
+                    onclick="openDayTasksModal(
+                    <?= htmlspecialchars(json_encode($dayTasks), ENT_QUOTES, 'UTF-8') ?>,
+                    '<?= $year ?>-<?= str_pad($month,2,'0',STR_PAD_LEFT) ?>-<?= str_pad($day,2,'0',STR_PAD_LEFT) ?>')"
+                    class="mt-2 text-sm px-2 py-1 bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 w-fit rounded-md cursor-pointer hover:opacity-80"
+                >
+                    +<?= $totalTask - 1 ?> more
+                </div>
+
+                <div id="dayTasksModal" class="fixed inset-0 hidden z-50 flex items-center justify-center">
+
+                    <div class="absolute inset-0 bg-black/40" onclick="closeDayTasksModal()"></div>
+
+                    <div class="relative bg-white dark:bg-[#1c1c1c] w-[350px] max-h-[500px] overflow-y-auto rounded-xl p-4 shadow-xl">
+
+                        <h2 id="dayTasksTitle" class="text-lg font-semibold mb-3 text-black dark:text-white">Tasks</h2>
+
+                        <div id="dayTasksContent" class="flex flex-col gap-3"></div>
+
+                        <div class="flex justify-end mt-4">
+                            <button onclick="closeDayTasksModal()" class="text-sm text-gray-500">
+                                Close
+                            </button>
+                        </div>
+
                     </div>
-                <?php endif; ?>
+                </div>
 
             <?php endif; ?>
 
@@ -226,6 +248,57 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 </div>
 </div>
 </main>
+
+
+<script>
+function openDayTasksModal(tasks, date) {
+    const modal = document.getElementById('dayTasksModal');
+    const content = document.getElementById('dayTasksContent');
+    const title = document.getElementById('dayTasksTitle');
+
+    content.innerHTML = '';
+
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    title.innerText = formattedDate;
+
+    tasks.forEach(task => {
+        const div = document.createElement('div');
+        div.className = "border border-gray-200 dark:border-[#383836] rounded-lg p-3";
+
+        div.innerHTML = `
+            <div class="font-medium text-black dark:text-white">
+                ${task.title}
+            </div>
+            <div class="text-sm text-gray-500 mt-1">
+                ${task.note ?? ''}
+            </div>
+
+            <div class="flex justify-between mt-2 text-xs">
+                <span class="px-2 py-1 rounded bg-gray-100 dark:bg-[#2a2a2a]">
+                    ${task.priority}
+                </span>
+                <span class="text-gray-400">
+                    ${task.deadline ?? ''}
+                </span>
+            </div>
+        `;
+
+        content.appendChild(div);
+    });
+
+    modal.classList.remove('hidden');
+}
+
+function closeDayTasksModal() {
+    document.getElementById('dayTasksModal').classList.add('hidden');
+}
+</script>
 
 <script>
 document.addEventListener('click', function(e) {
