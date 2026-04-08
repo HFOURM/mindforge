@@ -13,7 +13,7 @@ class Controller {
     }
 
     public function component($name, $data = []) {
-    extract($data);
-    require "../app/views/components/$name.php";
+        extract($data);
+        require "../app/views/components/$name.php";
 }
 }

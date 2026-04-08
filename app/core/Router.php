@@ -26,40 +26,44 @@ class Router {
     }
 
     public function run() {
-    session_start();
+        session_start();
 
-    $method = $_SERVER['REQUEST_METHOD'];
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        // Ambil Request Method dan URI
+        $method = $_SERVER['REQUEST_METHOD'];
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        
+        // Normalisasi URI dengan menghapus base path jika ada
+        $uri = str_replace('/mindforge/public', '', $uri);
 
-    $uri = str_replace('/mindforge/public', '', $uri);
+        // Cek satu per satu apakah cocok dengan Requst url dari user
+        if (isset($this->routes[$method])) {
+            foreach ($this->routes[$method] as $routeUri => $route) {
 
-    if (isset($this->routes[$method])) {
-        foreach ($this->routes[$method] as $routeUri => $route) {
+                $pattern = preg_replace('#\{[a-zA-Z_]+\}#', '([^/]+)', $routeUri);
+                $pattern = "#^" . $pattern . "$#";
 
-            $pattern = preg_replace('#\{[a-zA-Z_]+\}#', '([^/]+)', $routeUri);
-            $pattern = "#^" . $pattern . "$#";
+                if (preg_match($pattern, $uri, $matches)) {
 
-            if (preg_match($pattern, $uri, $matches)) {
+                    array_shift($matches);
 
-                array_shift($matches);
+                    if ($route['middleware']) {
+                        require_once BASE_PATH . "/app/middleware/{$route['middleware']}.php";
+                        $middleware = $route['middleware'];
+                        $middleware::handle();
+                    }
 
-                if ($route['middleware']) {
-                    require_once BASE_PATH . "/app/middleware/{$route['middleware']}.php";
-                    $middleware = $route['middleware'];
-                    $middleware::handle();
+                    // panggil controller dan method yang sesuai
+                    list($controller, $methodAction) = explode('@', $route['action']);
+                    require_once BASE_PATH . "/app/controllers/web/$controller.php";
+
+                    $controller = new $controller();
+
+                    call_user_func_array([$controller, $methodAction], $matches);
+
+                    return;
                 }
-
-                list($controller, $methodAction) = explode('@', $route['action']);
-                require_once BASE_PATH . "/app/controllers/web/$controller.php";
-
-                $controller = new $controller();
-
-                call_user_func_array([$controller, $methodAction], $matches);
-
-                return;
             }
         }
-    }
 
     echo "404 Not Found";
 }
