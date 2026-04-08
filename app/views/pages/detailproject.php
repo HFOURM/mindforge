@@ -296,6 +296,8 @@
                     <?php endforeach; ?>
 
                 </div>
+
+                <?php $this->component('form-edit-task', ['projects' => $projects]); ?>
             </div>
         </div>
 

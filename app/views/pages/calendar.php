@@ -112,13 +112,26 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             $isToday = ($day == $today && $month == $currentMonth && $year == $currentYear);
         ?>
 
-            <?php if ($isToday): ?>
+            <div class="flex flex-row justify-between items-center">
+                <?php if ($isToday): ?>
                 <span class="bg-grey-500 dark:bg-white text-white dark:text-grey-500 w-7 h-7 flex items-center justify-center rounded-full">
                     <?= $day ?>
                 </span>
-            <?php else: ?>
-                <div><?= $day ?></div>
-            <?php endif; ?>
+                <?php else: ?>
+                    <div><?= $day ?></div>
+                <?php endif; ?>
+
+                <button
+                    onclick="event.stopPropagation(); openModal('<?= $year ?>-<?= str_pad($month,2,'0',STR_PAD_LEFT) ?>-<?= str_pad($day,2,'0',STR_PAD_LEFT) ?>', event)"
+                    class="border opacity-0 hover:opacity-100 border-[#E0E0E0] dark:border-[#383836] rounded-full p-0.5">
+                    <svg class="dark:invert" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2.67188C12.2859 2.67188 12.5605 2.78512 12.7627 2.9873C12.9649 3.18949 13.0781 3.46406 13.0781 3.75V10.9219H20.25C20.5359 10.9219 20.8105 11.0351 21.0127 11.2373C21.2149 11.4395 21.3281 11.7141 21.3281 12C21.3281 12.2859 21.2149 12.5605 21.0127 12.7627C20.8105 12.9649 20.5359 13.0781 20.25 13.0781H13.0781V20.25C13.0781 20.5359 12.9649 20.8105 12.7627 21.0127C12.5605 21.2149 12.2859 21.3281 12 21.3281C11.7141 21.3281 11.4395 21.2149 11.2373 21.0127C11.0351 20.8105 10.9219 20.5359 10.9219 20.25V13.0781H3.75C3.46406 13.0781 3.18949 12.9649 2.9873 12.7627C2.78512 12.5605 2.67188 12.2859 2.67188 12C2.67188 11.7141 2.78512 11.4395 2.9873 11.2373C3.18949 11.0351 3.46406 10.9219 3.75 10.9219H10.9219V3.75C10.9219 3.46406 11.0351 3.18949 11.2373 2.9873C11.4395 2.78512 11.7141 2.67188 12 2.67188Z"
+                            fill="#656565" stroke="#959595" stroke-width="0.09375" />
+                    </svg>
+
+                </button>
+            </div>
 
             <?php if (isset($tasks[$day])): ?>
 
@@ -150,7 +163,98 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
         <?php endfor; ?>
 
+    <div id="eventModal" class="absolute hidden z-50">
+        <div class="bg-white dark:bg-[#202020] rounded-xl p-4 w-[260px] shadow-lg border border-gray-200 dark:border-[#383836]">
+
+            <h2 class="text-sm font-semibold mb-2 text-black dark:text-white">
+                Add Event
+            </h2>
+
+            <form method="POST" action="/calendar/store">
+                <input type="hidden" name="event_date" id="selectedDate">
+
+                <input 
+                    type="text" 
+                    name="title"
+                    placeholder="Event title"
+                    class="w-full mb-2 px-2 py-1 text-sm rounded bg-gray-100 dark:bg-[#2a2a2a] text-black dark:text-white"
+                    required
+                >
+
+                <div class="flex gap-2 mb-2">
+                    <input 
+                        type="time" 
+                        name="start_time"
+                        class="w-1/2 px-2 py-1 text-xs rounded bg-gray-100 dark:bg-[#2a2a2a] text-black dark:text-white"
+                    >
+                    <input 
+                        type="time" 
+                        name="end_time"
+                        class="w-1/2 px-2 py-1 text-xs rounded bg-gray-100 dark:bg-[#2a2a2a] text-black dark:text-white"
+                    >
+                </div>
+
+                <select 
+                    name="status"
+                    class="w-full mb-2 px-2 py-1 text-xs rounded bg-gray-100 dark:bg-[#2a2a2a] text-black dark:text-white"
+                >
+                    <option value="planned">Planned</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="done">Done</option>
+                </select>
+
+                <textarea 
+                    name="description"
+                    placeholder="Description"
+                    class="w-full mb-2 px-2 py-1 text-sm rounded bg-gray-100 dark:bg-[#2a2a2a] text-black dark:text-white h-20 resize-none"
+                ></textarea>
+
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeModal()" class="text-xs text-gray-500">
+                        Cancel
+                    </button>
+                    <button type="submit" class="text-xs px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Save
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
 </div>
 </div>
 </div>
 </main>
+
+<script>
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('eventModal');
+
+    if (!modal.contains(e.target)) {
+        modal.classList.add('hidden');
+    }
+});
+</script>
+
+<script>
+function openModal(date, event) {
+    const modal = document.getElementById('eventModal');
+
+    // isi tanggal
+    document.getElementById('selectedDate').value = date;
+
+    // ambil posisi tombol
+    const rect = event.target.getBoundingClientRect();
+
+    // posisi modal (sedikit offset biar bagus)
+    modal.style.top = (rect.bottom + window.scrollY + 8) + "px";
+    modal.style.left = (rect.left + window.scrollX) + "px";
+
+    modal.classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('eventModal').classList.add('hidden');
+}
+</script>

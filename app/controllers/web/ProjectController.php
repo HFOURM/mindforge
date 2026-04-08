@@ -33,18 +33,20 @@ class ProjectController extends Controller {
 
     public function detail($id) {
 
-    require_once "../app/models/Project.php";
-    require_once "../app/models/Task.php";
+        require_once "../app/models/Project.php";
+        require_once "../app/models/Task.php";
 
-    $projectModel = new Project();
-    $taskModel = new Task();
+        $projectModel = new Project();
+        $taskModel = new Task();
 
-    $project = $projectModel->getById($id);
-    $tasks = $taskModel->getByProject($id);
+        $project = $projectModel->getById($id);
+        $tasks = $taskModel->getByProject($id);
+        $projects = $projectModel->getByUser($_SESSION['user']['id']);
 
-    $this->view('pages/detailproject', [
-        'project' => $project,
-        'tasks' => $tasks
-    ]);
-}
+        $this->view('pages/detailproject', [
+            'project' => $project,
+            'tasks' => $tasks,
+            'projects' => $projects
+        ]);
+    }
 }
