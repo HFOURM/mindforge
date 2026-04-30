@@ -1,151 +1,233 @@
 <?php $this->component('sidebar'); ?>
 <?php $this->component('nav-mobile'); ?>
 
-<main class="flex-1 xl:ml-64 mb-6 flex-col flex gap-6 p-6">
+<main class="flex-1 xl:ml-64 mb-6 flex flex-col gap-6 p-6">
 
-        <div
-            class="bg-[#F7F7F7] hidden  dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
-            <a class="px-2.5 py-1" href="index.html">Mindforge</a>
-            <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="projects.html">Analytics</a>
+    <!-- Header Tabs -->
+    <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex rounded-lg w-fit p-1.5">
+        <a class="px-4 py-2" href="#">Mindforge</a>
+        <a class="px-4 py-2 rounded bg-white dark:bg-grey-500" href="#">Analytics</a>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Weekly Activity -->
+        <div class="w-full bg-white dark:bg-[#202020] border rounded-xl shadow-sm p-6">
+            <div class="pb-4 border-b">
+                <h5 class="text-2xl font-bold">Weekly Activity</h5>
+            </div>
+            <!-- Tinggi sama persis dengan Task Completion: h-72 = 288px -->
+            <div class="mt-4" style="position: relative; height: 288px; width: 100%;">
+                <canvas id="activityChart"></canvas>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!-- Card 1: Weekly Activity -->
-                <div class="bg-white dark:bg-[#202020] p-4 rounded-xl shadow-sm border dark:border-gray-700">
-                    <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
-                        Weekly Activity
-                    </h2>
-                    <canvas id="activityChart"></canvas>
-                </div>
-
-                <!-- Card 2: Task Completion -->
-                <div class="bg-white dark:bg-[#202020] p-4 rounded-xl shadow-sm border dark:border-gray-700">
-                    <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
-                        Task Completion
-                    </h2>
-                    <canvas id="taskChart"></canvas>
-                </div>
-
+        <!-- Task Completion -->
+        <div class="w-full bg-white dark:bg-[#202020] border rounded-xl shadow-sm p-6">
+            <div class="pb-4 border-b">
+                <h5 class="text-2xl font-bold">Task Completion</h5>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <!-- Card 3: Focus Time -->
-                <div class="bg-white dark:bg-[#202020] p-4 rounded-xl shadow-sm border dark:border-gray-700">
-                    <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
-                        Focus Time (Hours)
-                    </h2>
-                    <canvas id="focusChart"></canvas>
-                </div>
-
-                <!-- Card 4: Mood Tracking -->
-                <div class="bg-white dark:bg-[#202020] p-4 rounded-xl shadow-sm border dark:border-gray-700 md:col-span-2">
-                    <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
-                        Mood Tracking
-                    </h2>
-                    <canvas id="moodChart"></canvas>
-                </div>
-
+            <div class="mt-4" style="position: relative; height: 288px; width: 100%;">
+                <canvas id="trafficPieChart"></canvas>
             </div>
+        </div>
 
+        <!-- Focus Time -->
+        <div class="w-full bg-white dark:bg-[#202020] border rounded-xl shadow-sm p-6">
+            <div class="flex justify-between mb-6">
+                <div>
+                    <h5 class="text-2xl font-bold">Focus Time</h5>
+                    <p class="text-sm text-gray-500">48 Hours</p>
+                </div>
+            </div>
+            <div style="position: relative; height: 220px; width: 100%;">
+                <canvas id="focusChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Mood Tracking -->
+        <div class="w-full bg-white dark:bg-[#202020] border rounded-xl shadow-sm p-6">
+            <div class="flex justify-between mb-6">
+                <div>
+                    <h5 class="text-2xl font-bold">Mood Tracking</h5>
+                </div>
+            </div>
+            <div style="position: relative; height: 220px; width: 100%;">
+                <canvas id="moodChart"></canvas>
+            </div>
+        </div>
+
+    </div>
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
     const isDark = document.documentElement.classList.contains("dark");
-
     const textColor = isDark ? "#E5E7EB" : "#374151";
-    const gridColor = isDark ? "#444" : "#E5E7EB";
+    const gridColor = isDark ? "#444444" : "#E5E7EB";
 
-    // Weekly Activity (Bar)
+    // ── WEEKLY ACTIVITY BAR CHART ─────────────────────────────────────────────
     new Chart(document.getElementById("activityChart"), {
         type: "bar",
         data: {
             labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [{
-                label: "Tasks",
                 data: [5, 7, 3, 8, 6, 4, 2],
-                backgroundColor: "#111827"
+                backgroundColor: "#111827",
+                borderRadius: 8,
+                barThickness: 28,
+                maxBarThickness: 32
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 4, bottom: 0, left: 0, right: 4 } },
             plugins: { legend: { display: false } },
             scales: {
-                x: { ticks: { color: textColor }, grid: { color: gridColor } },
-                y: { ticks: { color: textColor }, grid: { color: gridColor } }
-            }
-        }
-    });
-
-    // Task Completion (Doughnut)
-    new Chart(document.getElementById("taskChart"), {
-        type: "doughnut",
-        data: {
-            labels: ["Completed", "Pending"],
-            datasets: [{
-                data: [75, 25],
-                backgroundColor: ["#111827", "#9CA3AF"]
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    labels: { color: textColor }
+                x: {
+                    ticks: { color: textColor, font: { size: 11 } },
+                    grid: { display: false }
+                },
+                y: {
+                    min: 0,
+                    max: 8,
+                    ticks: {
+                        color: textColor,
+                        font: { size: 11 },  // font kecil agar tidak makan ruang
+                        stepSize: 1,
+                        autoSkip: false,
+                        maxTicksLimit: 9,
+                        callback: function(value) {
+                            return Number.isInteger(value) ? value : undefined;
+                        }
+                    },
+                    grid: { color: gridColor }
                 }
             }
         }
     });
 
-    // Focus Time (Line)
+    // ── TASK COMPLETION PIE CHART ─────────────────────────────────────────────
+    new Chart(document.getElementById("trafficPieChart"), {
+        type: "pie",
+        data: {
+            labels: ["Completed", "Pending"],
+            datasets: [{
+                data: [66, 34],
+                backgroundColor: ["#111827", "#9CA3AF"],
+                borderColor: "#ffffff",
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: textColor,
+                        font: { size: 12 },
+                        usePointStyle: true,
+                        pointStyle: "circle",
+                        padding: 16
+                    }
+                }
+            }
+        }
+    });
+
+    // ── FOCUS TIME LINE CHART ─────────────────────────────────────────────────
     new Chart(document.getElementById("focusChart"), {
         type: "line",
         data: {
             labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
             datasets: [{
-                label: "Hours",
                 data: [10, 14, 8, 16],
                 borderColor: "#111827",
-                tension: 0.4
+                backgroundColor: "transparent",
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: "#111827"
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                x: { ticks: { color: textColor }, grid: { color: gridColor } },
-                y: { ticks: { color: textColor }, grid: { color: gridColor } }
+                x: {
+                    ticks: { color: textColor, font: { size: 11 } },
+                    grid: { color: gridColor }
+                },
+                y: {
+                    min: 0,
+                    max: 18,
+                    ticks: {
+                        color: textColor,
+                        font: { size: 11 },
+                        stepSize: 2,
+                        autoSkip: false,
+                        maxTicksLimit: 10,
+                        callback: function(value) {
+                            const list = [0,2,4,6,8,10,12,14,16,18];
+                            return list.includes(value) ? value : undefined;
+                        }
+                    },
+                    grid: { color: gridColor }
+                }
             }
         }
     });
 
-    // Mood Tracking (Line)
+    // ── MOOD TRACKING LINE CHART ──────────────────────────────────────────────
     new Chart(document.getElementById("moodChart"), {
         type: "line",
         data: {
             labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [{
-                label: "Mood Score",
                 data: [3, 4, 2, 5, 4, 3, 4],
                 borderColor: "#111827",
-                tension: 0.4
+                backgroundColor: "transparent",
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: "#111827"
             }]
         },
         options: {
-            plugins: {
-                legend: {
-                    labels: { color: textColor }
-                }
-            },
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
             scales: {
-                x: { ticks: { color: textColor }, grid: { color: gridColor } },
+                x: {
+                    ticks: { color: textColor, font: { size: 11 } },
+                    grid: { color: gridColor }
+                },
                 y: {
-                    ticks: { color: textColor },
-                    grid: { color: gridColor },
                     min: 1,
-                    max: 5
+                    max: 5,
+                    ticks: {
+                        color: textColor,
+                        font: { size: 11 },
+                        stepSize: 1,
+                        autoSkip: false,
+                        maxTicksLimit: 5,
+                        callback: function(value) {
+                            const list = [1,2,3,4,5];
+                            return list.includes(value) ? value : undefined;
+                        }
+                    },
+                    grid: { color: gridColor }
                 }
             }
         }
     });
+
+});
 </script>
