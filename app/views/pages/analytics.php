@@ -17,7 +17,6 @@
             <div class="pb-4 border-b">
                 <h5 class="text-2xl font-bold">Weekly Activity</h5>
             </div>
-            <!-- Tinggi sama persis dengan Task Completion: h-72 = 288px -->
             <div class="mt-4" style="position: relative; height: 288px; width: 100%;">
                 <canvas id="activityChart"></canvas>
             </div>
@@ -68,17 +67,23 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const isDark = document.documentElement.classList.contains("dark");
-    const textColor = isDark ? "#E5E7EB" : "#374151";
-    const gridColor = isDark ? "#444444" : "#E5E7EB";
 
-    // ── WEEKLY ACTIVITY BAR CHART ─────────────────────────────────────────────
+    const textColor  = isDark ? "#E5E7EB" : "#374151";
+    const gridColor  = isDark ? "#444444" : "#E5E7EB";
+
+    const mainColor  = isDark ? "#FFFFFF" : "#111827";
+
+    const pendingColor = isDark ? "#6B7280" : "#9CA3AF";
+
+    const pieBorder  = isDark ? "#202020" : "#FFFFFF";
+
     new Chart(document.getElementById("activityChart"), {
         type: "bar",
         data: {
             labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [{
                 data: [5, 7, 3, 8, 6, 4, 2],
-                backgroundColor: "#111827",
+                backgroundColor: mainColor,
                 borderRadius: 8,
                 barThickness: 28,
                 maxBarThickness: 32
@@ -99,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     max: 8,
                     ticks: {
                         color: textColor,
-                        font: { size: 11 },  // font kecil agar tidak makan ruang
+                        font: { size: 11 },
                         stepSize: 1,
                         autoSkip: false,
                         maxTicksLimit: 9,
@@ -113,15 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ── TASK COMPLETION PIE CHART ─────────────────────────────────────────────
     new Chart(document.getElementById("trafficPieChart"), {
         type: "pie",
         data: {
             labels: ["Completed", "Pending"],
             datasets: [{
                 data: [66, 34],
-                backgroundColor: ["#111827", "#9CA3AF"],
-                borderColor: "#ffffff",
+                backgroundColor: [mainColor, pendingColor],
+                borderColor: pieBorder,
                 borderWidth: 2
             }]
         },
@@ -143,18 +147,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ── FOCUS TIME LINE CHART ─────────────────────────────────────────────────
     new Chart(document.getElementById("focusChart"), {
         type: "line",
         data: {
             labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
             datasets: [{
                 data: [10, 14, 8, 16],
-                borderColor: "#111827",
+                borderColor: mainColor,
                 backgroundColor: "transparent",
                 tension: 0.4,
                 pointRadius: 4,
-                pointBackgroundColor: "#111827"
+                pointBackgroundColor: mainColor
             }]
         },
         options: {
@@ -186,18 +189,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ── MOOD TRACKING LINE CHART ──────────────────────────────────────────────
     new Chart(document.getElementById("moodChart"), {
         type: "line",
         data: {
             labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [{
                 data: [3, 4, 2, 5, 4, 3, 4],
-                borderColor: "#111827",
+                borderColor: mainColor,
                 backgroundColor: "transparent",
                 tension: 0.4,
                 pointRadius: 4,
-                pointBackgroundColor: "#111827"
+                pointBackgroundColor: mainColor
             }]
         },
         options: {
