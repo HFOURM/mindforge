@@ -1,9 +1,45 @@
 <?php $this->component('sidebar'); ?>
 <?php $this->component('nav-mobile'); ?>
 
+<?php
+
+    $activityLabels = [];
+    $activityData = [];
+
+    foreach ($weeklyActivity as $item) {
+        $activityLabels[] = $item['day'];
+        $activityData[] = $item['total_activity'];
+    }
+
+    $taskLabels = [];
+    $taskData = [];
+
+    foreach ($taskCompletion as $item) {
+        $taskLabels[] = $item['status'];
+        $taskData[] = $item['total'];
+    }
+
+    $focusLabels = [];
+    $focusData = [];
+
+    foreach ($focusTime as $item) {
+        $focusLabels[] = $item['week'];
+        $focusData[] = $item['total_hours'];
+    }
+
+    $moodLabels = [];
+    $moodData = [];
+
+    foreach ($moodTracking as $item) {
+        $moodLabels[] = $item['day_name'];
+        $moodData[] = $item['mood_level'];
+    }
+
+?>
+
 <main class="flex-1 xl:ml-64 mb-6 flex flex-col gap-6 p-6">
 
-    <!-- Header Tabs -->
+    <!-- Header -->
     <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex rounded-lg w-fit p-1.5">
         <a class="px-4 py-2" href="#">Mindforge</a>
         <a class="px-4 py-2 rounded bg-white dark:bg-grey-500" href="#">Analytics</a>
@@ -17,6 +53,7 @@
             <div class="pb-4 border-b">
                 <h5 class="text-2xl font-bold">Weekly Activity</h5>
             </div>
+
             <div class="mt-4" style="position: relative; height: 288px; width: 100%;">
                 <canvas id="activityChart"></canvas>
             </div>
@@ -27,6 +64,7 @@
             <div class="pb-4 border-b">
                 <h5 class="text-2xl font-bold">Task Completion</h5>
             </div>
+
             <div class="mt-4" style="position: relative; height: 288px; width: 100%;">
                 <canvas id="trafficPieChart"></canvas>
             </div>
@@ -37,9 +75,9 @@
             <div class="flex justify-between mb-6">
                 <div>
                     <h5 class="text-2xl font-bold">Focus Time</h5>
-                    <p class="text-sm text-gray-500">48 Hours</p>
                 </div>
             </div>
+
             <div style="position: relative; height: 220px; width: 100%;">
                 <canvas id="focusChart"></canvas>
             </div>
@@ -52,6 +90,7 @@
                     <h5 class="text-2xl font-bold">Mood Tracking</h5>
                 </div>
             </div>
+
             <div style="position: relative; height: 220px; width: 100%;">
                 <canvas id="moodChart"></canvas>
             </div>
@@ -61,9 +100,10 @@
 
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const isDark = document.documentElement.classList.contains("dark");
@@ -77,53 +117,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const pieBorder  = isDark ? "#202020" : "#FFFFFF";
 
+    // WEEKLY ACTIVITY
     new Chart(document.getElementById("activityChart"), {
         type: "bar",
         data: {
-            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            labels: <?= json_encode($activityLabels) ?>,
             datasets: [{
-                data: [5, 7, 3, 8, 6, 4, 2],
+                data: <?= json_encode($activityData) ?>,
                 backgroundColor: mainColor,
                 borderRadius: 8,
-                barThickness: 28,
-                maxBarThickness: 32
+                barThickness: 28
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            layout: { padding: { top: 4, bottom: 0, left: 0, right: 4 } },
-            plugins: { legend: { display: false } },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 x: {
-                    ticks: { color: textColor, font: { size: 11 } },
-                    grid: { display: false }
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        display: false
+                    }
                 },
                 y: {
-                    min: 0,
-                    max: 8,
                     ticks: {
-                        color: textColor,
-                        font: { size: 11 },
-                        stepSize: 1,
-                        autoSkip: false,
-                        maxTicksLimit: 9,
-                        callback: function(value) {
-                            return Number.isInteger(value) ? value : undefined;
-                        }
+                        color: textColor
                     },
-                    grid: { color: gridColor }
+                    grid: {
+                        color: gridColor
+                    }
                 }
             }
         }
     });
 
+    // TASK COMPLETION
     new Chart(document.getElementById("trafficPieChart"), {
         type: "pie",
         data: {
-            labels: ["Completed", "Pending"],
+            labels: <?= json_encode($taskLabels) ?>,
             datasets: [{
-                data: [66, 34],
+                data: <?= json_encode($taskData) ?>,
                 backgroundColor: [mainColor, pendingColor],
                 borderColor: pieBorder,
                 borderWidth: 2
@@ -136,23 +177,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 legend: {
                     position: "bottom",
                     labels: {
-                        color: textColor,
-                        font: { size: 12 },
-                        usePointStyle: true,
-                        pointStyle: "circle",
-                        padding: 16
+                        color: textColor
                     }
                 }
             }
         }
     });
 
+    // FOCUS TIME
     new Chart(document.getElementById("focusChart"), {
         type: "line",
         data: {
-            labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+            labels: <?= json_encode($focusLabels) ?>,
             datasets: [{
-                data: [10, 14, 8, 16],
+                data: <?= json_encode($focusData) ?>,
                 borderColor: mainColor,
                 backgroundColor: "transparent",
                 tension: 0.4,
@@ -163,38 +201,39 @@ document.addEventListener("DOMContentLoaded", function () {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 x: {
-                    ticks: { color: textColor, font: { size: 11 } },
-                    grid: { color: gridColor }
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        color: gridColor
+                    }
                 },
                 y: {
-                    min: 0,
-                    max: 18,
                     ticks: {
-                        color: textColor,
-                        font: { size: 11 },
-                        stepSize: 2,
-                        autoSkip: false,
-                        maxTicksLimit: 10,
-                        callback: function(value) {
-                            const list = [0,2,4,6,8,10,12,14,16,18];
-                            return list.includes(value) ? value : undefined;
-                        }
+                        color: textColor
                     },
-                    grid: { color: gridColor }
+                    grid: {
+                        color: gridColor
+                    }
                 }
             }
         }
     });
 
+    // MOOD TRACKING
     new Chart(document.getElementById("moodChart"), {
         type: "line",
         data: {
-            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            labels: <?= json_encode($moodLabels) ?>,
             datasets: [{
-                data: [3, 4, 2, 5, 4, 3, 4],
+                data: <?= json_encode($moodData) ?>,
                 borderColor: mainColor,
                 backgroundColor: "transparent",
                 tension: 0.4,
@@ -205,31 +244,32 @@ document.addEventListener("DOMContentLoaded", function () {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 x: {
-                    ticks: { color: textColor, font: { size: 11 } },
-                    grid: { color: gridColor }
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        color: gridColor
+                    }
                 },
                 y: {
-                    min: 1,
-                    max: 5,
                     ticks: {
-                        color: textColor,
-                        font: { size: 11 },
-                        stepSize: 1,
-                        autoSkip: false,
-                        maxTicksLimit: 5,
-                        callback: function(value) {
-                            const list = [1,2,3,4,5];
-                            return list.includes(value) ? value : undefined;
-                        }
+                        color: textColor
                     },
-                    grid: { color: gridColor }
+                    grid: {
+                        color: gridColor
+                    }
                 }
             }
         }
     });
 
 });
+
 </script>
