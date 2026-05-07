@@ -177,34 +177,32 @@
             <div
                 class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
                 <h3 class="text-sm font-semibold  ">Active Projects</h3>
-                <h2 class="text-[28px] font-semibold  ">12 Projects</h2>
+                <h2 class="text-[28px] font-semibold  "><?= htmlspecialchars($dashboardData['activeProjects']['total']) ?> Projects</h2>
                 <h3 class="text-sm font-medium  text-grey-300"><span
-                        class="text-[#166534] dark:text-[#4ade80]">+2</span> this month</h3>
+                        class="text-[#166534] dark:text-[#4ade80]">+<?= htmlspecialchars($dashboardData['activeProjects']['thisMonth']) ?></span> this month</h3>
             </div>
 
             <div
                 class="w-full  bg-white dark:bg-[#202020] dark:border-[#383836] rounded-xl border border-[#E0E0E0] p-5">
                 <h3 class="text-sm font-semibold  ">Open Tasks</h3>
-                <h2 class="text-[28px] font-semibold  ">48 Tasks</h2>
+                <h2 class="text-[28px] font-semibold  "><?= htmlspecialchars($dashboardData['openTasks']['total']) ?> Tasks</h2>
                 <h3 class="text-sm font-medium text-grey-300"><span
-                        class="text-[#166534] dark:text-[#4ade80]">+6</span> due today</h3>
+                        class="text-[#166534] dark:text-[#4ade80]">+<?= htmlspecialchars($dashboardData['openTasks']['dueToday']) ?></span> due today</h3>
             </div>
 
             <div
                 class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
                 <h3 class="text-sm font-bold  ">Upcoming Events</h3>
-                <h2 class="text-[28px] font-semibold  ">5 Events</h2>
+                <h2 class="text-[28px] font-semibold  "><?= htmlspecialchars($dashboardData['upcomingEvents']['total']) ?> Events</h2>
                 <h3 class="text-sm font-medium text-grey-300"><span
-                        class="text-[#F59E0B] dark:text-[#fbbf24]">Next:</span> Team Sync –
-                    14:00</h3>
+                        class="text-[#F59E0B] dark:text-[#fbbf24]">Next:</span> <?= htmlspecialchars($dashboardData['upcomingEvents']['next']) ?></h3>
             </div>
 
             <div
                 class="w-full  bg-white rounded-xl dark:bg-[#202020] dark:border-[#383836] border border-[#E0E0E0] p-5">
                 <h3 class="text-sm font-bold  ">Completion Rate</h3>
-                <h2 class="text-[28px] font-semibold  ">87%</h2>
-                <h3 class="text-sm font-medium text-grey-300"><span class="text-[#166534] dark:text-[#4ade80]">↑
-                        12%</span> from last week
+                <h2 class="text-[28px] font-semibold  "><?= htmlspecialchars($dashboardData['completionRate']['rate']) ?>%</h2>
+                <h3 class="text-sm font-medium text-grey-300"><span class="text-[#166534] dark:text-[#4ade80]"><?= htmlspecialchars($dashboardData['completionRate']['trend']) ?></span>
                 </h3>
             </div>
         </div>
