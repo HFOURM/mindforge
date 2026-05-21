@@ -30,6 +30,7 @@
                     <input type="hidden" name="deadline" value="<?php echo date('Y-m-d'); ?>">
                     <input type="hidden" name="project_id" value="">
                     <input type="hidden" name="note" value="">
+                    <input type="hidden" name="from" value="dashboard">
 
                     <button type="submit" class="bg-grey-900 openmodalTask text-white text-sm px-3.5 py-2 font-medium rounded-lg 
                         hover:opacity-90 transition

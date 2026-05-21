@@ -14,14 +14,11 @@ class AnalyticController extends Controller {
 
         $focusTime = $analyticModel->getFocusTime($_SESSION['user']['id']);
 
-        $moodTracking = $analyticModel->getMoodTracking($_SESSION['user']['id']);
-
         $this->view('pages/analytics', [
             'title' => 'Analytics',
             'weeklyActivity' => $weeklyActivity,
             'taskCompletion' => $taskCompletion,
             'focusTime' => $focusTime,
-            'moodTracking' => $moodTracking
         ]);
     }
 }

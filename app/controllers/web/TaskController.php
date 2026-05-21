@@ -20,25 +20,31 @@ class TaskController extends Controller {
         ]);
     }
 
-    public function store() {
+    public function store()
+{
+    require_once "../app/models/Task.php";
+    $taskModel = new Task();
 
-        require_once "../app/models/Task.php";
-        $taskModel = new Task();
+    $taskModel->create([
+        'user_id'    => $_SESSION['user']['id'],
+        'project_id' => !empty($_POST['project_id']) ? $_POST['project_id'] : null,
+        'title'      => $_POST['title'],
+        'deadline'   => $_POST['deadline'],
+        'priority'   => $_POST['priority'],
+        'status'     => $_POST['status'],
+        'note'       => $_POST['note']
+    ]);
 
-        $taskModel->create([
-            'user_id' => $_SESSION['user']['id'],
-            'project_id' => !empty($_POST['project_id']) ? $_POST['project_id'] : null,
-            'title' => $_POST['title'],
-            'deadline' => $_POST['deadline'],
-            'priority' => $_POST['priority'],
-            'status' => $_POST['status'],
-            'note' => $_POST['note']
-        ]);
+    $from = $_POST['from'] ?? '';
 
-        $redirect = $_POST['redirect'] ?? $_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks';
-        header("Location: " . $redirect);
-        exit;
+    if ($from === 'dashboard') {
+        header('Location: /mindforge/public/tasks');
+    } else {
+        header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks'));
     }
+
+    exit;
+}
 
     public function update(){
         require_once "../app/models/Task.php";

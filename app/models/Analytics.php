@@ -57,20 +57,4 @@ class Analytics {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function getMoodTracking($userId) {
-
-        $stmt = $this->conn->prepare("
-            SELECT 
-                day_name,
-                mood_level
-            FROM mood_tracking
-            WHERE user_id = ?
-            ORDER BY id ASC
-        ");
-
-        $stmt->execute([$userId]);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 }

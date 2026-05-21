@@ -26,7 +26,7 @@
 
         <div class="px-14 pt-8 pb-6 overflow-y-auto flex-1">
 
-            <input type="text" name="title" placeholder="Untitled project..."
+            <input type="text" required name="title" placeholder="Untitled project..."
                 class="w-full text-3xl font-semibold text-grey-500 dark:text-grey-100 placeholder-grey-300 dark:placeholder-grey-200 bg-transparent focus:outline-none mb-8" />
 
             <div class="grid grid-cols-1 gap-2">
@@ -44,7 +44,7 @@
 
                     <span class="w-28 text-sm font-medium">Deadline</span>
 
-                    <input id="deadlineInput" name="deadline" type="date"
+                    <input required id="deadlineInput" name="deadline" type="date"
                         class="flex-1 bg-transparent text-sm focus:outline-none font-semibold cursor-pointer">
                 </div>
 
@@ -73,7 +73,7 @@
 
                     </div>
 
-                    <input type="hidden" name="priority" class="dropdown-input">
+                    <input required type="hidden" name="priority" class="dropdown-input">
 
                     <div class="dropdown-menu hidden ml-[162px] mt-3 text-sm">
                         <div class="rounded-xl w-40 text-sm font-semibold flex flex-row gap-3">
@@ -97,7 +97,7 @@
             </div>
 
             <div class="space-y-3 text-sm mt-5">
-                <textarea name="description" placeholder="Enter project description..." 
+                <textarea required name="description" placeholder="Enter project description..." 
                     class="flex-1 placeholder-grey-200 bg-transparent w-full focus:outline-none resize-none"
                     rows="4"></textarea>
             </div>

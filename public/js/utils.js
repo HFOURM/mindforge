@@ -21,8 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     navLinks.forEach(link => {
         const linkPath = new URL(link.href).pathname;
-
-        // reset class
         link.classList.remove(
             "bg-grey-100",
             "bg-[#2A2A2A]",
@@ -32,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "text-grey-500"
         );
 
-        // ✅ cek apakah URL sekarang mengandung path link
         if (currentPath === linkPath || currentPath.startsWith(linkPath + "/")) {
 
             if (isDark) {
