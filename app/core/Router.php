@@ -52,9 +52,10 @@ class Router {
                         $middleware::handle();
                     }
 
-                    // panggil controller dan method yang sesuai
                     list($controller, $methodAction) = explode('@', $route['action']);
-                    require_once BASE_PATH . "/app/controllers/web/$controller.php";
+
+                    $folder = strpos($uri, '/api/') === 0 ? 'api' : 'web';
+                    require_once BASE_PATH . "/app/controllers/$folder/$controller.php";
 
                     $controller = new $controller();
 
