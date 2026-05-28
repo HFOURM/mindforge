@@ -17,7 +17,9 @@ $router->post('/tasks/delete', 'TaskController@delete', 'AuthMiddleware');
 // Septiana
 $router->get('/projects', 'ProjectController@index', 'AuthMiddleware');
 $router->post('/project/store', 'ProjectController@store', 'AuthMiddleware');
+$router->post('/project/update', 'ProjectController@update', 'AuthMiddleware');
 $router->get('/projects/{id}', 'ProjectController@detail', 'AuthMiddleware');
+$router->post('/project/delete', 'ProjectController@delete', 'AuthMiddleware');
 
 // Eveleyn
 $router->get('/calendar', 'CalendarController@index', 'AuthMiddleware');
@@ -28,3 +30,9 @@ $router->post('/calendar/update', 'CalendarController@update', 'AuthMiddleware')
 $router->get('/analytics', 'AnalyticController@index', 'AuthMiddleware');
 $router->get('/settings', 'SettingController@index', 'AuthMiddleware');
 $router->post('/settings/update', 'SettingController@update', 'AuthMiddleware');
+
+$router->get('/notifications', 'NotificationController@getAll', 'AuthMiddleware');
+$router->get('/notifications/count', 'NotificationController@unreadCount', 'AuthMiddleware');
+
+$router->post('/notifications/read', 'NotificationController@markRead', 'AuthMiddleware');
+$router->post('/notifications/read-all', 'NotificationController@markAllRead', 'AuthMiddleware');

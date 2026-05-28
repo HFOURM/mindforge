@@ -2,6 +2,19 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// === TAMBAHKAN BROADCAST CORS UNTUK FLUTTER WEB DI SINI ===
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept");
+
+// Matikan proses jika browser hanya mengirim preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+// ========================================================
+
 require_once "../app/core/Env.php";
 
 Env::load(__DIR__ . '/../.env');

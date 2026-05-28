@@ -3,25 +3,52 @@
 class CalendarController extends Controller {
 
     public function index() {
-        require_once "../app/models/Task.php";
-        $taskModel = new Task();
+    // 1. Load model Event, bukan Task lagi
+    require_once "../app/models/Event.php";
+    $eventModel = new Event();
 
-        $tasksRaw = $taskModel->getByUser($_SESSION['user']['id']);
+    // 2. Ambil data event berdasarkan user yang login (Pastikan method getByUser ada di model Event)
+    $eventsRaw = $eventModel->getByUser($_SESSION['user']['id']);
 
-        $tasks = [];
+    $events = [];
 
-        foreach ($tasksRaw as $task) {
-            $day = date('j', strtotime($task['deadline']));
-            $month = date('n', strtotime($task['deadline']));
-            $year = date('Y', strtotime($task['deadline']));
+    // 3. Ambil parameter bulan dan tahun aktif dari URL (default ke bulan/tahun sekarang)
+    $currentMonth = $_GET['month'] ?? date('n');
+    $currentYear = $_GET['year'] ?? date('Y');
 
-            if ($month == ($_GET['month'] ?? date('n')) && $year == ($_GET['year'] ?? date('Y'))) {
-                $tasks[$day][] = $task;
-            }
+    foreach ($eventsRaw as $event) {
+        // Gunakan 'event_date' sesuai struktur tabel events Anda
+        $day = date('j', strtotime($event['event_date']));
+        $month = date('n', strtotime($event['event_date']));
+        $year = date('Y', strtotime($event['event_date']));
+
+        // Kelompokkan event berdasarkan hari jika bulan & tahunnya cocok
+        if ($month == $currentMonth && $year == $currentYear) {
+            $events[$day][] = $event;
         }
+    }
 
-        $this->view('pages/calendar', [
-            'tasks' => $tasks
+    // 4. Lempar data 'events' ke view kalender
+    $this->view('pages/calendar', [
+        'events' => $events
+    ]);
+}
+
+    public function store()
+    {
+
+        require_once "../app/models/Event.php";
+        $eventModel = new Event();
+
+        $eventModel->create([
+            'user_id' => $_SESSION['user']['id'],
+            'title' => $_POST['title'],
+            'event_date' => $_POST['event_date'],
+            'start_time' => $_POST['start_time'],
+            'end_time' => $_POST['end_time'],
+            'description' => $_POST['description']
         ]);
+
+        header("Location: /mindforge/public/calendar");
     }
 }

@@ -9,6 +9,19 @@ class User {
     public function __construct() {
         $this->conn = Database::getInstance()->getConnection();
     }
+    
+    
+    public function findById($id)
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT * FROM users WHERE id = ?"
+        );
+
+        $stmt->execute([$id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
     public function findOrCreate($name, $email, $provider_id) {
 

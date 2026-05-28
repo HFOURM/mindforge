@@ -1,75 +1,70 @@
 <?php
 
-require_once BASE_PATH . '/app/helpers/Response.php';
 require_once BASE_PATH . '/app/helpers/Jwt.php';
+require_once BASE_PATH . '/app/helpers/Response.php';
 require_once BASE_PATH . '/app/models/User.php';
 
 class AuthController extends Controller
 {
-    public function googleLogin()
-    {
-        $input = json_decode(
-            file_get_contents("php://input"),
-            true
+    public function googleCallback()
+{
+    $input = json_decode(
+        file_get_contents("php://input"),
+        true
+    );
+
+    $idToken = $input['id_token'] ?? null;
+
+    if (!$idToken) {
+        Response::error(
+            'ID Token tidak ditemukan',
+            400
         );
-        if (!isset($input['id_token'])) {
-
-            Response::error(
-                'ID Token required',
-                400
-            );
-        }
-
-        $idToken = $input['id_token'];
-
-        $googleApi =
-            "https://oauth2.googleapis.com/tokeninfo?id_token="
-            . $idToken;
-
-        $response = @file_get_contents($googleApi);
-
-        if (!$response) {
-
-            Response::error(
-                'Invalid Google token',
-                401
-            );
-        }
-
-        $googleUser = json_decode($response, true);
-
-        if (!isset($googleUser['sub'])) {
-
-            Response::error(
-                'Google authentication failed',
-                401
-            );
-        }
-
-        $googleId = $googleUser['sub'];
-        $email = $googleUser['email'];
-        $name = $googleUser['name'];
-
-        $userModel = new User();
-
-        $user = $userModel->findOrCreate(
-            $name,
-            $email,
-            $googleId
-        );
-
-        $jwt = Jwt::generate([
-            'id' => $user['id'],
-            'email' => $user['email']
-        ]);
-
-        Response::success(
-            'Login berhasil',
-            [
-                'token' => $jwt,
-                'user' => $user
-            ],
-            200
-        );
+        return;
     }
+
+    $googleApi = file_get_contents(
+        "https://oauth2.googleapis.com/tokeninfo?id_token=" . $idToken
+    );
+
+    $googleUser = json_decode(
+        $googleApi,
+        true
+    );
+
+    if (!isset($googleUser['sub'])) {
+        Response::error(
+            'Token Google tidak valid',
+            401
+        );
+        return;
+    }
+
+    $userModel = new User();
+
+    // cari / buat user
+    $user = $userModel->findOrCreate(
+        $googleUser['name'],
+        $googleUser['email'],
+        $googleUser['sub']
+    );
+
+    // JWT PAYLOAD
+    $payload = [
+        'id' => $user['id'],
+        'name' => $user['name'],
+        'email' => $user['email']
+    ];
+
+    // generate JWT
+    $token = Jwt::generate($payload);
+
+    Response::success(
+        'Login berhasil',
+        [
+            'token' => $token,
+            'user' => $user
+        ]
+    );
+}
 }

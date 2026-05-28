@@ -2,15 +2,18 @@
 
 require_once "../app/core/Database.php";
 
-class Task {
+class Task
+{
 
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = Database::getInstance()->getConnection();
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, project_id, title, deadline, priority, status, note) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['user_id'],
@@ -23,7 +26,67 @@ class Task {
         ]);
     }
 
-    public function getByUser($userId) {
+    public function getFilteredTasks(
+        $userId,
+        $priority = '',
+        $projectId = '',
+        $search = ''
+    ) {
+        $sql = "
+        SELECT
+            t.*,
+            p.name as project_name
+        FROM tasks t
+
+        LEFT JOIN projects p
+            ON p.id = t.project_id
+
+        WHERE t.user_id = ?
+    ";
+
+        $params = [$userId];
+
+        if (!empty($priority)) {
+
+            $sql .= " AND t.priority = ?";
+
+            $params[] = $priority;
+        }
+
+        if (!empty($projectId)) {
+
+            $sql .= " AND t.project_id = ?";
+
+            $params[] = $projectId;
+        }
+
+        if (!empty($search)) {
+            $sql .= "
+            AND (
+                t.title LIKE ?
+                OR t.note LIKE ?
+            )
+        ";
+
+            $keyword = "%{$search}%";
+
+            $params[] = $keyword;
+            $params[] = $keyword;
+        }
+
+
+        $sql .= " ORDER BY t.id DESC";
+
+        $stmt =
+            $this->conn->prepare($sql);
+
+        $stmt->execute($params);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByUser($userId)
+    {
 
         $stmt = $this->conn->prepare("
             SELECT tasks.*, projects.name as project_name
@@ -37,7 +100,8 @@ class Task {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function update($data) {
+    public function update($data)
+    {
         $query = "UPDATE tasks 
                 SET title = ?, note = ?, deadline = ?, priority = ?, status = ?, project_id = ?
                 WHERE id = ?";
@@ -54,17 +118,20 @@ class Task {
         ]);
     }
 
-    public function updateStatus($id, $status){
+    public function updateStatus($id, $status)
+    {
         $stmt = $this->conn->prepare("UPDATE tasks SET status = ? WHERE id = ?");
         return $stmt->execute([$status, $id]);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $stmt = $this->conn->prepare("DELETE FROM tasks WHERE id = ?");
         return $stmt->execute([$id]);
     }
 
-    public function getByProject($projectId) {
+    public function getByProject($projectId)
+    {
 
         $stmt = $this->conn->prepare("
             SELECT * FROM tasks 

@@ -25,13 +25,89 @@
         
     
 
-        <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
+        <div class="flex flex-row justify-between items-center w-full">
+            <div class="bg-[#F7F7F7] hidden dark:bg-[#2a2a2a] font-medium xl:flex justify-between items-center rounded-lg w-fit p-1.5">
             <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/">Mindforge</a>
             <a class="px-2.5 py-1" href="<?php echo BASE_URL; ?>/projects">Projects</a>
             <a class="px-2.5 py-1 rounded bg-white dark:bg-grey-500" href="<?php echo BASE_URL; ?>/projects/<?php echo $project['id']; ?>"><?php echo $project['name']; ?></a>
         </div>
 
-        <div class="relative w-full h-[220px] rounded-xl overflow-hidden mb-6">
+        <div class="relative">
+
+    <button id="projectMenuButton"
+        class="w-10 h-10 rounded-xl bg-[#F7F7F7] dark:bg-[#1D1D1D] flex items-center justify-center transition hover:scale-[0.97]">
+
+        <svg class="dark:invert" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="1" stroke="#191919" stroke-width="2" stroke-linecap="round" />
+            <circle cx="6" cy="12" r="1" stroke="#191919" stroke-width="2" stroke-linecap="round" />
+            <circle cx="18" cy="12" r="1" stroke="#191919" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+    </button>
+
+    <!-- Dropdown -->
+    <div id="projectDropdown"
+        class="absolute right-0 top-12 w-[220px] hidden flex-col border border-[#E0E0E0] bg-[#FDFDFD] dark:border-[#383836] overflow-hidden rounded-xl bg-white dark:bg-[#202020] shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] z-50">
+
+        <div 
+    class="px-4 py-3 cursor-pointer openmodalProject text-sm hover:bg-[#F7F7F7] dark:hover:bg-[#242424] transition"
+
+    data-id="<?= $project['id'] ?>"
+    data-title="<?= htmlspecialchars($project['name']) ?>"
+    data-description="<?= htmlspecialchars($project['description'] ?? '') ?>"
+    data-deadline="<?= $project['deadline'] ?>"
+    data-priority="<?= $project['priority'] ?>"
+>
+            Edit Project
+        
+        </div>
+
+        <button
+            class="px-4 py-3 text-sm text-left hover:bg-[#F7F7F7] dark:hover:bg-[#242424] transition">
+            Nonaktifkan Project
+        </button>
+
+        <form method="POST" action="/mindforge/public/project/delete">
+            <input type="hidden" name="id" value="<?= $project['id'] ?>">
+
+            <button type="submit"
+                onclick="return confirm('Hapus project ini?')"
+                class="w-full px-4 py-3 text-sm text-left text-[#DC2626] hover:bg-[#FFF5F5] dark:hover:bg-[#2A1A1A] transition">
+                Hapus Project
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const projectMenuButton = document.getElementById('projectMenuButton');
+    const projectDropdown = document.getElementById('projectDropdown');
+
+    projectMenuButton.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        projectDropdown.classList.toggle('hidden');
+        projectDropdown.classList.toggle('flex');
+    });
+
+    document.addEventListener('click', function (e) {
+
+        if (
+            !projectDropdown.contains(e.target) &&
+            !projectMenuButton.contains(e.target)
+        ) {
+            projectDropdown.classList.add('hidden');
+            projectDropdown.classList.remove('flex');
+        }
+
+    });
+</script>
+        </div>
+
+        <div class="relative w-full h-[240px] rounded-xl overflow-hidden mb-6">
 
             <img src="https://images.unsplash.com/photo-1775401152601-79793ac4c173?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 class="absolute inset-0 w-full h-full object-cover" />
@@ -297,9 +373,13 @@
 
                 </div>
 
-                <?php $this->component('form-edit-task', ['projects' => $projects]); ?>
+                
             </div>
+
+            
         </div>
+
+        <?php $this->component('form-edit-project'); ?>
 
     </main>
 
@@ -454,3 +534,5 @@
 
         });
     </script>
+
+

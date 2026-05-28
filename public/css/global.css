@@ -15,8 +15,42 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     -webkit-appearance: none;
 }
 
+/* Hilangkan icon bawaan time */
+.hide-time-icon::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Hilangkan tombol clear */
+.hide-time-icon::-webkit-clear-button {
+    display: none;
+}
+
+/* Hilangkan spinner */
+.hide-time-icon::-webkit-inner-spin-button {
+    display: none;
+}
+
+/* Hilangkan appearance bawaan */
+.hide-time-icon {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
 .task-card {
     transition: all 0.3s ease;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.hide-time-icon::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
 }
 
 :root {
