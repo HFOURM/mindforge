@@ -142,4 +142,26 @@ class Task
         $stmt->execute([$projectId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getTasksByDate($userId, $date)
+    {
+        // Optimasi index: gunakan rentang waktu >= dan < alih-alih DATE(deadline)
+        $nextDate = date('Y-m-d', strtotime($date . ' + 1 day'));
+        $stmt = $this->conn->prepare("
+            SELECT * FROM tasks 
+            WHERE user_id = ? 
+            AND deadline >= ? 
+            AND deadline < ? 
+            ORDER BY deadline ASC
+        ");
+        $stmt->execute([$userId, $date, $nextDate]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findByIdAndUserId($id, $userId)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM tasks WHERE id = ? AND user_id = ? LIMIT 1");
+        $stmt->execute([$id, $userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

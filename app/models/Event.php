@@ -34,4 +34,17 @@ class Event
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Mengembalikan data dalam bentuk array asosiatif
     }
-}
+
+    public function getEventsByDate($userId, $date)
+    {
+        // Karena struktur tabel memisahkan event_date, komparasi langsung sudah index-friendly jika tipe kolom adalah DATE.
+        $stmt = $this->conn->prepare("
+            SELECT * FROM events 
+            WHERE user_id = ? 
+            AND event_date = ? 
+            ORDER BY start_time ASC
+        ");
+        $stmt->execute([$userId, $date]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}

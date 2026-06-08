@@ -25,6 +25,14 @@ class Router {
         ];
     }
 
+    public function delete($uri, $action, $middleware = null) {
+        $this->routes['DELETE'][$uri] = [
+            'action' => $action,
+            'middleware' => $middleware
+        ];
+    }
+
+
     public function run() {
         session_start();
 
