@@ -380,6 +380,7 @@
         </div>
 
         <?php $this->component('form-edit-project'); ?>
+        <?php $this->component('form-edit-task'); ?>
 
     </main>
 
