@@ -44,7 +44,7 @@
 
                     <span class="w-28 text-sm font-medium">Deadline</span>
 
-                    <input required id="deadlineInput" name="deadline" type="date"
+                    <input required id="deadlineInput" name="deadline" type="date" min="<?= date('Y-m-d') ?>"
                         class="flex-1 bg-transparent text-sm focus:outline-none font-semibold cursor-pointer">
                 </div>
 
@@ -152,46 +152,46 @@
 </script>
 
 <script>
-    const dateInput = document.getElementById("deadlineInput");
+    const addProjectDateInput = document.getElementById("deadlineInput");
 
-    dateInput.addEventListener("click", () => {
-        dateInput.showPicker();
+    addProjectDateInput.addEventListener("click", () => {
+        addProjectDateInput.showPicker();
     });
 </script>
 
 <script>
-    const overlay = document.getElementById("projectPanelOverlay");
-    const panel = document.getElementById("projectPanel");
-    const openBtns = document.querySelectorAll(".openmodalProject");
-    const closeBtn = document.getElementById("closeProjectPanel");
+    const addProjectOverlay = document.getElementById("projectPanelOverlay");
+    const addProjectPanel = document.getElementById("projectPanel");
+    const addProjectBtns = document.querySelectorAll(".openmodalProject");
+    const addProjectCloseBtn = document.getElementById("closeProjectPanel");
 
-    openBtns.forEach(btn => {
+    addProjectBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            overlay.classList.remove("hidden");
+            addProjectOverlay.classList.remove("hidden");
             setTimeout(() => {
-                panel.classList.remove("translate-x-full");
+                addProjectPanel.classList.remove("translate-x-full");
             }, 10);
         });
     });
 
-    function closePanel() {
-        panel.classList.add("translate-x-full");
+    function closeAddProjectPanel() {
+        addProjectPanel.classList.add("translate-x-full");
         setTimeout(() => {
-            overlay.classList.add("hidden");
+            addProjectOverlay.classList.add("hidden");
         }, 300);
     }
 
-    closeBtn?.addEventListener("click", closePanel);
+    addProjectCloseBtn?.addEventListener("click", closeAddProjectPanel);
 
-    overlay.addEventListener("click", (e) => {
-        if (!panel.contains(e.target)) {
-            closePanel();
+    addProjectOverlay.addEventListener("click", (e) => {
+        if (!addProjectPanel.contains(e.target)) {
+            closeAddProjectPanel();
         }
     });
 
     
 
-    function setDropdown(name, value) {
+    function setAddProjectDropdown(name, value) {
         const dropdown = document.querySelector(`.custom-dropdown[data-name="${name}"]`);
         if (!dropdown) return;
 

@@ -113,7 +113,7 @@ class DashboardController extends Controller
             ],
             'completionRate' => [
                 'rate' => $completionRate,
-                'trend' => '↑ 12% from last week'
+                'trend' => "{$completedTasks} of {$totalTasks} tasks completed"
             ],
             'projectDistribution' => $projectDistribution // Dilempar ke view
         ];

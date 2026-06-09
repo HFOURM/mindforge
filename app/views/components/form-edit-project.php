@@ -1,11 +1,11 @@
-<div id="projectPanelOverlay" class="fixed inset-0 hidden z-50 bg-black/10">
+<div id="editProjectPanelOverlay" class="fixed inset-0 hidden z-50 bg-black/10">
 
-    <form method="POST" action="/mindforge/public/project/update" id="projectPanel"
+    <form method="POST" action="/mindforge/public/project/update" id="editProjectPanel"
         class="absolute right-0 top-0 h-screen w-full shadow-sm max-w-lg bg-white dark:bg-[#202020] border-l text-grey-500 dark:text-white border-[#E0E0E0] dark:border-[#383836] flex flex-col transform translate-x-full transition duration-300">
 
         <div class="flex items-center justify-between px-5 py-3">
 
-            <button id="closeProjectPanel" type="button"
+            <button id="closeEditProjectPanel" type="button"
                 class="p-2 rounded-lg hover:bg-grey-100 dark:hover:bg-[#2a2a2a] transition">
 
                 <svg class="dark:invert" width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -46,7 +46,7 @@
 
                     <span class="w-28 text-sm font-medium">Deadline</span>
 
-                    <input required  id="projectDeadlineInput" name="deadline" type="date"
+                    <input required  id="projectDeadlineInput" name="deadline" type="date" min="<?= date('Y-m-d') ?>"
                         class="flex-1 bg-transparent text-sm focus:outline-none font-semibold cursor-pointer">
                 </div>
 
@@ -162,13 +162,17 @@
 </script>
 
 <script>
-    const overlay = document.getElementById("projectPanelOverlay");
-    const panel = document.getElementById("projectPanel");
-    const openBtns = document.querySelectorAll(".openmodalProject");
-    const closeBtn = document.getElementById("closeProjectPanel");
+    const editProjectOverlay = document.getElementById("editProjectPanelOverlay");
+    const editProjectPanel = document.getElementById("editProjectPanel");
+    const editProjectBtns = document.querySelectorAll(".openmodalProject");
+    const editProjectCloseBtn = document.getElementById("closeEditProjectPanel");
 
-    openBtns.forEach(btn => {
+    editProjectBtns.forEach(btn => {
         btn.addEventListener("click", () => {
+            editProjectOverlay.classList.remove("hidden");
+            setTimeout(() => {
+                editProjectPanel.classList.remove("translate-x-full");
+            }, 10);
 
             // ambil data dari button/div
             const id = btn.dataset.id;
@@ -184,34 +188,32 @@
             document.getElementById("projectDeadlineInput").value = deadline;
 
             // isi custom dropdown priority
-            setDropdown("priority", priority);
-
-            // buka panel
-            overlay.classList.remove("hidden");
-
-            setTimeout(() => {
-                panel.classList.remove("translate-x-full");
-            }, 10);
+            setEditProjectDropdown("priority", priority);
         });
     });
 
-    function closePanel() {
-        panel.classList.add("translate-x-full");
-
+    function closeEditProjectPanel() {
+        editProjectPanel.classList.add("translate-x-full");
         setTimeout(() => {
-            overlay.classList.add("hidden");
+            editProjectOverlay.classList.add("hidden");
         }, 300);
     }
 
-    closeBtn?.addEventListener("click", closePanel);
+    editProjectCloseBtn?.addEventListener("click", closeEditProjectPanel);
 
-    overlay.addEventListener("click", (e) => {
-        if (!panel.contains(e.target)) {
-            closePanel();
+    editProjectOverlay.addEventListener("click", (e) => {
+        if (!editProjectPanel.contains(e.target)) {
+            closeEditProjectPanel();
         }
     });
 
-    function setDropdown(name, selectedValue) {
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeEditProjectPanel();
+        }
+    });
+
+    function setEditProjectDropdown(name, selectedValue) {
 
         const dropdown = document.querySelector(
             `.custom-dropdown[data-name="${name}"]`

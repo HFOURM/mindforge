@@ -43,7 +43,7 @@
 
                             </div>
                             <span class="w-28 text-sm font-medium">Deadline</span>
-                            <input id="deadlineInput" name="deadline" type="date"
+                            <input id="deadlineInput" name="deadline" type="date" min="<?= date('Y-m-d') ?>"
                                 class="flex-1 bg-transparent text-sm focus:outline-none  font-semibold cursor-pointer">
                         </div>
 
@@ -258,41 +258,41 @@
 </script>
 
 <script>
-    const dateInput = document.getElementById("deadlineInput");
+    const editTaskDateInput = document.getElementById("deadlineInput");
 
-    dateInput.addEventListener("click", () => {
-        dateInput.showPicker();
+    editTaskDateInput.addEventListener("click", () => {
+        editTaskDateInput.showPicker();
     });
 </script>
 
 <script>
-    const overlay = document.getElementById("taskPanelOverlay");
-    const panel = document.getElementById("taskPanel");
-    const openBtns = document.querySelectorAll(".openmodalTask");
-    const closeBtn = document.getElementById("closeTaskPanel");
+    const editTaskOverlay = document.getElementById("taskPanelOverlay");
+    const editTaskPanel = document.getElementById("taskPanel");
+    const editTaskBtns = document.querySelectorAll(".openmodalTask");
+    const editTaskCloseBtn = document.getElementById("closeTaskPanel");
 
-    function openPanel(task) {
+    function openEditTaskPanel(task) {
 
     console.log(task.dataset);
 
-        overlay.classList.remove("hidden");
+        editTaskOverlay.classList.remove("hidden");
         setTimeout(() => {
-            panel.classList.remove("translate-x-full");
+            editTaskPanel.classList.remove("translate-x-full");
         }, 10);
 
-        document.querySelector('input[name="id"]').value = task.dataset.id;
-        panel.querySelector('input[name="title"]').value = task.dataset.title;
-        panel.querySelector('input[name="deadline"]').value = task.dataset.deadline;
-        document.querySelector('textarea[name="note"]').value = task.dataset.note;
+        document.querySelector('#taskPanel input[name="id"]').value = task.dataset.id;
+        editTaskPanel.querySelector('input[name="title"]').value = task.dataset.title;
+        editTaskPanel.querySelector('input[name="deadline"]').value = task.dataset.deadline;
+        document.querySelector('#taskPanel textarea[name="note"]').value = task.dataset.note;
 
-        setDropdown("priority_id", task.dataset.priority);
-        setDropdown("status", task.dataset.status);
-        setDropdown("project_id", task.dataset.project);
+        setEditTaskDropdown("priority_id", task.dataset.priority);
+        setEditTaskDropdown("status", task.dataset.status);
+        setEditTaskDropdown("project_id", task.dataset.project);
     }
 
     
 
-    function setDropdown(name, value) {
+    function setEditTaskDropdown(name, value) {
         const dropdown = document.querySelector(`.custom-dropdown[data-name="${name}"]`);
         if (!dropdown) return;
 
@@ -316,30 +316,30 @@
         }
     }
 
-    openBtns.forEach(btn => {
+    editTaskBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            openPanel(btn);
+            openEditTaskPanel(btn);
         });
     });
 
-    function closePanel() {
-    panel.classList.add("translate-x-full");
+    function closeEditTaskPanel() {
+    editTaskPanel.classList.add("translate-x-full");
     setTimeout(() => {
-        overlay.classList.add("hidden");
+        editTaskOverlay.classList.add("hidden");
     }, 300);
 }
 
-    closeBtn?.addEventListener("click", closePanel);
+    editTaskCloseBtn?.addEventListener("click", closeEditTaskPanel);
 
-    overlay.addEventListener("click", (e) => {
-        if (!panel.contains(e.target)) {
-            closePanel();
+    editTaskOverlay.addEventListener("click", (e) => {
+        if (!editTaskPanel.contains(e.target)) {
+            closeEditTaskPanel();
         }
     });
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-            closePanel();
+            closeEditTaskPanel();
         }
     });
 </script>
