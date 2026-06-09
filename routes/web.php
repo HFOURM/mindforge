@@ -36,3 +36,6 @@ $router->get('/notifications/count', 'NotificationController@unreadCount', 'Auth
 
 $router->post('/notifications/read', 'NotificationController@markRead', 'AuthMiddleware');
 $router->post('/notifications/read-all', 'NotificationController@markAllRead', 'AuthMiddleware');
+$router->post('/notifications/delete', 'NotificationController@delete', 'AuthMiddleware');
+$router->post('/notifications/deleteSelected', 'NotificationController@deleteSelected', 'AuthMiddleware');
+$router->post('/notifications/clearAll', 'NotificationController@clearAll', 'AuthMiddleware');

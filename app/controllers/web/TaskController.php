@@ -36,6 +36,7 @@ class TaskController extends Controller
     public function store()
     {
         require_once "../app/models/Task.php";
+
         $taskModel = new Task();
 
         $taskModel->create([
@@ -56,26 +57,6 @@ class TaskController extends Controller
             header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks'));
         }
 
-        exit;
-    }
-
-    public function update()
-    {
-        require_once "../app/models/Task.php";
-        $taskModel = new Task();
-
-        $taskModel->update([
-            'id' => $_POST['id'],
-            'title' => $_POST['title'] ?? '',
-            'note' => $_POST['note'] ?? '',
-            'deadline' => $_POST['deadline'] ?? null,
-            'priority' => $_POST['priority'] ?? 'Low',
-            'status' => $_POST['status'] ?? 'Todo',
-            'project_id' => !empty($_POST['project_id']) ? $_POST['project_id'] : null
-        ]);
-
-        $redirect = $_POST['redirect'] ?? $_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks';
-        header("Location: " . $redirect);
         exit;
     }
 
@@ -138,5 +119,27 @@ class TaskController extends Controller
         } else {
             echo "Gagal menghapus task";
         }
+    }
+
+    public function update()
+    {
+        require_once "../app/models/Task.php";
+
+        $taskModel = new Task();
+
+        $taskModel->update([
+            'id' => $_POST['id'],
+            'title' => $_POST['title'] ?? '',
+            'note' => $_POST['note'] ?? '',
+            'deadline' => $_POST['deadline'] ?? null,
+            'priority' => $_POST['priority'] ?? 'Low',
+            'status' => $_POST['status'] ?? 'Todo',
+            'project_id' => !empty($_POST['project_id'])
+                ? $_POST['project_id']
+                : null
+        ]);
+
+        header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/mindforge/public/tasks'));
+        exit;
     }
 }

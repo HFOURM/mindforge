@@ -14,7 +14,9 @@ class Router {
     public function post($uri, $action, $middleware = null) {
         $this->routes['POST'][$uri] = [
             'action' => $action,
-            'middleware' => $middleware
+            'middleware' => $middleware,
+            '/notification/deleteSelected',
+            'NotificationController@deleteSelected'
         ];
     }
 

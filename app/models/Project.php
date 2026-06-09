@@ -218,4 +218,173 @@ class Project
         $stmt = $this->conn->prepare("DELETE FROM projects WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+    public function getProjectsDeadlineIn($days)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE status = 'active'
+            AND deadline = DATE_ADD(CURDATE(), INTERVAL ? DAY)
+            ORDER BY deadline ASC
+        ");
+
+        $stmt->execute([$days]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getOverdueProjects()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE status = 'active'
+            AND deadline < CURDATE()
+            ORDER BY deadline ASC
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countTodayDeadlineProjects($userId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) AS total
+            FROM projects
+            WHERE user_id = ?
+            AND status = 'active'
+            AND deadline = CURDATE()
+        ");
+
+        $stmt->execute([$userId]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return (int) $result['total'];
+    }
+
+    public function getTodayDeadlineProjects($userId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE user_id = ?
+            AND status = 'active'
+            AND deadline = CURDATE()
+            ORDER BY priority DESC, deadline ASC
+        ");
+
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getUpcomingProjects($userId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE user_id = ?
+            AND status = 'active'
+            AND deadline BETWEEN CURDATE()
+            AND DATE_ADD(CURDATE(), INTERVAL 3 DAY)
+            ORDER BY deadline ASC
+        ");
+
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getProjectsByDateRange($userId, $startDate, $endDate)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE user_id = ?
+            AND deadline BETWEEN ? AND ?
+            ORDER BY deadline ASC
+        ");
+
+        $stmt->execute([
+            $userId,
+            $startDate,
+            $endDate
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getProjectProgress($projectId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT
+                COUNT(*) AS total_tasks,
+                SUM(
+                    CASE
+                        WHEN status = 'Done'
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS completed_tasks
+            FROM tasks
+            WHERE project_id = ?
+        ");
+
+        $stmt->execute([$projectId]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $totalTasks =
+            (int) ($result['total_tasks'] ?? 0);
+
+        $completedTasks =
+            (int) ($result['completed_tasks'] ?? 0);
+
+        $progress =
+            $totalTasks > 0
+            ? round(($completedTasks / $totalTasks) * 100)
+            : 0;
+
+        return [
+            'total_tasks' => $totalTasks,
+            'completed_tasks' => $completedTasks,
+            'progress' => $progress
+        ];
+    }
+
+    public function getProjectWithProgress($projectId)
+    {
+        $project = $this->getById($projectId);
+
+        if (!$project) {
+            return null;
+        }
+
+        $progress =
+            $this->getProjectProgress($projectId);
+
+        return array_merge(
+            $project,
+            $progress
+        );
+    }
+
+    public function getTodayDeadlineProjectsForNotification()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM projects
+            WHERE status = 'active'
+            AND deadline = CURDATE()
+            ORDER BY deadline ASC
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

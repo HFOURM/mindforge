@@ -49,8 +49,8 @@ class ProjectController extends Controller
 
     public function store()
     {
-
         require_once "../app/models/Project.php";
+
         $projectModel = new Project();
 
         $projectModel->create([
@@ -62,6 +62,7 @@ class ProjectController extends Controller
         ]);
 
         header("Location: /mindforge/public/projects");
+        exit;
     }
 
     public function detail($id)

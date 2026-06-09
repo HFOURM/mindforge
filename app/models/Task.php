@@ -164,4 +164,85 @@ class Task
         $stmt->execute([$id, $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getTasksDeadlineIn($days)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT
+                t.*,
+                p.name AS project_name
+            FROM tasks t
+            LEFT JOIN projects p
+                ON p.id = t.project_id
+            WHERE t.status != 'Done'
+            AND t.deadline = DATE_ADD(CURDATE(), INTERVAL ? DAY)
+        ");
+
+        $stmt->execute([$days]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getOverdueTasks()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT
+                t.*,
+                p.name AS project_name
+            FROM tasks t
+            LEFT JOIN projects p
+                ON p.id = t.project_id
+            WHERE t.status != 'Done'
+            AND t.deadline < CURDATE()
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countTodayDeadlineTasks($userId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) as total
+            FROM tasks
+            WHERE user_id = ?
+            AND status != 'Done'
+            AND deadline = CURDATE()
+        ");
+
+        $stmt->execute([$userId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function getTodayDeadlineTasks($userId)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM tasks
+            WHERE user_id = ?
+            AND status != 'Done'
+            AND deadline = CURDATE()
+            ORDER BY priority DESC
+        ");
+
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTodayDeadlineTasksForNotification()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM tasks
+            WHERE status != 'Done'
+            AND deadline = CURDATE()
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

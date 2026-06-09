@@ -36,8 +36,8 @@ class CalendarController extends Controller {
 
     public function store()
     {
-
         require_once "../app/models/Event.php";
+
         $eventModel = new Event();
 
         $eventModel->create([
@@ -48,7 +48,7 @@ class CalendarController extends Controller {
             'end_time' => $_POST['end_time'],
             'description' => $_POST['description']
         ]);
-
         header("Location: /mindforge/public/calendar");
+        exit;
     }
 }
