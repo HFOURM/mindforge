@@ -16,14 +16,15 @@ class Event
 
     public function create($data)
     {
-        $stmt = $this->conn->prepare("INSERT INTO events (user_id, title, event_date,start_time,end_time, description) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO events (user_id, title, event_date,start_time,end_time, description, reminder) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['user_id'],
             $data['title'],
             $data['event_date'],
             $data['start_time'],
             $data['end_time'],
-            $data['description']
+            $data['description'],
+            $data['reminder']
         ]);
     }
 
@@ -47,4 +48,4 @@ class Event
         $stmt->execute([$userId, $date]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-}
+}

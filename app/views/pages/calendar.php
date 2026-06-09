@@ -144,7 +144,23 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                                 <?php if ($totalEvents > 1): ?>
                                     <div onclick="openDayEventsModal(<?= htmlspecialchars(json_encode($dayEvents), ENT_QUOTES, 'UTF-8') ?>, '<?= "$year-" . str_pad($month, 2, '0', STR_PAD_LEFT) . "-" . str_pad($day, 2, '0', STR_PAD_LEFT) ?>')"
                                         class="mt-2 text-sm px-2 py-1 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300 w-fit rounded-md cursor-pointer hover:opacity-80">
-                                        +<?= $totalEvents - 1 ?> more
+                                        +<?= $totalEvents - 1 ?> more events
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <?php if (isset($tasks[$day])): ?>
+                                <?php
+                                $dayTasks = $tasks[$day];
+                                $totalTasks = count($dayTasks);
+                                ?>
+                                <div class="mt-1 bg-[#10B981] dark:bg-[#059669] text-xs font-medium text-white px-2 py-1 rounded-md w-fit truncate max-w-full border border-[#34D399] dark:border-[#10B981]">
+                                    ✓ <?= htmlspecialchars($dayTasks[0]['title']) ?>
+                                </div>
+
+                                <?php if ($totalTasks > 1): ?>
+                                    <div class="mt-1 text-xs px-2 py-1 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300 w-fit rounded-md">
+                                        +<?= $totalTasks - 1 ?> more tasks
                                     </div>
                                 <?php endif; ?>
                             <?php endif; ?>

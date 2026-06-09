@@ -58,9 +58,12 @@ class ProjectController extends Controller
             'name' => $_POST['title'],
             'deadline' => $_POST['deadline'],
             'priority' => $_POST['priority'],
-            'description' => $_POST['description']
+            'description' => $_POST['description'],
+            'reminder' => $_POST['reminder'] ?? null
         ]);
 
+        $projectModel->update($id, $data);
+        
         header("Location: /mindforge/public/projects");
     }
 

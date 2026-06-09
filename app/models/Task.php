@@ -14,7 +14,7 @@ class Task
 
     public function create($data)
     {
-        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, project_id, title, deadline, priority, status, note) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, project_id, title, deadline, priority, status, note, reminder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['user_id'],
             $data['project_id'],
@@ -22,7 +22,8 @@ class Task
             $data['deadline'],
             $data['priority'],
             $data['status'],
-            $data['note']
+            $data['note'],
+            $data['reminder']
         ]);
     }
 
@@ -103,12 +104,13 @@ class Task
     public function update($data)
     {
         $query = "UPDATE tasks 
-                SET title = ?, note = ?, deadline = ?, priority = ?, status = ?, project_id = ?
+                SET title = ?, reminder=?, note = ?, deadline = ?, priority = ?, status = ?, project_id = ?
                 WHERE id = ?";
 
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
             $data['title'],
+            $data['reminder'],
             $data['note'],
             $data['deadline'] ?: null,
             $data['priority'],

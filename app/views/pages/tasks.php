@@ -165,6 +165,7 @@
                                        item.textContent.trim();
 
                                    projectMenu.classList.add('hidden');
+                                   item.closest('form').submit();
                                });
 
                            });
@@ -226,16 +227,6 @@
                    </div>
 
                </div>
-
-               <button
-                   type="submit"
-                   class="px-4 py-2 border border-[#E0E0E0]
-               dark:border-[#383836]
-               rounded-lg text-sm">
-
-                   Apply
-
-               </button>
 
            </form>
        </div>
@@ -611,6 +602,7 @@
                        btn.textContent.trim();
 
                    priorityMenu.classList.add('hidden');
+                   btn.closest('form').submit();
                });
 
            });
@@ -628,6 +620,7 @@
                        btn.textContent.trim();
 
                    projectMenu.classList.add('hidden');
+                   btn.closest('form').submit();
                });
 
            });

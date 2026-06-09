@@ -137,13 +137,14 @@ class Project
 
     public function create($data)
     {
-        $stmt = $this->conn->prepare("INSERT INTO projects (user_id, name, deadline, priority, description) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO projects (user_id, name, deadline, priority, description, reminder) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $data['user_id'],
             $data['name'],
             $data['deadline'],
             $data['priority'],
-            $data['description']
+            $data['description'],
+            $data['reminder']
         ]);
     }
 
@@ -154,7 +155,8 @@ class Project
                 name = :name,
                 description = :description,
                 deadline = :deadline,
-                priority = :priority
+                priority = :priority,
+                reminder = :reminder
               WHERE id = :id";
 
     $stmt = $this->conn->prepare($query);

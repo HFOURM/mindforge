@@ -184,16 +184,6 @@
 
                </div>
 
-               <button
-                   type="submit"
-                   class="px-4 py-2 border border-[#E0E0E0]
-               dark:border-[#383836]
-               rounded-lg text-sm">
-
-                   Apply
-
-               </button>
-
                <div
                  
                    class="px-4 openmodalProject cursor-pointer py-2 border border-[#E0E0E0]
@@ -251,6 +241,7 @@
                                item.textContent.trim();
 
                            priorityMenu.classList.add('hidden');
+                           item.closest('form').submit();
                        });
 
                    });

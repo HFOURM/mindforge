@@ -1,3 +1,19 @@
+<style>
+/* Hilangkan icon bawaan time dan date */
+.hide-time-icon::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
+    -webkit-appearance: none;
+}
+.hide-time-icon::-webkit-clear-button { display: none; }
+.hide-time-icon::-webkit-inner-spin-button { display: none; }
+.hide-time-icon {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+</style>
+
 <div id="taskPanelOverlay" class="fixed inset-0 hidden z-50  bg-black/10">
 
             <form method="POST" action="/mindforge/public/tasks/update" id="taskPanel" class="absolute right-0 top-0 h-screen w-full shadow-sm max-w-lg bg-white dark:bg-[#202020] border-l text-grey-500 dark:text-white border-[#E0E0E0] dark:border-[#383836] flex flex-col transform translate-x-full transition duration-300 ">
@@ -198,6 +214,51 @@
                         </div>
 
                     </div>
+                    
+                    <div class="group flex items-start gap-4 py-2 rounded-xl hover:bg-grey-50 dark:hover:bg-[#2a2a2a] transition-colors">
+                            <div class="w-5 flex justify-center mt-1">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" 
+                                        stroke="#656565" 
+                                        stroke-width="2" 
+                                        stroke-linecap="round" 
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div class="flex-1 flex flex-col gap-2">
+                                <span class="text-sm font-medium">Set Reminder</span>
+
+                                <select id="reminder_preset" onchange="handleReminderPreset(this)"
+                                    class="bg-transparent border border-[#E0E0E0] dark:border-[#383836] text-grey-900 dark:text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-grey-900 dark:focus:border-white transition-colors cursor-pointer">
+                                    <option value="">Tidak ada reminder</option>
+                                    <option value="at_start">Saat event dimulai</option>
+                                    <option value="1_hour">1 jam sebelum</option>
+                                    <option value="1_day">1 hari sebelum</option>
+                                    <option value="2_days">2 hari sebelum</option>
+                                    <option value="3_days">3 hari sebelum</option>
+                                    <option value="1_week">1 minggu sebelum</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                                
+                                <div id="reminder_custom" class="hidden flex-col gap-2">
+                                    <div class="group flex items-center gap-4 py-2">
+                                        <span class="w-36 text-sm text-grey-500 dark:text-gray-400">Tanggal Reminder</span>
+                                        <input type="date" id="reminder_date" name="reminder_date"
+                                            class="flex-1 bg-transparent hide-time-icon text-sm focus:outline-none font-semibold cursor-pointer [color-scheme:light] dark:[color-scheme:dark]">
+                                    </div>
+                                    <div class="group flex items-center gap-4 py-2">
+                                        <span class="w-36 text-sm text-grey-500 dark:text-gray-400">Jam Reminder</span>
+                                        <input type="time" id="reminder_time" name="reminder_time"
+                                            class="flex-1 bg-transparent hide-time-icon text-sm focus:outline-none font-semibold cursor-pointer [color-scheme:light] dark:[color-scheme:dark]">
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="reminder" name="reminder">
+
+                            <p class="text-xs text-grey-500 dark:text-gray-400">Kosongkan jika tidak perlu pengingat.</p>
+                        </div>
+                    </div>
 
                     <div class="space-y-3 text-sm  mt-5">
                         <textarea name="note" placeholder="Enter task note..."
@@ -341,5 +402,73 @@
         if (e.key === "Escape") {
             closeEditTaskPanel();
         }
+    });
+</script>
+
+<script>
+    function calculateReminder(presetValue, deadlineDate) {
+        if (!deadlineDate) return '';
+        // Karena form task/project biasanya tidak ada start_time, kita default jam 00:00 atau jam saat ini
+        const defaultTime = "00:00"; 
+        const dateObj = new Date(`${deadlineDate}T${defaultTime}:00`);
+        
+        if (isNaN(dateObj.getTime())) return '';
+        
+        const minutesToSubtract = parseInt(presetValue, 10);
+        dateObj.setMinutes(dateObj.getMinutes() - minutesToSubtract);
+        
+        const tzOffset = dateObj.getTimezoneOffset() * 60000;
+        const localISOTime = new Date(dateObj - tzOffset).toISOString().slice(0, 19).replace('T', ' ');
+        return localISOTime;
+    }
+
+    function handleReminderPreset(select) {
+        const customDiv = document.getElementById('reminder_custom');
+        const reminderInput = document.getElementById('reminder');
+        
+        // Asumsi ID input deadline mu adalah "deadline"
+        const deadlineInput = document.getElementById('deadline'); 
+        const value = select.value;
+
+        if (value === 'custom') {
+            customDiv.classList.remove('hidden');
+            customDiv.classList.add('flex');
+            reminderInput.value = '';
+        } else {
+            customDiv.classList.add('hidden');
+            customDiv.classList.remove('flex');
+            reminderInput.value = calculateReminder(value, deadlineInput ? deadlineInput.value : '');
+        }
+    }
+
+    // Trigger update jika opsi custom date & time diubah
+    document.getElementById('reminder_date')?.addEventListener('change', updateCustomReminder);
+    document.getElementById('reminder_time')?.addEventListener('change', updateCustomReminder);
+
+    function updateCustomReminder() {
+        const date = document.getElementById('reminder_date').value;
+        const time = document.getElementById('reminder_time').value || '00:00';
+        if (date) {
+            document.getElementById('reminder').value = `${date} ${time}:00`;
+        }
+    }
+
+    // Hitung ulang jika deadline diubah
+    const deadlineInputListener = document.getElementById('deadline');
+    if (deadlineInputListener) {
+        deadlineInputListener.addEventListener('change', function() {
+            const preset = document.getElementById('reminder_preset').value;
+            if (preset && preset !== 'custom') {
+                document.getElementById('reminder').value = calculateReminder(preset, this.value);
+            }
+        });
+    }
+
+    // Klik untuk buka picker kalender & jam custom
+    document.getElementById("reminder_date")?.addEventListener("click", function() {
+        this.showPicker();
+    });
+    document.getElementById("reminder_time")?.addEventListener("click", function() {
+        this.showPicker();
     });
 </script>
