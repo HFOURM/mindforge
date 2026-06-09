@@ -68,6 +68,3 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     box-shadow: var(--active-shadow);
     transform: scale(1.02);
 }
-
-
-

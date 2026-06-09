@@ -90,52 +90,139 @@
 
         </div>
         <!-- End Greeting Banner -->
-
         <div id="notifPanelOverlay" class="fixed inset-0 hidden z-50">
 
-            <div id="notifBackdrop" class="absolute inset-0 bg-black/10"></div>
+            <!-- Backdrop -->
+            <div
+                id="notifBackdrop"
+                class="absolute inset-0 bg-black/20 backdrop-blur-sm">
+            </div>
 
-            <div id="notifPanel"
+            <!-- Panel -->
+            <div
+                id="notifPanel"
                 class="absolute right-0 top-0 h-screen w-full max-w-md bg-white dark:bg-[#202020] border-l border-[#E0E0E0] dark:border-[#383836] transform translate-x-full transition duration-300 flex flex-col">
 
-                <div class="px-5 pt-5 ">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg font-semibold tracking-tight">Notifications</h2>
+                <!-- Header -->
+                <div
+                    class="px-5 pt-5 pb-4 border-b border-[#E0E0E0] dark:border-[#383836]">
 
-                        <button id="closeNotifPanel"
-                            class="p-2 rounded-lg hidden hover:bg-grey-100 dark:hover:bg-[#2a2a2a] transition">
-                            ✕
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <h2 class="text-lg font-semibold tracking-tight">
+                                Notifications
+                            </h2>
+
+                        </div>
+
+                        <button
+                            id="closeNotifPanel"
+                            class="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-[#2a2a2a] transition">
+
+                            <i class="fa-solid fa-xmark"></i>
+
                         </button>
+
                     </div>
-
-
 
                 </div>
 
-                <div class="flex-1 overflow-y-auto px-5 py-4 space-y-6">
+                <!-- Notification List -->
+                <div class="flex-1 overflow-y-auto">
+
                     <div
                         id="notificationList"
-                        class="flex-1 overflow-y-auto px-5 py-4">
+                        class="px-4 py-4 space-y-3">
+
+                        <div
+                            class="notification-item group flex gap-3 p-4 rounded-xl border border-zinc-200 dark:border-[#383836] hover:bg-zinc-50 dark:hover:bg-[#2a2a2a] transition"
+                            data-id="1">
+
+                            <input
+                                type="checkbox"
+                                class="notification-checkbox mt-1 w-4 h-4 rounded">
+
+                            <div class="flex-1 min-w-0">
+
+                                <div class="flex items-start justify-between gap-2">
+
+                                    <h4 class="font-semibold text-sm">
+                                        Deadline Task
+                                    </h4>
+
+                                    <button
+                                        onclick="deleteNotification(1)"
+                                        class="opacity-0 group-hover:opacity-100 transition text-zinc-400 hover:text-red-500">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </div>
+
+                                <p class="text-sm text-zinc-500 mt-1">
+                                    Mobile UI deadline H-1
+                                </p>
+
+                                <div class="flex items-center justify-between mt-2">
+
+                                    <span class="text-xs text-zinc-400">
+                                        5 minutes ago
+                                    </span>
+
+                                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-                <div class="px-5 py-3 flex justify-between items-center text-xs">
+                <!-- Delete Selected -->
+                <div
+                    id="bulkActionBar"
+                    class="hidden border-t border-[#E0E0E0] dark:border-[#383836] p-4">
+
+                    <button
+                        onclick="deleteSelectedNotifications()"
+                        class="w-full py-2.5 rounded-xl bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition">
+
+                        Delete Selected
+
+                    </button>
+
+                </div>
+
+                <!-- Footer -->
+                <div
+                    class="border-t border-[#E0E0E0] dark:border-[#383836] p-4 space-y-2">
 
                     <button
                         onclick="markAllRead()"
-                        class="text-zinc-400 hover:text-black dark:hover:text-white transition">
+                        class="w-full py-2.5 rounded-xl bg-zinc-100 dark:bg-[#2a2a2a] hover:bg-zinc-200 dark:hover:bg-[#323232] transition text-sm font-medium">
 
-                        Mark all as read
+                        Mark All Read
+
                     </button>
 
-                    <button class="text-blue-500 hover:opacity-80 transition">
-                        Notification settings
+                    <button
+                        onclick="deleteAllNotifications()"
+                        class="w-full py-2.5 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition text-sm font-medium">
+
+                        Delete All
+
                     </button>
 
                 </div>
 
             </div>
+
         </div>
 
 
@@ -152,61 +239,91 @@
                     let todayHtml = '';
                     let earlierHtml = '';
 
-                    const today = new Date().toDateString();
+                    const today =
+                        new Date().toDateString();
 
                     result.data.forEach(notif => {
 
                         const notifDate =
-                            new Date(notif.created_at).toDateString();
+                            new Date(
+                                notif.created_at
+                            ).toDateString();
 
                         const item = `
-                <div
-                    class="group flex gap-3 p-3 rounded-xl
-                    hover:bg-grey-50
-                    dark:hover:bg-[#2a2a2a]
-                    transition cursor-pointer">
+                        <div
+                            class="notification-item group flex gap-3 p-4 rounded-xl border border-zinc-200 dark:border-[#383836] hover:bg-zinc-50 dark:hover:bg-[#2a2a2a] transition"
+                            data-id="${notif.id}">
 
-                    <div class="
-                        w-2 h-2 mt-2 rounded-full
-                        ${notif.is_read == 0
-                            ? 'bg-blue-500'
-                            : 'bg-transparent'}
-                    ">
-                    </div>
+                            <input
+                                type="checkbox"
+                                class="notification-checkbox mt-1 w-4 h-4 rounded">
 
-                    <div class="flex-1">
+                            <div class="flex-1 min-w-0">
 
-                        <p class="text-sm font-medium">
-                            ${notif.title}
-                        </p>
+                                <div class="flex items-start justify-between gap-2">
 
-                        <p class="text-xs text-zinc-400">
-                            ${notif.message}
-                        </p>
+                                    <div>
 
-                    </div>
+                                        <h4 class="font-semibold text-sm">
+                                            ${notif.title}
+                                        </h4>
 
-                    ${
-                        notif.is_read == 0
-                        ?
-                        `
-                        <button
-                            onclick="markRead(${notif.id})"
-                            class="opacity-0
-                                   group-hover:opacity-100
-                                   text-xs
-                                   text-blue-500
-                                   transition">
+                                        <p class="text-sm text-zinc-500 mt-1">
+                                            ${notif.message}
+                                        </p>
 
-                            Mark read
-                        </button>
-                        `
-                        :
-                        ''
-                    }
+                                    </div>
 
-                </div>
-            `;
+                                    <div class="flex items-center gap-2">
+
+                                        ${
+                                            notif.is_read == 0
+                                            ?
+                                            `
+                                            <button
+                                                onclick="markRead(${notif.id})"
+                                                class="text-xs text-blue-500 hover:text-blue-600">
+
+                                                Read
+
+                                            </button>
+                                            `
+                                            :
+                                            ''
+                                        }
+
+                                        <button
+                                            onclick="deleteNotification(${notif.id})"
+                                            class="text-zinc-400 hover:text-red-500">
+
+                                            <i class="fa-solid fa-trash"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="flex items-center justify-between mt-3">
+
+                                    <span class="text-xs text-zinc-400">
+                                        ${notif.created_at}
+                                    </span>
+
+                                    ${
+                                        notif.is_read == 0
+                                        ?
+                                        '<span class="w-2 h-2 rounded-full bg-blue-500"></span>'
+                                        :
+                                        ''
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        `;
 
                         if (notifDate === today) {
                             todayHtml += item;
@@ -219,36 +336,42 @@
                     document.getElementById(
                         'notificationList'
                     ).innerHTML = `
-            <div>
+                    <div>
 
-                <p class="text-xs text-zinc-400 mb-3">
-                    Today
-                </p>
+                        <p class="text-xs text-zinc-400 mb-3">
+                            Today
+                        </p>
 
-                <div class="space-y-2">
-                    ${
-                        todayHtml ||
-                        '<p class="text-xs text-zinc-400">No notifications</p>'
-                    }
-                </div>
+                        <div class="space-y-2">
 
-            </div>
+                            ${
+                                todayHtml ||
+                                '<p class="text-xs text-zinc-400">No notifications</p>'
+                            }
 
-            <div class="mt-6">
+                        </div>
 
-                <p class="text-xs text-zinc-400 mb-3">
-                    Earlier
-                </p>
+                    </div>
 
-                <div class="space-y-2">
-                    ${
-                        earlierHtml ||
-                        '<p class="text-xs text-zinc-400">No older notifications</p>'
-                    }
-                </div>
+                    <div class="mt-6">
 
-            </div>
-        `;
+                        <p class="text-xs text-zinc-400 mb-3">
+                            Earlier
+                        </p>
+
+                        <div class="space-y-2">
+
+                            ${
+                                earlierHtml ||
+                                '<p class="text-xs text-zinc-400">No older notifications</p>'
+                            }
+
+                        </div>
+
+                    </div>
+                    `;
+
+                    attachNotificationCheckboxListener();
 
                 } catch (error) {
 
@@ -256,6 +379,52 @@
                         'Failed to load notifications:',
                         error
                     );
+
+                }
+            }
+
+            async function deleteNotification(id)
+            {
+                if(
+                    !confirm(
+                        'Delete this notification?'
+                    )
+                ){
+                    return;
+                }
+
+                try {
+
+                    const formData =
+                        new FormData();
+
+                    formData.append(
+                        'id',
+                        id
+                    );
+
+                    const response =
+                        await fetch(
+                            '/mindforge/public/notifications/delete',
+                            {
+                                method:'POST',
+                                body:formData
+                            }
+                        );
+
+                    const result =
+                        await response.json();
+
+                    if(result.success){
+
+                        await loadNotifications();
+                        await loadUnreadCount();
+
+                    }
+
+                } catch(error){
+
+                    console.error(error);
 
                 }
             }
@@ -338,6 +507,162 @@
                 }
             }
 
+            async function deleteAllNotifications()
+            {
+                const confirmed = confirm(
+                    "Are you sure you want to delete all notifications?"
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                try {
+
+                    const response = await fetch(
+                        '/mindforge/public/notifications/clearAll',
+                        {
+                            method: 'POST'
+                        }
+                    );
+
+                    const result =
+                        await response.json();
+
+                    if (result.success) {
+
+                        // Refresh daftar notifikasi
+                        loadNotifications();
+
+                        // Update badge
+                        const badge =
+                            document.getElementById(
+                                'notificationBadge'
+                            );
+
+                        if (badge) {
+
+                            badge.textContent = '0';
+
+                            badge.classList.add(
+                                'hidden'
+                            );
+                        }
+
+                        // Sembunyikan bulk action
+                        const bulkBar =
+                            document.getElementById(
+                                'bulkActionBar'
+                            );
+
+                        if (bulkBar) {
+
+                            bulkBar.classList.add(
+                                'hidden'
+                            );
+                        }
+
+                    } else {
+
+                        alert(
+                            'Failed to delete notifications'
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        'Something went wrong'
+                    );
+
+                }
+            }
+
+            async function deleteSelectedNotifications()
+            {
+                const selected =
+                    [...document.querySelectorAll(
+                        '.notification-checkbox:checked'
+                    )]
+                    .map(
+                        checkbox =>
+                        checkbox.closest(
+                            '.notification-item'
+                        ).dataset.id
+                    );
+
+                if(selected.length === 0){
+
+                    alert(
+                        'Please select notifications'
+                    );
+
+                    return;
+                }
+
+                const formData =
+                    new FormData();
+
+                selected.forEach(id => {
+                    formData.append(
+                        'ids[]',
+                        id
+                    );
+                });
+
+                const response =
+                    await fetch(
+                        '/mindforge/public/notifications/deleteSelected',
+                        {
+                            method: 'POST',
+                            body: formData
+                        }
+                    );
+
+                const result =
+                    await response.json();
+
+                if(result.success){
+
+                    loadNotifications();
+
+                }
+            }
+
+            function attachNotificationCheckboxListener()
+            {
+                document
+                    .querySelectorAll(
+                        '.notification-checkbox'
+                    )
+                    .forEach(checkbox => {
+
+                        checkbox.addEventListener(
+                            'change',
+                            function(){
+
+                                const selected =
+                                    document.querySelectorAll(
+                                        '.notification-checkbox:checked'
+                                    ).length;
+
+                                document
+                                    .getElementById(
+                                        'bulkActionBar'
+                                    )
+                                    .classList.toggle(
+                                        'hidden',
+                                        selected === 0
+                                    );
+                            }
+                        );
+
+                    });
+            }
+
             document.addEventListener(
                 'DOMContentLoaded',
                 function() {
@@ -355,7 +680,6 @@
                 }
             );
         </script>
-
 
 
         <!-- Summary Card-->
