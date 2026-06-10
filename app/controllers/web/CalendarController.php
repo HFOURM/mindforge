@@ -54,13 +54,14 @@ class CalendarController extends Controller {
         $eventModel = new Event();
 
         $eventModel->create([
-            'user_id' => $_SESSION['user']['id'],
-            'title' => $_POST['title'],
+            'user_id'    => $_SESSION['user']['id'],
+            'project_id' => !empty($_POST['project_id']) ? (int)$_POST['project_id'] : null, // opsional
+            'title'      => $_POST['title'],
             'event_date' => $_POST['event_date'],
-            'start_time' => $_POST['start_time'],
-            'end_time' => $_POST['end_time'],
-            'description' => $_POST['description'],
-            'reminder' => $_POST['reminder'] ?? null
+            'start_time' => $_POST['start_time']  ?? null,
+            'end_time'   => $_POST['end_time']    ?? null,
+            'description'=> $_POST['description'] ?? null,
+            'reminder'   => !empty($_POST['reminder']) ? $_POST['reminder'] : null, // DATETIME atau null
         ]);
         header("Location: /mindforge/public/calendar");
         exit;

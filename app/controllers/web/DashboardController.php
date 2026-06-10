@@ -128,8 +128,10 @@ class DashboardController extends Controller
             }
         }
 
+        // Gunakan getScheduledForTomorrow() agar event yang sudah dikirim
+        // notifikasi H-1-nya (reminder_h1_sent=1) tidak dikirim ulang
         $tomorrowEvents =
-            $eventModel->getTomorrowEvents();
+            $eventModel->getScheduledForTomorrow();
 
         foreach ($tomorrowEvents as $event) {
 
@@ -137,7 +139,7 @@ class DashboardController extends Controller
                 continue;
             }
 
-            $notificationModel->createIfNotExists(
+            $created = $notificationModel->createIfNotExists(
                 "event_{$event['id']}_h1",
                 $event['user_id'],
                 "Reminder Event",
@@ -145,6 +147,11 @@ class DashboardController extends Controller
                 "event_reminder",
                 $event['id']
             );
+
+            // Tandai flag agar tidak dikirim lagi di siklus berikutnya
+            if ($created) {
+                $eventModel->markReminderH1Sent($event['id']);
+            }
         }
 
         $todayEvents =

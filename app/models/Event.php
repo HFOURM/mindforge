@@ -16,16 +16,80 @@ class Event
 
     public function create($data)
     {
-        $stmt = $this->conn->prepare("INSERT INTO events (user_id, title, event_date,start_time,end_time, description, reminder) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        // project_id bersifat opsional: NULL jika event tidak terkait project
+        $stmt = $this->conn->prepare("
+            INSERT INTO events
+                (user_id, project_id, title, event_date, start_time, end_time, description, reminder)
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?)
+        ");
         $stmt->execute([
             $data['user_id'],
+            $data['project_id'] ?? null,  
             $data['title'],
             $data['event_date'],
-            $data['start_time'],
-            $data['end_time'],
-            $data['description'],
-            $data['reminder']
+            $data['start_time']     ?? null,
+            $data['end_time']       ?? null,
+            $data['description']    ?? null,
+            $data['reminder']       ?? null,   // DATETIME reminder dari user
+            // reminder_h1_sent tidak perlu di-insert; default-nya 0 di DB
         ]);
+    }
+
+    public function update($id, $data)
+    {
+        $stmt = $this->conn->prepare("
+            UPDATE events
+            SET
+                title       = :title,
+                event_date  = :event_date,
+                start_time  = :start_time,
+                end_time    = :end_time,
+                description = :description,
+                reminder    = :reminder,
+                project_id  = :project_id
+            WHERE id = :id
+        ");
+        return $stmt->execute([
+            ':id'          => $id,
+            ':title'       => $data['title'],
+            ':event_date'  => $data['event_date'],
+            ':start_time'  => $data['start_time']  ?? null,
+            ':end_time'    => $data['end_time']    ?? null,
+            ':description' => $data['description'] ?? null,
+            ':reminder'    => $data['reminder']    ?? null,
+            ':project_id'  => $data['project_id']  ?? null,
+        ]);
+    }
+
+    /**
+     * Tandai bahwa notifikasi H-1 sudah dikirim untuk event ini
+     */
+    public function markReminderH1Sent($eventId)
+    {
+        $stmt = $this->conn->prepare("
+            UPDATE events
+            SET reminder_h1_sent = 1
+            WHERE id = ?
+        ");
+        return $stmt->execute([$eventId]);
+    }
+
+    /**
+     * Ambil event besok yang belum dikirim notifikasi H-1-nya
+     */
+    public function getScheduledForTomorrow()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM events
+            WHERE status = 'scheduled'
+            AND event_date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+            AND reminder_h1_sent = 0
+            ORDER BY start_time ASC
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getByUser($user_id)
