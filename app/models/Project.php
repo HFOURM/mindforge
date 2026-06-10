@@ -44,14 +44,14 @@ class Project
     }
 
     public function getFilteredProjectsPaginated(
-    $userId,
-    $priority = '',
-    $status = '',
-    $search = '',
-    $limit = 9,
-    $offset = 0
-) {
-    $sql = "
+        $userId,
+        $priority = '',
+        $status = '',
+        $search = '',
+        $limit = 9,
+        $offset = 0
+    ) {
+        $sql = "
         SELECT
             p.*,
             COUNT(t.id) as total_tasks,
@@ -80,47 +80,47 @@ class Project
         WHERE p.user_id = ?
     ";
 
-    $params = [$userId];
+        $params = [$userId];
 
-    if (!empty($priority)) {
-        $sql .= " AND p.priority = ?";
-        $params[] = $priority;
-    }
+        if (!empty($priority)) {
+            $sql .= " AND p.priority = ?";
+            $params[] = $priority;
+        }
 
-    if (!empty($status)) {
-        $sql .= " AND p.status = ?";
-        $params[] = $status;
-    }
+        if (!empty($status)) {
+            $sql .= " AND p.status = ?";
+            $params[] = $status;
+        }
 
-    if (!empty($search)) {
-        $sql .= " AND p.name LIKE ?";
-        $params[] = "%{$search}%";
-    }
+        if (!empty($search)) {
+            $sql .= " AND p.name LIKE ?";
+            $params[] = "%{$search}%";
+        }
 
-    $sql .= "
+        $sql .= "
         GROUP BY p.id
         ORDER BY p.id DESC
         LIMIT ? OFFSET ?
     ";
 
-    $stmt = $this->conn->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
-    $index = 1;
+        $index = 1;
 
-    foreach ($params as $param) {
-        $stmt->bindValue($index++, $param);
+        foreach ($params as $param) {
+            $stmt->bindValue($index++, $param);
+        }
+
+        $stmt->bindValue($index++, (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue($index++, (int)$offset, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    $stmt->bindValue($index++, (int)$limit, PDO::PARAM_INT);
-    $stmt->bindValue($index++, (int)$offset, PDO::PARAM_INT);
-
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 
-    
 
     public function countByUser($userId)
     {
@@ -148,9 +148,62 @@ class Project
         ]);
     }
 
+    public function findByIdAndUserId($id,$userId) {
+    $stmt = $this->conn->prepare(
+        "SELECT *
+         FROM projects
+         WHERE id = ?
+         AND user_id = ?"
+    );
+
+    $stmt->execute([
+        $id,
+        $userId
+    ]);
+
+    return $stmt->fetch(
+        PDO::FETCH_ASSOC
+    );
+}   
+
+public function countTasks(
+    $projectId
+) {
+    $stmt =
+        $this->conn->prepare(
+            "SELECT COUNT(*)
+             FROM tasks
+             WHERE project_id = ?"
+        );
+
+    $stmt->execute([
+        $projectId
+    ]);
+
+    return (int)
+        $stmt->fetchColumn();
+}
+
+    public function getByUserId($userId) {
+        $stmt = $this->conn->prepare(
+            "SELECT *
+         FROM projects
+         WHERE user_id = ?
+         ORDER BY created_at DESC"
+        );
+
+        $stmt->execute([
+            $userId
+        ]);
+
+        return $stmt->fetchAll(
+            PDO::FETCH_ASSOC
+        );
+    }
+
     public function update($id, $data)
-{
-    $query = "UPDATE projects 
+    {
+        $query = "UPDATE projects 
               SET 
                 name = :name,
                 description = :description,
@@ -159,16 +212,16 @@ class Project
                 reminder = :reminder
               WHERE id = :id";
 
-    $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
 
-    $stmt->execute([
-        ':id' => $id,
-        ':name' => $data['name'],
-        ':description' => $data['description'],
-        ':deadline' => $data['deadline'],
-        ':priority' => $data['priority']
-    ]);
-}
+        $stmt->execute([
+            ':id' => $id,
+            ':name' => $data['name'],
+            ':description' => $data['description'],
+            ':deadline' => $data['deadline'],
+            ':priority' => $data['priority']
+        ]);
+    }
 
     public function getByUser($userId)
     {
@@ -215,7 +268,7 @@ class Project
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-     public function delete($id)
+    public function delete($id)
     {
         $stmt = $this->conn->prepare("DELETE FROM projects WHERE id = ?");
         return $stmt->execute([$id]);

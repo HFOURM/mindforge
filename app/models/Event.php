@@ -50,6 +50,7 @@ class Event
                 project_id  = :project_id
             WHERE id = :id
         ");
+        
         return $stmt->execute([
             ':id'          => $id,
             ':title'       => $data['title'],
@@ -97,7 +98,7 @@ class Event
         $stmt = $this->conn->prepare("SELECT * FROM events WHERE user_id = ? ORDER BY event_date ASC, start_time ASC");
         $stmt->execute([$user_id]);
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Mengembalikan data dalam bentuk array asosiatif
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getEventsByDate($userId, $date)

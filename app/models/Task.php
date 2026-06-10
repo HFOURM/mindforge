@@ -12,6 +12,31 @@ class Task
         $this->conn = Database::getInstance()->getConnection();
     }
 
+    public function getTasksByDaten($userId, $date)
+{
+    $stmt = $this->conn->prepare("
+        SELECT
+            t.*,
+            p.name as project_name
+        FROM tasks t
+
+        LEFT JOIN projects p
+            ON p.id = t.project_id
+
+        WHERE t.user_id = ?
+        AND t.deadline = ?
+
+        ORDER BY t.deadline ASC
+    ");
+
+    $stmt->execute([
+        $userId,
+        $date
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
     public function create($data)
     {
         $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, project_id, title, deadline, priority, status, note, reminder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");

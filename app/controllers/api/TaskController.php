@@ -28,6 +28,8 @@ class TaskController extends Controller
         $userId = is_array($user) ? $user['id'] : $user->id;
 
         $tasks = $this->taskModel->getTasksByDate($userId, $date);
+
+        
         
         Response::success('Success fetch tasks by date', $tasks);
     }
@@ -62,6 +64,53 @@ class TaskController extends Controller
             Response::error('Failed to create task', 500);
         }
     }
+
+    public function updateStatus($id)
+{
+    $user = $_SERVER['user'];
+
+    $userId =
+        is_array($user)
+            ? $user['id']
+            : $user->id;
+
+    $task =
+        $this->taskModel
+            ->findByIdAndUserId(
+                $id,
+                $userId
+            );
+
+    if (!$task) {
+        Response::error(
+            'Task not found',
+            404
+        );
+        return;
+    }
+
+    $input =
+        json_decode(
+            file_get_contents(
+                'php://input'
+            ),
+            true
+        );
+
+    $status =
+        $input['status'] ??
+        'Todo';
+
+    $this->taskModel
+        ->updateStatusapp(
+            $id,
+            $status
+        );
+
+    Response::success(
+        'Status updated'
+    );
+}
 
     public function update($id)
     {
