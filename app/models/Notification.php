@@ -296,4 +296,21 @@ class Notification
 
         return $stmt->execute($params);
     }
+
+    /**
+     * Hapus notifikasi task_deadline yang source_id-nya mengarah
+     * ke task yang sudah berstatus 'Done', agar notifikasi tetap bersih.
+     */
+    public function cleanupResolvedTaskNotifications($userId)
+    {
+        $stmt = $this->conn->prepare("
+            DELETE n FROM notifications n
+            INNER JOIN tasks t ON t.id = n.source_id
+            WHERE n.user_id = ?
+            AND n.type = 'task_deadline'
+            AND t.status = 'Done'
+        ");
+
+        return $stmt->execute([$userId]);
+    }
 }

@@ -22,15 +22,14 @@ class DashboardController extends Controller
         $projects = $projectModel->getByUser($userId);
         $events = $eventModel->getByUser($userId);
 
+        // Bersihkan notifikasi task yang sudah selesai (Done) sebelum generate yang baru
+        $notificationModel->cleanupResolvedTaskNotifications($userId);
+
         foreach ([3, 2, 1] as $days) {
 
-            $deadlineTasks = $taskModel->getTasksDeadlineIn($days);
+            $deadlineTasks = $taskModel->getTasksDeadlineIn($days, $userId);
 
             foreach ($deadlineTasks as $task) {
-
-                if ($task['user_id'] != $userId) {
-                    continue;
-                }
 
                 $notificationModel->createIfNotExists(
                     "task_{$task['id']}_h{$days}",
@@ -46,13 +45,9 @@ class DashboardController extends Controller
         if (method_exists($taskModel, 'getTodayDeadlineTasksForNotification')) {
 
             $todayTasks =
-                $taskModel->getTodayDeadlineTasksForNotification();
+                $taskModel->getTodayDeadlineTasksForNotification($userId);
 
             foreach ($todayTasks as $task) {
-
-                if ($task['user_id'] != $userId) {
-                    continue;
-                }
 
                 $notificationModel->createIfNotExists(
                     "task_{$task['id']}_today",
@@ -66,13 +61,9 @@ class DashboardController extends Controller
         }
 
         $overdueTasks =
-            $taskModel->getOverdueTasks();
+            $taskModel->getOverdueTasks($userId);
 
         foreach ($overdueTasks as $task) {
-
-            if ($task['user_id'] != $userId) {
-                continue;
-            }
 
             $notificationModel->createIfNotExists(
                 "task_{$task['id']}_overdue",

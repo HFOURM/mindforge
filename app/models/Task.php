@@ -167,9 +167,9 @@ class Task
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getTasksDeadlineIn($days)
+    public function getTasksDeadlineIn($days, $userId = null)
     {
-        $stmt = $this->conn->prepare("
+        $sql = "
             SELECT
                 t.*,
                 p.name AS project_name
@@ -178,16 +178,24 @@ class Task
                 ON p.id = t.project_id
             WHERE t.status != 'Done'
             AND t.deadline = DATE_ADD(CURDATE(), INTERVAL ? DAY)
-        ");
+        ";
 
-        $stmt->execute([$days]);
+        $params = [$days];
+
+        if ($userId !== null) {
+            $sql .= " AND t.user_id = ?";
+            $params[] = $userId;
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getOverdueTasks()
+    public function getOverdueTasks($userId = null)
     {
-        $stmt = $this->conn->prepare("
+        $sql = "
             SELECT
                 t.*,
                 p.name AS project_name
@@ -196,9 +204,17 @@ class Task
                 ON p.id = t.project_id
             WHERE t.status != 'Done'
             AND t.deadline < CURDATE()
-        ");
+        ";
 
-        $stmt->execute();
+        $params = [];
+
+        if ($userId !== null) {
+            $sql .= " AND t.user_id = ?";
+            $params[] = $userId;
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -234,16 +250,24 @@ class Task
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTodayDeadlineTasksForNotification()
+    public function getTodayDeadlineTasksForNotification($userId = null)
     {
-        $stmt = $this->conn->prepare("
+        $sql = "
             SELECT *
             FROM tasks
             WHERE status != 'Done'
             AND deadline = CURDATE()
-        ");
+        ";
 
-        $stmt->execute();
+        $params = [];
+
+        if ($userId !== null) {
+            $sql .= " AND user_id = ?";
+            $params[] = $userId;
+        }
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -62,8 +62,6 @@ class ProjectController extends Controller
             'reminder' => $_POST['reminder'] ?? null
         ]);
 
-        $projectModel->update($id, $data);
-        
         header("Location: /mindforge/public/projects");
         exit;
     }

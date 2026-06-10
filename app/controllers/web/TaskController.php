@@ -135,6 +135,7 @@ class TaskController extends Controller
             'deadline' => $_POST['deadline'] ?? null,
             'priority' => $_POST['priority'] ?? 'Low',
             'status' => $_POST['status'] ?? 'Todo',
+            'reminder' => !empty($_POST['reminder']) ? $_POST['reminder'] : null,
             'project_id' => !empty($_POST['project_id'])
                 ? $_POST['project_id']
                 : null

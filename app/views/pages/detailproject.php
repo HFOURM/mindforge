@@ -380,7 +380,7 @@
         </div>
 
         <?php $this->component('form-edit-project'); ?>
-        <?php $this->component('form-edit-task'); ?>
+        <?php $this->component('form-edit-task', ['projects' => $projects]); ?>
 
     </main>
 
