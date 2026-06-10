@@ -81,7 +81,7 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         </div>
 
         <div class="flex flex-col flex-1">
-
+git add app/views/pages/calendar.php
             <div class="grid grid-cols-7 auto-rows-fr flex-1 px-6 pb-6">
 
                 <?php
@@ -149,17 +149,31 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                                 <?php endif; ?>
                             <?php endif; ?>
 
-                            <?php if (isset($tasks[$day])): ?>
+                            <?php if (!empty($tasks[$day])): ?>
                                 <?php
                                 $dayTasks = $tasks[$day];
+                                $firstTask = $dayTasks[0];
+
+                                $taskTitle =
+                                    $firstTask['title']
+                                    ?? $firstTask['task_title']
+                                    ?? $firstTask['name']
+                                    ?? 'Untitled Task';
+
                                 $totalTasks = count($dayTasks);
                                 ?>
                                 <div  style="background:#22c55e;color:white;padding:4px 8px;border-radius:6px;display:inline-block;font-size:14px;font-weight:500;">
                                     <?= htmlspecialchars($dayTasks[0]['title']) ?>
                                 </div>
 
+                                <div class="mt-2">
+                                    <div style="background:#22c55e;color:white;padding:4px 8px;border-radius:6px;display:inline-block;font-size:14px;font-weight:500;">
+                                        <?= htmlspecialchars($taskTitle) ?>
+                                    </div>
+                                </div>                            
+
                                 <?php if ($totalTasks > 1): ?>
-                                    <div class="mt-1 text-xs px-2 py-1 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300 w-fit rounded-md">
+                                    <div class="mt-2 text-sm px-2 py-1 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300 w-fit rounded-md">
                                         +<?= $totalTasks - 1 ?> more tasks
                                     </div>
                                 <?php endif; ?>

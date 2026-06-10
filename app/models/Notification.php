@@ -37,6 +37,7 @@ class Notification
             $type,
             $sourceId
         ]);
+
     }
 
     public function createIfNotExists(
@@ -89,6 +90,7 @@ class Notification
             SELECT *
             FROM notifications
             WHERE user_id = ?
+            AND is_hidden = 0
             ORDER BY created_at DESC
         ");
 
@@ -97,14 +99,13 @@ class Notification
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLatestByUser(
-        $userId,
-        $limit = 10
-    ) {
+    public function getLatestByUser($userId, $limit = 10)
+    {
         $stmt = $this->conn->prepare("
             SELECT *
             FROM notifications
             WHERE user_id = ?
+            AND is_hidden = 0
             ORDER BY created_at DESC
             LIMIT ?
         ");
@@ -133,6 +134,7 @@ class Notification
             FROM notifications
             WHERE user_id = ?
             AND is_read = 0
+            AND is_hidden = 0
             ORDER BY created_at DESC
         ");
 
@@ -161,6 +163,7 @@ class Notification
             SELECT COUNT(*) AS total
             FROM notifications
             WHERE user_id = ?
+            AND is_hidden = 0
         ");
 
         $stmt->execute([$userId]);
@@ -175,6 +178,7 @@ class Notification
             FROM notifications
             WHERE user_id = ?
             AND is_read = 0
+            AND is_hidden = 0
         ");
 
         $stmt->execute([$userId]);
@@ -204,51 +208,46 @@ class Notification
         return $stmt->execute([$userId]);
     }
 
-    public function delete(
-        $id,
-        $userId
-    )
+    public function delete($id, $userId)
     {
         $stmt = $this->conn->prepare("
-            DELETE FROM notifications
+            UPDATE notifications
+            SET is_hidden = 1
             WHERE id = ?
             AND user_id = ?
         ");
 
-        return $stmt->execute([
-            $id,
-            $userId
-        ]);
+        return $stmt->execute([$id, $userId]);
     }
 
     public function clearAll($userId)
     {
         $stmt = $this->conn->prepare("
-            DELETE FROM notifications
+            UPDATE notifications
+            SET is_hidden = 1
             WHERE user_id = ?
         ");
-
         return $stmt->execute([$userId]);
     }
 
-    public function getByType(
-        $userId,
-        $type
-    ) {
+    public function deleteSelected(array $ids, $userId)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
+        $params = $ids;
+        $params[] = $userId;
+
         $stmt = $this->conn->prepare("
-            SELECT *
-            FROM notifications
-            WHERE user_id = ?
-            AND type = ?
-            ORDER BY created_at DESC
+            UPDATE notifications
+            SET is_hidden = 1
+            WHERE id IN ($placeholders)
+            AND user_id = ?
         ");
 
-        $stmt->execute([
-            $userId,
-            $type
-        ]);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->execute($params);
     }
 
     public function deleteOldNotifications(
@@ -266,49 +265,17 @@ class Notification
         return $stmt->execute([$days]);
     }
 
-    public function deleteSelected(
-        array $ids,
-        $userId
-    )
-    {
-        if (empty($ids)) {
-            return false;
-        }
-
-        $placeholders =
-            implode(
-                ',',
-                array_fill(
-                    0,
-                    count($ids),
-                    '?'
-                )
-            );
-
-        $params = $ids;
-        $params[] = $userId;
-
-        $stmt = $this->conn->prepare("
-            DELETE FROM notifications
-            WHERE id IN ($placeholders)
-            AND user_id = ?
-        ");
-
-        return $stmt->execute($params);
-    }
-
-    /**
-     * Hapus notifikasi task_deadline yang source_id-nya mengarah
-     * ke task yang sudah berstatus 'Done', agar notifikasi tetap bersih.
-     */
     public function cleanupResolvedTaskNotifications($userId)
     {
         $stmt = $this->conn->prepare("
-            DELETE n FROM notifications n
-            INNER JOIN tasks t ON t.id = n.source_id
+            UPDATE notifications n
+            INNER JOIN tasks t
+                ON t.id = n.source_id
+            SET n.is_hidden = 1
             WHERE n.user_id = ?
             AND n.type = 'task_deadline'
-            AND t.status = 'Done'
+            AND LOWER(t.status) = 'done'
+            AND n.is_hidden = 0
         ");
 
         return $stmt->execute([$userId]);
