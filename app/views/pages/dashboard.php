@@ -55,7 +55,18 @@
                     Good morning, <span class="capitalize"><?= htmlspecialchars($_SESSION['user']['name']) ?></span>
                 </h1>
                 <p class="text-grey-300">
-                    You have 5 tasks due today and 2 upcoming events. Let's make progress.
+                    <?php
+                        $taskDueToday = (int) ($dashboardData['openTasks']['dueToday'] ?? 0);
+                        $upcomingEvents = (int) ($dashboardData['upcomingEvents']['total'] ?? 0);
+
+                        $taskText = $taskDueToday === 1 ? '1 task' : "{$taskDueToday} tasks";
+                        $eventText = $upcomingEvents === 1 ? '1 upcoming event' : "{$upcomingEvents} upcoming events";
+                    ?>
+                    <?php if ($taskDueToday > 0 || $upcomingEvents > 0): ?>
+                        You have <?= $taskText ?> due today and <?= $eventText ?>. Let's make progress.
+                    <?php else: ?>
+                        No tasks due today and no upcoming events. Enjoy your day!
+                    <?php endif; ?>
                 </p>
             </div>
 

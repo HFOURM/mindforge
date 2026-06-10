@@ -154,8 +154,8 @@ $days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                                 $dayTasks = $tasks[$day];
                                 $totalTasks = count($dayTasks);
                                 ?>
-                                <div class="mt-1 bg-[#10B981] dark:bg-[#059669] text-xs font-medium text-white px-2 py-1 rounded-md w-fit truncate max-w-full border border-[#34D399] dark:border-[#10B981]">
-                                    ✓ <?= htmlspecialchars($dayTasks[0]['title']) ?>
+                                <div  style="background:#22c55e;color:white;padding:4px 8px;border-radius:6px;display:inline-block;font-size:14px;font-weight:500;">
+                                    <?= htmlspecialchars($dayTasks[0]['title']) ?>
                                 </div>
 
                                 <?php if ($totalTasks > 1): ?>
